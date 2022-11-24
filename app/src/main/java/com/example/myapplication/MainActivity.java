@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                textView1.setText(seekBar1.getProgress());
+                textView1.setText(String.valueOf(seekBar1.getProgress()));
             }
 
             @Override
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                textView2.setText(seekBar1.getProgress());
+                textView2.setText(String.valueOf(seekBar2.getProgress()));
             }
 
             @Override
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         seekBar3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                textView3.setText(seekBar1.getProgress());
+                textView3.setText(String.valueOf(seekBar3.getProgress()));
             }
 
             @Override
