@@ -10,11 +10,11 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class Registration extends AppCompatActivity {
     public EditText weight_edittext;
     public EditText height_edittext;
     public EditText age_edittext;
-    public AppCompatButton register;
+    public AppCompatButton next;
     public RadioButton men;
     public RadioButton women;
 
@@ -22,12 +22,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        AppCompatButton register = findViewById(R.id.next);
-        weight_edittext = findViewById(R.id.editTextTextPersonName);
-        height_edittext = findViewById(R.id.editTextTextPersonName2);
-        age_edittext = findViewById(R.id.editTextTextPersonName3);
-        men = findViewById(R.id.radioButton);
-        women = findViewById(R.id.radioButton2);
+        AppCompatButton next = findViewById(R.id.next);
+        weight_edittext = findViewById(R.id.weight);
+        height_edittext = findViewById(R.id.height);
+        age_edittext = findViewById(R.id.age);
+        men = findViewById(R.id.men);
+        women = findViewById(R.id.women);
         men.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        register.setOnClickListener(new View.OnClickListener() {
+        next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                         g=0;
                     }
                     double [] weight_height_age_gender = new double[] {w, h, a, g};
-                    Intent intent = new Intent(MainActivity.this,MainActivity3.class);
+                    Intent intent = new Intent(Registration.this, SelectPhysicalActivity.class);
                     intent.putExtra("1", weight_height_age_gender);
                     startActivity(intent);
                 } else {

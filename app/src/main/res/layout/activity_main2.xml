@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity2">
+    tools:context=".MainPage">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button"
         android:layout_width="160dp"
         android:layout_height="120dp"
         android:layout_marginBottom="10dp"
-        android:background="@color/light_blue"
+        android:background="@xml/new_buttons"
         android:text="Питание"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button2"
@@ -23,7 +23,7 @@
         android:layout_width="160dp"
         android:layout_height="120dp"
         android:layout_marginBottom="10dp"
-        android:background="@color/light_blue"
+        android:background="@xml/new_buttons"
         android:text="Тренировки"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

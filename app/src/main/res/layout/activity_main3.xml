@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity3">
+    tools:context=".SelectPhysicalActivity">
 
 
     <TextView
@@ -31,47 +31,47 @@
         app:layout_constraintTop_toBottomOf="@+id/textView7">
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/level1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="Физ. нагрузка отсутствует или минимальна" />
 
         <RadioButton
-            android:id="@+id/radioButton4"
+            android:id="@+id/level2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Умеренная активность 3 раза в неделю" />
 
         <RadioButton
-            android:id="@+id/radioButton5"
+            android:id="@+id/level3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Тренировки средней интенсивности 5 раз в неделю" />
 
         <RadioButton
-            android:id="@+id/radioButton6"
+            android:id="@+id/level4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Интенсивные тренировки 5 раз в неделю" />
 
         <RadioButton
-            android:id="@+id/radioButton7"
+            android:id="@+id/level5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Каждодневные тренировки" />
+            android:text="Ежедневные тренировки" />
 
         <RadioButton
-            android:id="@+id/radioButton8"
+            android:id="@+id/level6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Интенсивные тренировки каждвый день" />
+            android:text="Интенсивные тренировки каждый день" />
 
         <RadioButton
-            android:id="@+id/radioButton9"
+            android:id="@+id/level7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ежедневная физ. нагрузка + физическая работа" />
+            android:text="Интенсивные тренировки 2 раза в день или тяжелая физическая работа" />
     </RadioGroup>
 
     <androidx.appcompat.widget.AppCompatButton
