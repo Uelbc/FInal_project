@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Food">
+    <TextView
+        android:id="@+id/Top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Выберите продукт или блюдо из списка"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="30dp">
+    </TextView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:layout_marginTop="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Top">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="4dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="3dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+
+                    android:id="@+id/БорщКнопка"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+
+                    android:background="@xml/food_buttons"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/Борщ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="0dp"
+                    android:gravity="center"
+
+                    android:text="Борщ"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/БорщКнопка"
+                    app:layout_constraintEnd_toEndOf="@+id/БорщКнопка"
+                    app:layout_constraintHorizontal_bias="0.069"
+                    app:layout_constraintStart_toStartOf="@+id/БорщКнопка"
+
+                    app:layout_constraintTop_toTopOf="@+id/БорщКнопка"
+                    app:layout_constraintVertical_bias="0.22" />
+
+                <TextView
+                    android:id="@+id/БорщКалории"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="0dp"
+                    android:gravity="center"
+
+                    android:text="49 ккал на 100 г"
+                    android:textColor="@color/grey"
+                    android:textSize="15dp"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/БорщКнопка"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_bias="0.053"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/Борщ"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/БорщДобавить"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Добавить"
+                    android:textColor="@color/light_blue"
+                    android:textSize="20dp"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/БорщКнопка"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_bias="0.954"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/БорщКнопка"
+
+                    app:layout_constraintVertical_bias="0.509" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="3dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/ОмлетКнопка"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+
+                    android:background="@xml/food_buttons"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/Омлет"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="0dp"
+                    android:gravity="center"
+
+                    android:text="Омлет"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/ОмлетКнопка"
+                    app:layout_constraintEnd_toEndOf="@+id/ОмлетКнопка"
+                    app:layout_constraintHorizontal_bias="0.069"
+                    app:layout_constraintStart_toStartOf="@+id/ОмлетКнопка"
+
+                    app:layout_constraintTop_toTopOf="@+id/ОмлетКнопка"
+                    app:layout_constraintVertical_bias="0.22" />
+
+                <TextView
+                    android:id="@+id/ОмлетКалории"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="0dp"
+                    android:gravity="center"
+
+                    android:text="154 ккал на 100 г"
+                    android:textColor="@color/grey"
+                    android:textSize="15dp"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/ОмлетКнопка"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_bias="0.053"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/Омлет"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/ОмлетДобавить"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Добавить"
+                    android:textColor="@color/light_blue"
+                    android:textSize="20dp"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/ОмлетКнопка"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_bias="0.954"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/ОмлетКнопка"
+
+                    app:layout_constraintVertical_bias="0.509" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="3dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/БелыйХлебКнопка"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+
+                    android:background="@xml/food_buttons"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/БелыйХлеб"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="0dp"
+                    android:gravity="center"
+
+                    android:text="Белый хлеб"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/БелыйХлебКнопка"
+                    app:layout_constraintEnd_toEndOf="@+id/БелыйХлебКнопка"
+                    app:layout_constraintHorizontal_bias="0.069"
+                    app:layout_constraintStart_toStartOf="@+id/БелыйХлебКнопка"
+
+                    app:layout_constraintTop_toTopOf="@+id/БелыйХлебКнопка"
+                    app:layout_constraintVertical_bias="0.22" />
+
+                <TextView
+                    android:id="@+id/БелыйХлебКалории"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="0dp"
+                    android:gravity="center"
+
+                    android:text="265 ккал на 100 г"
+                    android:textColor="@color/grey"
+                    android:textSize="15dp"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/БелыйХлебКнопка"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_bias="0.053"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/БелыйХлеб"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/БелыйХлебДобавить"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Добавить"
+                    android:textColor="@color/light_blue"
+                    android:textSize="20dp"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/БелыйХлебКнопка"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_bias="0.954"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/БелыйХлебКнопка"
+
+                    app:layout_constraintVertical_bias="0.509" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="3dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/МакароныКнопка"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+
+                    android:background="@xml/food_buttons"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/Макароны"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="0dp"
+                    android:gravity="center"
+
+                    android:text="Отварные макароны"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/МакароныКнопка"
+                    app:layout_constraintEnd_toEndOf="@+id/МакароныКнопка"
+                    app:layout_constraintHorizontal_bias="0.069"
+                    app:layout_constraintStart_toStartOf="@+id/МакароныКнопка"
+
+                    app:layout_constraintTop_toTopOf="@+id/МакароныКнопка"
+                    app:layout_constraintVertical_bias="0.22" />
+
+                <TextView
+                    android:id="@+id/МакароныКалории"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="0dp"
+                    android:gravity="center"
+
+                    android:text="158 ккал на 100 г"
+                    android:textColor="@color/grey"
+                    android:textSize="15dp"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/МакароныКнопка"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_bias="0.053"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/Макароны"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/МакароныДобавить"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Добавить"
+                    android:textColor="@color/light_blue"
+                    android:textSize="20dp"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/МакароныКнопка"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_bias="0.954"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/МакароныКнопка"
+
+                    app:layout_constraintVertical_bias="0.509" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
