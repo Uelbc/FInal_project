@@ -15,14 +15,14 @@ public class Food extends AppCompatActivity {
         setContentView(R.layout.activity_food);
 
         borsch=findViewById(R.id.БорщКнопка);
-        omelette=findViewById(R.id.БорщКнопка);
-        white_bread=findViewById(R.id.БорщКнопка);
-        pasta=findViewById(R.id.БорщКнопка);
-        syrniki=findViewById(R.id.БорщКнопка);
-        chicken_cutlet=findViewById(R.id.БорщКнопка);
-        egg=findViewById(R.id.БорщКнопка);
-        grechka=findViewById(R.id.БорщКнопка);
-        vegetable_salade=findViewById(R.id.БорщКнопка);
+        omelette=findViewById(R.id.ОмлетКнопка);
+        white_bread=findViewById(R.id.БелыйХлебКнопка);
+        pasta=findViewById(R.id.МакароныКнопка);
+        syrniki=findViewById(R.id.СырникиКнопка);
+        chicken_cutlet=findViewById(R.id.КуринаяКотлетаКнопка);
+        egg=findViewById(R.id.ОтварноеЯйцоКнопка);
+        grechka=findViewById(R.id.ГречкаКнопка);
+        vegetable_salade=findViewById(R.id.ОвощнойСалатКнопка);
 
         borsch.setOnClickListener(new View.OnClickListener() {
             double b, g, u, kal;
