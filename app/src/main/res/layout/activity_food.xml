@@ -5,23 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Food">
+
     <TextView
         android:id="@+id/Top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
         android:text="Выберите продукт или блюдо из списка"
         android:textColor="@color/black"
-        android:gravity="center"
-        android:textSize="30dp">
-    </TextView>
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
 
     <ScrollView
         android:layout_width="match_parent"
-
         android:layout_height="match_parent"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="120dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Top">
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,7 +79,7 @@
                     android:drawablePadding="0dp"
                     android:gravity="center"
 
-                    android:text="49 ккал на 100 г"
+                    android:text="60 ккал на 100 г"
                     android:textColor="@color/grey"
                     android:textSize="15dp"
 
@@ -325,6 +331,372 @@
 
                     app:layout_constraintVertical_bias="0.509" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="3dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/СырникиКнопка"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="70dp"
+
+                    android:background="@xml/food_buttons"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+
+                    android:id="@+id/Сырники"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="0dp"
+                    android:gravity="center"
+                    android:text="Сырники творожные"
+
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/СырникиКнопка"
+                    app:layout_constraintEnd_toEndOf="@+id/СырникиКнопка"
+                    app:layout_constraintHorizontal_bias="0.069"
+                    app:layout_constraintStart_toStartOf="@+id/СырникиКнопка"
+
+                    app:layout_constraintTop_toTopOf="@id/СырникиКнопка"
+                    app:layout_constraintVertical_bias="0.22" />
+
+                <TextView
+                    android:id="@+id/СырникиКалории"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="0dp"
+                    android:gravity="center"
+                    android:text="205 ккал на 100 г"
+
+                    android:textColor="@color/grey"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/СырникиКнопка"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_bias="0.053"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/Сырники"
+
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/СырникиДобавить"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Добавить"
+                    android:textColor="@color/light_blue"
+
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/СырникиКнопка"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_bias="0.954"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/СырникиКнопка"
+                    app:layout_constraintVertical_bias="0.509" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="3dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/КуринаяКотлетаКнопка"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="70dp"
+
+                    android:background="@xml/food_buttons"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+
+                    android:id="@+id/КуринаяКотлета"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="0dp"
+                    android:gravity="center"
+                    android:text="Куриная котлета"
+
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/КуринаяКотлетаКнопка"
+                    app:layout_constraintEnd_toEndOf="@+id/КуринаяКотлетаКнопка"
+                    app:layout_constraintHorizontal_bias="0.069"
+                    app:layout_constraintStart_toStartOf="@+id/КуринаяКотлетаКнопка"
+
+                    app:layout_constraintTop_toTopOf="@id/КуринаяКотлетаКнопка"
+                    app:layout_constraintVertical_bias="0.22" />
+
+                <TextView
+                    android:id="@+id/КуринаяКотлетаКалории"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="0dp"
+                    android:gravity="center"
+                    android:text="287 ккал на 100 г"
+
+                    android:textColor="@color/grey"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/КуринаяКотлетаКнопка"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_bias="0.053"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/КуринаяКотлета"
+
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/КуринаяКотлетаДобавить"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Добавить"
+                    android:textColor="@color/light_blue"
+
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/КуринаяКотлетаКнопка"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_bias="0.954"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/КуринаяКотлетаКнопка"
+                    app:layout_constraintVertical_bias="0.509" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="3dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/ОтварноеЯйцоКнопка"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="70dp"
+
+                    android:background="@xml/food_buttons"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+
+                    android:id="@+id/ОтварноеЯйцо"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="0dp"
+                    android:gravity="center"
+                    android:text="Яйцо отварное, куриное"
+
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ОтварноеЯйцоКнопка"
+                    app:layout_constraintEnd_toEndOf="@+id/ОтварноеЯйцоКнопка"
+                    app:layout_constraintHorizontal_bias="0.069"
+                    app:layout_constraintStart_toStartOf="@+id/ОтварноеЯйцоКнопка"
+
+                    app:layout_constraintTop_toTopOf="@id/ОтварноеЯйцоКнопка"
+                    app:layout_constraintVertical_bias="0.22" />
+
+                <TextView
+                    android:id="@+id/ОтварноеЯйцоКалории"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="0dp"
+                    android:gravity="center"
+                    android:text="155 ккал на 100 г"
+
+                    android:textColor="@color/grey"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ОтварноеЯйцоКнопка"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_bias="0.053"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ОтварноеЯйцо"
+
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/ОтварноеЯйцоДобавить"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Добавить"
+                    android:textColor="@color/light_blue"
+
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ОтварноеЯйцоКнопка"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_bias="0.954"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/ОтварноеЯйцоКнопка"
+                    app:layout_constraintVertical_bias="0.509" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="3dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/ГречкаКнопка"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="70dp"
+
+                    android:background="@xml/food_buttons"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+
+                    android:id="@+id/Гречка"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="0dp"
+                    android:gravity="center"
+                    android:text="Гречка отварная"
+
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ГречкаКнопка"
+                    app:layout_constraintEnd_toEndOf="@+id/ГречкаКнопка"
+                    app:layout_constraintHorizontal_bias="0.069"
+                    app:layout_constraintStart_toStartOf="@+id/ГречкаКнопка"
+
+                    app:layout_constraintTop_toTopOf="@id/ГречкаКнопка"
+                    app:layout_constraintVertical_bias="0.22" />
+
+                <TextView
+                    android:id="@+id/ГречкаКалории"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="0dp"
+                    android:gravity="center"
+                    android:text="92 ккал на 100 г"
+
+                    android:textColor="@color/grey"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ГречкаКнопка"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_bias="0.053"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/Гречка"
+
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/ГречкаДобавить"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Добавить"
+                    android:textColor="@color/light_blue"
+
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ГречкаКнопка"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_bias="0.954"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/ГречкаКнопка"
+                    app:layout_constraintVertical_bias="0.509" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="3dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/ОвощнойСалатКнопка"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="70dp"
+
+                    android:background="@xml/food_buttons"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+
+                    android:id="@+id/ОвощнойСалат"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="0dp"
+                    android:gravity="center"
+                    android:text="Овощной салат"
+
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ОвощнойСалатКнопка"
+                    app:layout_constraintEnd_toEndOf="@+id/ОвощнойСалатКнопка"
+                    app:layout_constraintHorizontal_bias="0.069"
+                    app:layout_constraintStart_toStartOf="@+id/ОвощнойСалатКнопка"
+
+                    app:layout_constraintTop_toTopOf="@id/ОвощнойСалатКнопка"
+                    app:layout_constraintVertical_bias="0.22" />
+
+                <TextView
+                    android:id="@+id/ОвощнойСалатКалории"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="0dp"
+                    android:gravity="center"
+                    android:text="16 ккал на 100 г"
+
+                    android:textColor="@color/grey"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ОвощнойСалатКнопка"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_bias="0.053"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ОвощнойСалат"
+
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/ОвощнойСалатДобавить"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Добавить"
+                    android:textColor="@color/light_blue"
+
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ОвощнойСалатКнопка"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintHorizontal_bias="0.954"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/ОвощнойСалатКнопка"
+                    app:layout_constraintVertical_bias="0.509" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

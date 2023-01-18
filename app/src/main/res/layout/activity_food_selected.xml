@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Food_selected"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="-32dp">
+
+  <TextView
+      android:id="@+id/name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="50dp"
+      android:text="TextView"
+      android:textColor="@color/black"
+      android:textSize="24sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/add"
+      android:layout_width="247dp"
+      android:layout_height="75dp"
+      android:layout_marginBottom="56dp"
+
+      android:background="@xml/buttons"
+      android:text="Добавить"
+      android:textSize="20sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent" />
+
+  <TextView
+      android:id="@+id/kal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="84dp"
+      android:text="TextView"
+      android:textColor="@color/black"
+      android:textSize="18dp"
+      app:layout_constraintEnd_toStartOf="@+id/u"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/name" />
+
+  <TextView
+      android:id="@+id/u"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="84dp"
+      android:text="TextView"
+      android:textColor="@color/black"
+      android:textSize="18dp"
+      app:layout_constraintEnd_toStartOf="@+id/b"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toEndOf="@+id/kal"
+      app:layout_constraintTop_toBottomOf="@+id/name" />
+
+  <TextView
+      android:id="@+id/g"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="84dp"
+      android:text="TextView"
+      android:textColor="@color/black"
+      android:textSize="18dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toEndOf="@+id/b"
+      app:layout_constraintTop_toBottomOf="@+id/name" />
+
+  <TextView
+      android:id="@+id/b"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="84dp"
+      android:text="TextView"
+      android:textColor="@color/black"
+      android:textSize="18dp"
+      app:layout_constraintEnd_toStartOf="@+id/g"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toEndOf="@+id/u"
+      app:layout_constraintTop_toBottomOf="@+id/name" />
+
+  <TextView
+      android:id="@+id/textView12"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="5dp"
+      android:text="Калории"
+      app:layout_constraintEnd_toEndOf="@+id/kal"
+      app:layout_constraintStart_toStartOf="@+id/kal"
+      app:layout_constraintTop_toBottomOf="@+id/kal" />
+
+  <TextView
+      android:id="@+id/textView13"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="5dp"
+      android:text="Белки"
+      app:layout_constraintEnd_toEndOf="@+id/b"
+      app:layout_constraintStart_toStartOf="@+id/b"
+      app:layout_constraintTop_toBottomOf="@+id/b" />
+
+  <TextView
+      android:id="@+id/textView14"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="5dp"
+      android:text="Жиры"
+      app:layout_constraintEnd_toEndOf="@+id/g"
+      app:layout_constraintStart_toStartOf="@+id/g"
+      app:layout_constraintTop_toBottomOf="@+id/g" />
+
+  <TextView
+      android:id="@+id/textView15"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="5dp"
+      android:text="Углеводы"
+      app:layout_constraintEnd_toEndOf="@+id/u"
+      app:layout_constraintStart_toStartOf="@+id/u"
+      app:layout_constraintTop_toBottomOf="@+id/u" />
+
+  <EditText
+      android:id="@+id/massa"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="36dp"
+      android:ems="10"
+      android:hint="Введите размер порции в граммах"
+      android:inputType="textPersonName"
+      app:layout_constraintBottom_toTopOf="@+id/add"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.159"
+      app:layout_constraintStart_toStartOf="parent" />
+
+  <TextView
+      android:id="@+id/textView16"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="5dp"
+      android:layout_marginEnd="286dp"
+      android:text="Размер порции, г"
+      app:layout_constraintBottom_toTopOf="@+id/massa"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

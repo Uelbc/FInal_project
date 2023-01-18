@@ -10,9 +10,12 @@ import android.widget.TextView;
 
 public class MainPage extends AppCompatActivity {
     double [] weight_height_age_gender_A;
-    public TextView kal_per_day;
+    double [] b_g_u_kal;
+    public TextView kal_per_day, kal_eaten_per_day;
     public Button food;
     public String message_to_food;
+    public double gender_final;
+    public String kal_per_day_men, kal_per_day_women;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,18 +23,30 @@ public class MainPage extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if(bundle != null) {
             weight_height_age_gender_A = bundle.getDoubleArray("2");
+            b_g_u_kal=bundle.getDoubleArray("b_g_u_kal");
         }
-        double weight = weight_height_age_gender_A[0];
-        double height = weight_height_age_gender_A[1];
-        double age = weight_height_age_gender_A[2];
-        double gender = weight_height_age_gender_A[3]; // 1-мужчина 0-женщина
-        double A= weight_height_age_gender_A[4];
-        kal_per_day = findViewById(R.id.kal_per_day);
-        if (gender==1){//если мужчина
-            kal_per_day.setText(Integer.toString((int)((10*weight+6.25*height-5*age+5)*A)));
-        }else{
-            kal_per_day.setText(Integer.toString((int)((10*weight+6.25*height-5*age-161)*A)));
+        if (weight_height_age_gender_A!=null){
+            double weight = weight_height_age_gender_A[0];
+            double height = weight_height_age_gender_A[1];
+            double age = weight_height_age_gender_A[2];
+            double gender = weight_height_age_gender_A[3];
+            gender_final=weight_height_age_gender_A[3];// 1-мужчина 0-женщина
+            double A= weight_height_age_gender_A[4];
+            kal_per_day = findViewById(R.id.kal_per_day);
+            if (gender==1){//если мужчина
+                kal_per_day_men= Integer.toString((int)((10*weight+6.25*height-5*age+5)*A));
+                kal_per_day.setText(kal_per_day_men);
+            }else{
+                kal_per_day_women= Integer.toString((int)((10*weight+6.25*height-5*age-161)*A));
+                kal_per_day.setText(kal_per_day_women);
+            }
         }
+        if (gender_final==1){
+            kal_per_day.setText(kal_per_day_men);
+        } else {
+            kal_per_day.setText(String.valueOf(gender_final));
+        }
+
         food = findViewById(R.id.food);
         food.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,5 +57,13 @@ public class MainPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //вводить бжу в текст вью
+        kal_eaten_per_day=findViewById(R.id.kal_eaten_per_day);
+        double kal = Double.parseDouble(kal_eaten_per_day.getText().toString());
+        if (b_g_u_kal!= null){
+            kal+=b_g_u_kal[3];
+            kal_eaten_per_day.setText(String.valueOf(kal));
+        }
     }
 }
