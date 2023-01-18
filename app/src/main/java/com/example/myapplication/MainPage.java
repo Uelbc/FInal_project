@@ -43,7 +43,8 @@ public class MainPage extends AppCompatActivity {
         }
         if (gender_final==1){
             kal_per_day.setText(kal_per_day_men);
-        } else {
+        }
+        else {
             kal_per_day.setText(String.valueOf(gender_final));
         }
 
