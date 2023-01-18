@@ -15,6 +15,7 @@ public class MainPage extends AppCompatActivity {
     public Button food;
     public String message_to_food;
     public double gender_final;
+    private double Kal;
     public String kal_per_day_men, kal_per_day_women;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +42,12 @@ public class MainPage extends AppCompatActivity {
                 kal_per_day.setText(kal_per_day_women);
             }
         }
+        kal_per_day = findViewById(R.id.kal_per_day);
         if (gender_final==1){
             kal_per_day.setText(kal_per_day_men);
         }
         else {
-            kal_per_day.setText(String.valueOf(gender_final));
+            kal_per_day.setText(String.valueOf(1.1));
         }
 
         food = findViewById(R.id.food);
@@ -60,11 +62,10 @@ public class MainPage extends AppCompatActivity {
         });
 
         //вводить бжу в текст вью
-        kal_eaten_per_day=findViewById(R.id.kal_eaten_per_day);
-        double kal = Double.parseDouble(kal_eaten_per_day.getText().toString());
+        kal_eaten_per_day=findViewById(R.id.kal_eaten_per_day);;
         if (b_g_u_kal!= null){
-            kal+=b_g_u_kal[3];
-            kal_eaten_per_day.setText(String.valueOf(kal));
+            Kal+=b_g_u_kal[3];
+            kal_eaten_per_day.setText(String.valueOf(Kal));
         }
     }
 }
