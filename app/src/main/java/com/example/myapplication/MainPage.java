@@ -15,7 +15,7 @@ public class MainPage extends AppCompatActivity {
     public Button food;
     public String message_to_food;
     public double gender_final;
-    private double Kal;
+    public double Kal_final=0;
     public String kal_per_day_men, kal_per_day_women;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +64,15 @@ public class MainPage extends AppCompatActivity {
         //вводить бжу в текст вью
         kal_eaten_per_day=findViewById(R.id.kal_eaten_per_day);;
         if (b_g_u_kal!= null){
-            Kal+=b_g_u_kal[3];
-            kal_eaten_per_day.setText(String.valueOf(Kal));
+            Kal_final= savedInstanceState.getDouble("Kal_final");
+            Kal_final += b_g_u_kal[3];
         }
+        kal_eaten_per_day.setText(String.valueOf(Kal_final));
+    }
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the user's current game state
+        savedInstanceState.putDouble("Kal_final", Kal_final);
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
     }
 }
