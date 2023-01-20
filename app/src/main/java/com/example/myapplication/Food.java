@@ -14,7 +14,7 @@ public class Food extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
 
-        borsch=findViewById(R.id.БорщКнопка);
+        borsch=findViewById(R.id.Тренировки_кнопка);
         omelette=findViewById(R.id.ОмлетКнопка);
         white_bread=findViewById(R.id.БелыйХлебКнопка);
         pasta=findViewById(R.id.МакароныКнопка);
@@ -91,7 +91,7 @@ public class Food extends AppCompatActivity {
                 u=26.0;
                 b=14.0;
                 g=5.0;
-                kal=205.0;
+                kal=204.0;
                 double [] b_g_u_kal = new double[] {b, g, u, kal};
                 Intent intent = new Intent(Food.this, Food_selected.class);
                 intent.putExtra("1", b_g_u_kal);
