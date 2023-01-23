@@ -3,11 +3,15 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 public class Food_selected extends AppCompatActivity {
     double[] b_g_u_kal;
@@ -15,6 +19,7 @@ public class Food_selected extends AppCompatActivity {
     public TextView bel, gir, ugl, kalor, name;
     public EditText massa;
     public Button add;
+    public VideoView videoView;
     String Name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,5 +63,23 @@ public class Food_selected extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //videoView=findViewById(R.id.videoView);
+        //videoView.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.alp));
+        //MediaController mediaController = new MediaController(this);
+        //videoView.setMediaController(mediaController);
+        //videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+       //     @Override
+        //    public void onCompletion(MediaPlayer mediaPlayer) {
+        //        videoView.start();
+         //   }
+       // });
+       // videoView.setOnClickListener(new View.OnClickListener() {
+       //     @Override
+       //     public void onClick(View view) {
+
+      //      }
+       // });
+       // videoView.start();
+
     }
 }

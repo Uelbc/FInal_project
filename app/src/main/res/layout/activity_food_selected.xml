@@ -149,4 +149,12 @@
       app:layout_constraintBottom_toTopOf="@+id/massa"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent" />
+
+  <VideoView
+      android:id="@+id/videoView"
+      android:layout_width="294dp"
+      android:layout_height="197dp"
+      android:layout_marginBottom="72dp"
+      app:layout_constraintBottom_toTopOf="@+id/massa"
+      tools:layout_editor_absoluteX="51dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

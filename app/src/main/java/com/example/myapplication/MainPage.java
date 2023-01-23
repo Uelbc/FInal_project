@@ -18,7 +18,7 @@ public class MainPage extends AppCompatActivity {
     public static final String DATA = "DATA";
     double [] weight_height_age_gender_A;
     double [] b_g_u_kal;
-    public TextView kal_per_day, kal_eaten_per_day, bTV, gTV, uTV, b_normTV, g_normTV, u_normTV;
+    public TextView kal_eaten_per_day, bTV, gTV, uTV;
     public Button food;
     public String message_to_food;
     public double gender_final;
@@ -38,7 +38,6 @@ public class MainPage extends AppCompatActivity {
             weight_height_age_gender_A = bundle.getDoubleArray("2");
             b_g_u_kal=bundle.getDoubleArray("b_g_u_kal");
         }
-        kal_per_day = findViewById(R.id.kal_per_day);
         if (weight_height_age_gender_A!=null){
             double weight = weight_height_age_gender_A[0];
             double height = weight_height_age_gender_A[1];
@@ -46,22 +45,18 @@ public class MainPage extends AppCompatActivity {
             double gender = weight_height_age_gender_A[3];
             gender_final=weight_height_age_gender_A[3];// 1-мужчина 0-женщина
             double A= weight_height_age_gender_A[4];
-            kal_per_day = findViewById(R.id.kal_per_day);
             if (gender==1){//если мужчина
                 kal_per_day_men= Integer.toString((int)((10*weight+6.25*height-5*age+5)*A));
                 SharedPreferences.Editor e = data.edit();
                 e.putString("kal_per_day", kal_per_day_men);
                 e.apply();
-                kal_per_day.setText(kal_per_day_men);
             }else{
                 kal_per_day_women= Integer.toString((int)((10*weight+6.25*height-5*age-161)*A));
                 SharedPreferences.Editor e = data.edit();
                 e.putString("kal_per_day", kal_per_day_women);
                 e.apply();
-                kal_per_day.setText(kal_per_day_women);
             }
         }
-        kal_per_day.setText(data.getString("kal_per_day", ""));
 
 
         food = findViewById(R.id.food);
@@ -80,18 +75,25 @@ public class MainPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        if (b_g_u_kal!= null){
+            b=data.getLong("b", 0);
+            g=data.getLong("g", 0);
+            u=data.getLong("u", 0);
+            Kal_final = data.getLong("kal_final", 0);
 
+            b+=b_g_u_kal[0];
+            g+=b_g_u_kal[1];
+            u+=b_g_u_kal[2];
+            Kal_final+=b_g_u_kal[3];
+        }
         kal_eaten_per_day=findViewById(R.id.kal_eaten_per_day);
         bTV=findViewById(R.id.b);
         gTV=findViewById(R.id.g);
         uTV=findViewById(R.id.u);
-        b_normTV=findViewById(R.id.b_norm);
-        g_normTV=findViewById(R.id.g_norm);
-        u_normTV=findViewById(R.id.u_norm);
-
-        b_normTV.setText((int) Double.parseDouble(data.getString("kal_per_day", "")) * 30 / 100 / 4 +" г");
-        g_normTV.setText((int) Double.parseDouble(data.getString("kal_per_day", "")) * 25 / 100 / 9 +" г");
-        u_normTV.setText((int) Double.parseDouble(data.getString("kal_per_day", "")) * 45 / 100 / 4 +" г");
+        bTV.setText(String.format("%.1f", b)+" / "+(int) Double.parseDouble(data.getString("kal_per_day", "")) * 30 / 100 / 4 +" г");
+        gTV.setText(String.format("%.1f", g)+" / "+(int) Double.parseDouble(data.getString("kal_per_day", "")) * 25 / 100 / 9 +" г");
+        uTV.setText(String.format("%.1f", u)+" / "+(int) Double.parseDouble(data.getString("kal_per_day", "")) * 45 / 100 / 4 +" г");
+        kal_eaten_per_day.setText((int) Kal_final +" / "+data.getString("kal_per_day", ""));
         if (b_g_u_kal!= null){
             b=data.getLong("b", 0);
             g=data.getLong("g", 0);
@@ -103,10 +105,9 @@ public class MainPage extends AppCompatActivity {
             u+=b_g_u_kal[2];
             Kal_final+=b_g_u_kal[3];
 
-            bTV.setText(String.format("%.1f", b)+" / ");
-            gTV.setText(String.format("%.1f", g)+" / ");
-            uTV.setText(String.format("%.1f", u)+" / ");
-            kal_eaten_per_day.setText((int) Kal_final +" / ");
+            bTV.setText(String.format("%.1f", b)+" / "+(int) Double.parseDouble(data.getString("kal_per_day", "")) * 30 / 100 / 4 +" г");
+            gTV.setText(String.format("%.1f", g)+" / "+(int) Double.parseDouble(data.getString("kal_per_day", "")) * 25 / 100 / 9 +" г");
+            uTV.setText(String.format("%.1f", u)+" / "+(int) Double.parseDouble(data.getString("kal_per_day", "")) * 45 / 100 / 4 +" г");
         }
     }
 }
