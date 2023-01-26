@@ -6,9 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainPage extends AppCompatActivity {
     public static final String DATA = "DATA";
@@ -16,7 +18,7 @@ public class MainPage extends AppCompatActivity {
     double [] b_g_u_kal;
     public TextView kal_eaten_per_day, bTV, gTV, uTV;
     public Button food, training;
-    public String message_to_food;
+    public String message_to_food, training_finished;
     public double gender_final;
     public double Kal_final=0;
     double b=0, g=0, u=0, b_norm=0, g_norm=0, u_norm=0;
@@ -35,6 +37,14 @@ public class MainPage extends AppCompatActivity {
         if(bundle != null) {
             weight_height_age_gender_A = bundle.getDoubleArray("2");
             b_g_u_kal=bundle.getDoubleArray("b_g_u_kal");
+            training_finished=bundle.getString("training");
+        }
+        if (training_finished!=null){
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    training_finished,
+                    Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
         }
         if (weight_height_age_gender_A!=null){
             double weight = weight_height_age_gender_A[0];

@@ -26,7 +26,7 @@ public class Select_training extends AppCompatActivity {
                         "Велосипед", "Планка с правого бока", "Планка с левого бока", "Уголок", "Отжимания с поворотом",
                         "Качели",  "Ягодичный мостик", "Боковые наклоны к стопам", "Альпинист",
                         "Скручивание с поворотом", "Уголок", "Планка", "Растяжка кобра",
-                        "Скручивания в пояснице лежа на полу влево", "Скручивания в пояснице лежа на полу вправо"
+                        "Скручивания в пояснице влево", "Скручивания в пояснице вправо"
                 };
                 training_videos = new int[]{
                         R.raw.uprajnenie_dlya_pressa, R.raw.podyom_korpusa, R.raw.bokovoy_mostik_vlevo, R.raw.bokovoy_mostik_vpravo, R.raw.podyom_korpusa,

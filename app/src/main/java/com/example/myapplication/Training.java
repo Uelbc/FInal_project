@@ -129,6 +129,7 @@ public class Training extends AppCompatActivity {
                     }
                 } else{
                     Intent intent = new Intent(Training.this, MainPage.class);
+                    intent.putExtra("training", "Поздравляем! Хорошая тренировка!");
                     startActivity(intent);
                 }
 
