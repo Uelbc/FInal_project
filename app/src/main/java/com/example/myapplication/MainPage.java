@@ -1,25 +1,21 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainPage extends AppCompatActivity {
     public static final String DATA = "DATA";
     double [] weight_height_age_gender_A;
     double [] b_g_u_kal;
     public TextView kal_eaten_per_day, bTV, gTV, uTV;
-    public Button food;
+    public Button food, training;
     public String message_to_food;
     public double gender_final;
     public double Kal_final=0;
@@ -34,6 +30,8 @@ public class MainPage extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         Bundle bundle = getIntent().getExtras();
         data = getApplicationContext().getSharedPreferences(DATA, Context.MODE_PRIVATE);
+
+
         if(bundle != null) {
             weight_height_age_gender_A = bundle.getDoubleArray("2");
             b_g_u_kal=bundle.getDoubleArray("b_g_u_kal");
@@ -57,24 +55,6 @@ public class MainPage extends AppCompatActivity {
                 e.apply();
             }
         }
-
-
-        food = findViewById(R.id.food);
-        food.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferences.Editor e = data.edit();
-                e.putLong("kal_final", (long) Kal_final);
-                e.putLong("b", (long)b);
-                e.putLong("g", (long)g);
-                e.putLong("u", (long)u);
-                e.apply();
-                message_to_food="";
-                Intent intent = new Intent(MainPage.this, Food.class);
-                intent.putExtra("From main menu", message_to_food);
-                startActivity(intent);
-            }
-        });
         if (b_g_u_kal!= null){
             b=data.getLong("b", 0);
             g=data.getLong("g", 0);
@@ -94,20 +74,33 @@ public class MainPage extends AppCompatActivity {
         gTV.setText(String.format("%.1f", g)+" / "+(int) Double.parseDouble(data.getString("kal_per_day", "")) * 25 / 100 / 9 +" г");
         uTV.setText(String.format("%.1f", u)+" / "+(int) Double.parseDouble(data.getString("kal_per_day", "")) * 45 / 100 / 4 +" г");
         kal_eaten_per_day.setText((int) Kal_final +" / "+data.getString("kal_per_day", ""));
-        if (b_g_u_kal!= null){
-            b=data.getLong("b", 0);
-            g=data.getLong("g", 0);
-            u=data.getLong("u", 0);
-            Kal_final = data.getLong("kal_final", 0);
 
-            b+=b_g_u_kal[0];
-            g+=b_g_u_kal[1];
-            u+=b_g_u_kal[2];
-            Kal_final+=b_g_u_kal[3];
+        food = findViewById(R.id.food);
+        food.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor e = data.edit();
+                e.putLong("kal_final", (long) Kal_final);
+                e.putLong("b", (long)b);
+                e.putLong("g", (long)g);
+                e.putLong("u", (long)u);
+                e.apply();
+                message_to_food="";
+                Intent intent = new Intent(MainPage.this, Food.class);
+                intent.putExtra("From main menu", message_to_food);
+                startActivity(intent);
+            }
+        });
 
-            bTV.setText(String.format("%.1f", b)+" / "+(int) Double.parseDouble(data.getString("kal_per_day", "")) * 30 / 100 / 4 +" г");
-            gTV.setText(String.format("%.1f", g)+" / "+(int) Double.parseDouble(data.getString("kal_per_day", "")) * 25 / 100 / 9 +" г");
-            uTV.setText(String.format("%.1f", u)+" / "+(int) Double.parseDouble(data.getString("kal_per_day", "")) * 45 / 100 / 4 +" г");
-        }
+
+        training=findViewById(R.id.press);
+        training.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainPage.this, Select_training.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

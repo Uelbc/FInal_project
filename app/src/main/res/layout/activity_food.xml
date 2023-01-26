@@ -42,7 +42,7 @@
 
                 <androidx.appcompat.widget.AppCompatButton
 
-                    android:id="@+id/Тренировки_кнопка"
+                    android:id="@+id/press"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
 
@@ -64,12 +64,12 @@
                     android:textColor="@color/black"
                     android:textSize="20dp"
 
-                    app:layout_constraintBottom_toBottomOf="@+id/Тренировки_кнопка"
-                    app:layout_constraintEnd_toEndOf="@+id/Тренировки_кнопка"
+                    app:layout_constraintBottom_toBottomOf="@+id/press"
+                    app:layout_constraintEnd_toEndOf="@+id/press"
                     app:layout_constraintHorizontal_bias="0.069"
-                    app:layout_constraintStart_toStartOf="@+id/Тренировки_кнопка"
+                    app:layout_constraintStart_toStartOf="@+id/press"
 
-                    app:layout_constraintTop_toTopOf="@+id/Тренировки_кнопка"
+                    app:layout_constraintTop_toTopOf="@+id/press"
                     app:layout_constraintVertical_bias="0.22" />
 
                 <TextView
@@ -83,7 +83,7 @@
                     android:textColor="@color/grey"
                     android:textSize="15dp"
 
-                    app:layout_constraintBottom_toBottomOf="@+id/Тренировки_кнопка"
+                    app:layout_constraintBottom_toBottomOf="@+id/press"
                     app:layout_constraintEnd_toEndOf="parent"
 
                     app:layout_constraintHorizontal_bias="0.053"
@@ -100,12 +100,12 @@
                     android:textColor="@color/light_blue"
                     android:textSize="20dp"
 
-                    app:layout_constraintBottom_toBottomOf="@+id/Тренировки_кнопка"
+                    app:layout_constraintBottom_toBottomOf="@+id/press"
                     app:layout_constraintEnd_toEndOf="parent"
 
                     app:layout_constraintHorizontal_bias="0.954"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/Тренировки_кнопка"
+                    app:layout_constraintTop_toTopOf="@+id/press"
 
                     app:layout_constraintVertical_bias="0.509" />
             </androidx.constraintlayout.widget.ConstraintLayout>

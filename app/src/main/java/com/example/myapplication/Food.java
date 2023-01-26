@@ -14,7 +14,7 @@ public class Food extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
 
-        borsch=findViewById(R.id.Тренировки_кнопка);
+        borsch=findViewById(R.id.press);
         omelette=findViewById(R.id.ОмлетКнопка);
         white_bread=findViewById(R.id.БелыйХлебКнопка);
         pasta=findViewById(R.id.МакароныКнопка);

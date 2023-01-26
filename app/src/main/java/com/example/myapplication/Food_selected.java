@@ -63,28 +63,5 @@ public class Food_selected extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        videoView=findViewById(R.id.videoView);
-        videoView.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.alp));
-        MediaController mediaController = new MediaController(this);
-        videoView.setMediaController(mediaController);
-
-        mediaController.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                videoView.start();
-            }
-        });
-        videoView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        videoView.start();
     }
 }
