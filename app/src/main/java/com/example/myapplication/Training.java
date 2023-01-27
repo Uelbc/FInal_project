@@ -43,7 +43,7 @@ public class Training extends AppCompatActivity {
         start=findViewById(R.id.start);
 
         Name.setText(training_names[i]);
-        Number.setText("№: "+ (i+1));
+        Number.setText("Упражнение №: "+ (i+1)+" из "+training_videos.length);
         TrainingVideo=findViewById(R.id.ВидеоУпражнение);
         TrainingVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+training_videos[i]));
         MediaController mediaController = new MediaController(this);
@@ -91,7 +91,7 @@ public class Training extends AppCompatActivity {
                 i+=1;
                 if (i<training_names.length){
                     Name.setText(training_names[i]);
-                    Number.setText("№: "+ (i+1));
+                    Number.setText("Упражнение №: "+ (i+1)+" из "+training_videos.length);
                     TrainingVideo=findViewById(R.id.ВидеоУпражнение);
                     TrainingVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+training_videos[i]));
                     TrainingVideo.start();

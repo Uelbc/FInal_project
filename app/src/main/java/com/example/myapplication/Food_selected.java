@@ -59,6 +59,7 @@ public class Food_selected extends AppCompatActivity {
                 double m = Double.parseDouble(massa.getText().toString());
                 double [] b_g_u_kal = new double[] {b/100*m, g/100*m, u/100*m, kal/100*m};
                 Intent intent = new Intent(Food_selected.this, MainPage.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 intent.putExtra("b_g_u_kal", b_g_u_kal);
                 startActivity(intent);
             }

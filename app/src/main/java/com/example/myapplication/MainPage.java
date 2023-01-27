@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import static android.widget.Toast.makeText;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +26,7 @@ public class MainPage extends AppCompatActivity {
     public double Kal_final=0;
     double b=0, g=0, u=0, b_norm=0, g_norm=0, u_norm=0;
     public String kal_per_day_men="", kal_per_day_women="";
+    private ProgressBar b_progress_bar, g_progress_bar, u_progress_bar, kal_progress_bar;
     SharedPreferences data;
     Context context;
 
@@ -40,11 +44,15 @@ public class MainPage extends AppCompatActivity {
             training_finished=bundle.getString("training");
         }
         if (training_finished!=null){
-            Toast toast = Toast.makeText(getApplicationContext(),
+            Toast toast = makeText(getApplicationContext(),
                     training_finished,
                     Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
+           toast.setGravity(Gravity.CENTER, 0, 0);
+           toast.show();
+            b=data.getLong("b", 0);
+            g=data.getLong("g", 0);
+            u=data.getLong("u", 0);
+            Kal_final = data.getLong("kal_final", 0);
         }
         if (weight_height_age_gender_A!=null){
             double weight = weight_height_age_gender_A[0];
@@ -85,6 +93,23 @@ public class MainPage extends AppCompatActivity {
         uTV.setText(String.format("%.1f", u)+" / "+(int) Double.parseDouble(data.getString("kal_per_day", "")) * 45 / 100 / 4 +" г");
         kal_eaten_per_day.setText((int) Kal_final +" / "+data.getString("kal_per_day", ""));
 
+        b_progress_bar=findViewById(R.id.b_progress_bar);
+        g_progress_bar=findViewById(R.id.g_progress_bar);
+        u_progress_bar=findViewById(R.id.u_progress_bar);
+        kal_progress_bar=findViewById(R.id.kal_progress_bar);
+
+        b_progress_bar.setMax((int) Double.parseDouble(data.getString("kal_per_day", "")) * 30 / 100 / 4);
+        g_progress_bar.setMax((int) Double.parseDouble(data.getString("kal_per_day", "")) * 25 / 100 / 9);
+        u_progress_bar.setMax((int) Double.parseDouble(data.getString("kal_per_day", "")) * 45 / 100 / 4);
+        kal_progress_bar.setMax(Integer.parseInt(data.getString("kal_per_day", "")));
+
+        b_progress_bar.setProgress((int)b);
+        g_progress_bar.setProgress((int)g);
+        u_progress_bar.setProgress((int)u);
+        kal_progress_bar.setProgress((int)Kal_final);
+
+
+
         food = findViewById(R.id.food);
         food.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +122,7 @@ public class MainPage extends AppCompatActivity {
                 e.apply();
                 message_to_food="";
                 Intent intent = new Intent(MainPage.this, Food.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 intent.putExtra("From main menu", message_to_food);
                 startActivity(intent);
             }
@@ -107,7 +133,14 @@ public class MainPage extends AppCompatActivity {
         training.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences.Editor e = data.edit();
+                e.putLong("kal_final", (long) Kal_final);
+                e.putLong("b", (long)b);
+                e.putLong("g", (long)g);
+                e.putLong("u", (long)u);
+                e.apply();
                 Intent intent = new Intent(MainPage.this, Select_training.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }
         });

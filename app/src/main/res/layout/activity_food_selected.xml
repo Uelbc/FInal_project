@@ -7,6 +7,7 @@
     tools:context=".Food_selected"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="-32dp">
+
   <TextView
       android:id="@+id/name"
       android:layout_width="wrap_content"
@@ -132,7 +133,7 @@
       android:layout_marginBottom="36dp"
       android:ems="10"
       android:hint="Введите размер порции в граммах"
-      android:inputType="textPersonName"
+      android:inputType="number"
       app:layout_constraintBottom_toTopOf="@+id/add"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.159"
@@ -142,11 +143,10 @@
       android:id="@+id/textView16"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="5dp"
-      android:layout_marginEnd="286dp"
       android:text="Размер порции, г"
       app:layout_constraintBottom_toTopOf="@+id/massa"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.053"
       app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
