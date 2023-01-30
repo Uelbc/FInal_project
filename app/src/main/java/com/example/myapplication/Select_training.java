@@ -84,7 +84,7 @@ public class Select_training extends AppCompatActivity {
                 time_or_number=new boolean[]{
                         false, false, true, false, true,
                         true, true, true, true, false,
-                        true, true, true, false, true,
+                        true, true, false, true, true,
                         true, true, true, true, true,
                         true, false, false, false, true,
                         false,false
@@ -92,7 +92,7 @@ public class Select_training extends AppCompatActivity {
                 amount=new int[]{
                         30, 30, 16, 30, 16,
                         14, 16, 14, 18, 30,
-                        14, 16, 16, 30, 16,
+                        14, 16, 30, 16, 16,
                         12, 12, 12, 16,  8,
                          8, 18, 30, 30, 12,
                         30, 30

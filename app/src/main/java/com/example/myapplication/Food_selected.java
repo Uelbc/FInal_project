@@ -6,11 +6,15 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 public class Food_selected extends AppCompatActivity {
@@ -52,17 +56,59 @@ public class Food_selected extends AppCompatActivity {
         massa = findViewById(R.id.massa);
         // добавить проверку вводимого текста
 
+        massa.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (isNumeric(massa.getText().toString())){
+                    bel.setText(String.format("%.1f", b/100*Double.parseDouble(massa.getText().toString())));
+                    gir.setText(String.format("%.1f", g/100*Double.parseDouble(massa.getText().toString())));
+                    ugl.setText(String.format("%.1f", u/100*Double.parseDouble(massa.getText().toString())));
+                    kalor.setText(String.format("%.1f", kal/100*Double.parseDouble(massa.getText().toString())));
+                } else{
+                    bel.setText("0");
+                    gir.setText("0");
+                    ugl.setText("0");
+                    kalor.setText("0");
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
         add=findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                double m = Double.parseDouble(massa.getText().toString());
-                double [] b_g_u_kal = new double[] {b/100*m, g/100*m, u/100*m, kal/100*m};
-                Intent intent = new Intent(Food_selected.this, MainPage.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                intent.putExtra("b_g_u_kal", b_g_u_kal);
-                startActivity(intent);
+                if (isNumeric(massa.getText().toString())){
+                    double m = Double.parseDouble(massa.getText().toString());
+                    double [] b_g_u_kal = new double[] {b/100*m, g/100*m, u/100*m, kal/100*m};
+                    Intent intent = new Intent(Food_selected.this, MainPage.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    intent.putExtra("b_g_u_kal", b_g_u_kal);
+                    startActivity(intent);
+                } else{
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Введите массу продукта",
+                            Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
             }
         });
+    }
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
     }
 }

@@ -132,6 +132,7 @@
       android:layout_height="wrap_content"
       android:layout_marginBottom="36dp"
       android:ems="10"
+      android:text="100"
       android:hint="Введите размер порции в граммах"
       android:inputType="number"
       app:layout_constraintBottom_toTopOf="@+id/add"

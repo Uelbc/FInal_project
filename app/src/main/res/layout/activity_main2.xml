@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Сводка:"
+        android:text="Сводка"
 
         android:textColor="@color/black"
         android:textSize="18dp"
@@ -144,57 +144,377 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/main_menu_button"
-        android:layout_width="match_parent"
-        android:layout_height="354dp"
+        android:layout_width="388dp"
+        android:layout_height="244dp"
 
         android:layout_marginStart="10dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="10dp"
         android:background="@xml/main_menu_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ProgressBar
         android:id="@+id/b_progress_bar"
-        android:progressTint="@color/light_blue"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:progressTint="@color/light_blue"
         app:layout_constraintEnd_toEndOf="@+id/textView8"
         app:layout_constraintStart_toStartOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <ProgressBar
         android:id="@+id/g_progress_bar"
-        android:progressTint="@color/light_blue"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:progressTint="@color/light_blue"
         app:layout_constraintEnd_toEndOf="@+id/textView11"
         app:layout_constraintStart_toStartOf="@+id/textView11"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <ProgressBar
-        android:progressTint="@color/light_blue"
         android:id="@+id/u_progress_bar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:progressTint="@color/light_blue"
         app:layout_constraintEnd_toEndOf="@+id/textView18"
         app:layout_constraintStart_toStartOf="@+id/textView18"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <ProgressBar
         android:id="@+id/kal_progress_bar"
-        android:progressTint="@color/light_blue"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="100dp"
         android:layout_height="20dp"
+        android:progressTint="@color/light_blue"
         app:layout_constraintEnd_toEndOf="@+id/textView9"
         app:layout_constraintStart_toStartOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <TextView
+        android:id="@+id/water"
+        android:layout_width="384dp"
+        android:layout_height="250dp"
+        android:background="@xml/main_menu_button"
+        android:backgroundTint="@color/light_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <CheckBox
+        android:id="@+id/water2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water1"
+        app:layout_constraintStart_toEndOf="@+id/water1"
+        app:layout_constraintTop_toTopOf="@+id/water1"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <CheckBox
+        android:id="@+id/water1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:button="@drawable/add"
+        android:checked="false"
+        app:layout_constraintBottom_toBottomOf="@+id/water"
+        app:layout_constraintStart_toStartOf="@+id/water"
+        app:layout_constraintTop_toBottomOf="@+id/litr"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <CheckBox
+        android:id="@+id/water5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water4"
+        app:layout_constraintStart_toEndOf="@+id/water4"
+        app:layout_constraintTop_toTopOf="@+id/water4" />
+
+    <CheckBox
+        android:id="@+id/water4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water3"
+        app:layout_constraintStart_toEndOf="@+id/water3"
+        app:layout_constraintTop_toTopOf="@+id/water3" />
+
+
+    <CheckBox
+        android:id="@+id/water3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water2"
+        app:layout_constraintStart_toEndOf="@+id/water2"
+        app:layout_constraintTop_toTopOf="@+id/water2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <CheckBox
+        android:id="@+id/water6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water5"
+        app:layout_constraintStart_toEndOf="@+id/water5"
+        app:layout_constraintTop_toTopOf="@+id/water5" />
+
+    <CheckBox
+        android:id="@+id/water7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water6"
+        app:layout_constraintStart_toEndOf="@+id/water6"
+        app:layout_constraintTop_toTopOf="@+id/water6" />
+
+    <CheckBox
+        android:id="@+id/water8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water7"
+        app:layout_constraintStart_toEndOf="@+id/water7"
+        app:layout_constraintTop_toTopOf="@+id/water7" />
+
+    <CheckBox
+        android:id="@+id/water9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water"
+        app:layout_constraintStart_toStartOf="@+id/water"
+        app:layout_constraintTop_toBottomOf="@+id/water1"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <CheckBox
+        android:id="@+id/water10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water9"
+        app:layout_constraintStart_toEndOf="@+id/water9"
+        app:layout_constraintTop_toTopOf="@+id/water9" />
+
+    <CheckBox
+        android:id="@+id/water11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water10"
+        app:layout_constraintStart_toEndOf="@+id/water10"
+        app:layout_constraintTop_toTopOf="@+id/water10" />
+
+    <CheckBox
+        android:id="@+id/water12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water11"
+        app:layout_constraintStart_toEndOf="@+id/water11"
+        app:layout_constraintTop_toTopOf="@+id/water11" />
+
+    <CheckBox
+        android:id="@+id/water13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water12"
+        app:layout_constraintStart_toEndOf="@+id/water12"
+        app:layout_constraintTop_toTopOf="@+id/water12" />
+
+    <CheckBox
+        android:id="@+id/water14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water13"
+        app:layout_constraintStart_toEndOf="@+id/water13"
+        app:layout_constraintTop_toTopOf="@+id/water13" />
+
+    <CheckBox
+        android:id="@+id/water15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water14"
+        app:layout_constraintStart_toEndOf="@+id/water14"
+        app:layout_constraintTop_toTopOf="@+id/water14" />
+
+    <CheckBox
+        android:id="@+id/water16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water15"
+        app:layout_constraintStart_toEndOf="@+id/water15"
+        app:layout_constraintTop_toTopOf="@+id/water15" />
+
+
+    <CheckBox
+        android:id="@+id/water17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water"
+        app:layout_constraintStart_toStartOf="@+id/water"
+        app:layout_constraintTop_toBottomOf="@+id/water9"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <CheckBox
+        android:id="@+id/water18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water17"
+        app:layout_constraintStart_toEndOf="@+id/water17"
+        app:layout_constraintTop_toTopOf="@+id/water17" />
+
+    <CheckBox
+        android:id="@+id/water19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water18"
+        app:layout_constraintStart_toEndOf="@+id/water18"
+        app:layout_constraintTop_toTopOf="@+id/water18" />
+
+    <CheckBox
+        android:id="@+id/water20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water19"
+        app:layout_constraintStart_toEndOf="@+id/water19"
+        app:layout_constraintTop_toTopOf="@+id/water19" />
+
+    <CheckBox
+        android:id="@+id/water21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water20"
+        app:layout_constraintStart_toEndOf="@+id/water20"
+        app:layout_constraintTop_toTopOf="@+id/water20" />
+
+    <CheckBox
+        android:id="@+id/water22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water21"
+        app:layout_constraintStart_toEndOf="@+id/water21"
+        app:layout_constraintTop_toTopOf="@+id/water21" />
+
+    <CheckBox
+        android:id="@+id/water23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water22"
+        app:layout_constraintStart_toEndOf="@+id/water22"
+        app:layout_constraintTop_toTopOf="@+id/water22" />
+
+    <CheckBox
+        android:id="@+id/water24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/add"
+        android:checked="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/water23"
+        app:layout_constraintStart_toEndOf="@+id/water23"
+        app:layout_constraintTop_toTopOf="@+id/water23" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Цель: 2,00 литра"
+        app:layout_constraintEnd_toEndOf="@+id/water"
+        app:layout_constraintStart_toStartOf="@+id/water"
+        app:layout_constraintTop_toTopOf="@+id/water" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Отслеживание выпитой воды"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintStart_toStartOf="@+id/water"
+        app:layout_constraintTop_toBottomOf="@+id/main_menu_button" />
+
+    <TextView
+        android:id="@+id/litr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="0,00 л"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
