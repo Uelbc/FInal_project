@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Observable;
 
@@ -498,9 +499,9 @@ public class MainPage extends AppCompatActivity {
         water_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(MainPage.this)
+                new AlertDialog.Builder(MainPage.this, R.style.MyAlertTheme)
                         .setTitle("Зачем нужно следить за колличеством выпитой воды?")
-                        .setMessage("Are you sure you want to delete this entry?")
+                        .setMessage(R.string.why_water_norm)
                         .show();
             }
         });
@@ -509,9 +510,9 @@ public class MainPage extends AppCompatActivity {
         kal_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(MainPage.this)
-                        .setTitle("Зачем нужно следить за колличеством съеденных калорий?")
-                        .setMessage("Are you sure you want to delete this entry?")
+                new AlertDialog.Builder(MainPage.this, R.style.MyAlertTheme)
+                        .setTitle("Зачем нужно соблюдать норму калорий?")
+                        .setMessage(R.string.why_kal_norm)
                         .show();
             }
         });

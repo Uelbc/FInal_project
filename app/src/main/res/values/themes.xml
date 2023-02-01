@@ -18,4 +18,7 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+    <style name="MyAlertTheme" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@xml/dialog_card</item>
+    </style>
 </resources>
