@@ -33,7 +33,7 @@ public class MainPage extends AppCompatActivity {
     public static final String DATA = "DATA";
     double [] weight_height_age_gender_A;
     double [] b_g_u_kal;
-    public TextView kal_eaten_per_day, bTV, gTV, uTV, litr;
+    public TextView kal_eaten_per_day, bTV, gTV, uTV, litr, water_goal;
     public Button food, training;
     public String message_to_food, training_finished;
     public double gender_final;
@@ -91,6 +91,7 @@ public class MainPage extends AppCompatActivity {
             }
             SharedPreferences.Editor e = data.edit();
             e.putInt("water", 0);
+            e.putInt("weight", (int)weight_height_age_gender_A[0]);
             e.apply();
         }
         if (b_g_u_kal!= null){
@@ -150,6 +151,8 @@ public class MainPage extends AppCompatActivity {
             checkBoxes[i+1].setVisibility(View.VISIBLE);
         }
         litr.setText(Double.toString(Len_check_boxes*0.250));
+        water_goal=findViewById(R.id.water_goal);
+        water_goal.setText("Цель: "+String.format("%.2f", (double)data.getInt("weight", 0)*40/1000)+" л");
 
         checked=Len_check_boxes;
         ObservableInteger obsInt = new ObservableInteger();
