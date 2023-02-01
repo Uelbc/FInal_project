@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -35,6 +37,7 @@ public class MainPage extends AppCompatActivity {
     public String message_to_food, training_finished;
     public double gender_final;
     public double Kal_final=0;
+    public ImageButton water_info, kal_info;
     int checked;
     double b=0, g=0, u=0, b_norm=0, g_norm=0, u_norm=0;
     public String kal_per_day_men="", kal_per_day_women="";
@@ -369,6 +372,152 @@ public class MainPage extends AppCompatActivity {
                     obsInt.set(checked);}
             }
         });
+        water16.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {public void onCheckedChanged(CompoundButton buttonView,boolean isChecked)
+        {
+            if (buttonView.isChecked()) {
+                water16.setButtonDrawable(R.drawable.water);
+                water17.setButtonDrawable(R.drawable.add);
+                water17.setChecked(false);
+                water17.setVisibility(View.VISIBLE);
+                checked+=1;
+                litr.setText(Double.toString(4.00)+" л");}
+            else{checked=15;
+                obsInt.set(checked);}
+        }});
+        water17.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {public void onCheckedChanged(CompoundButton buttonView,boolean isChecked)
+        {
+            if (buttonView.isChecked()) {
+                water17.setButtonDrawable(R.drawable.water);
+                water18.setButtonDrawable(R.drawable.add);
+                water18.setChecked(false);
+                water18.setVisibility(View.VISIBLE);
+                checked+=1;
+                litr.setText(Double.toString(4.250)+" л");}
+            else{checked=16;
+                obsInt.set(checked);}
+        }
+        });
+        water18.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {public void onCheckedChanged(CompoundButton buttonView,boolean isChecked)
+        {
+            if (buttonView.isChecked()) {
+                water18.setButtonDrawable(R.drawable.water);
+                water19.setButtonDrawable(R.drawable.add);
+                water19.setChecked(false);
+                water19.setVisibility(View.VISIBLE);
+                checked+=1;
+                litr.setText(Double.toString(4.50)+" л");}
+            else{checked=17;
+                obsInt.set(checked);}
+        }
+        });
+        water19.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {public void onCheckedChanged(CompoundButton buttonView,boolean isChecked)
+        {
+            if (buttonView.isChecked()) {
+                water19.setButtonDrawable(R.drawable.water);
+                water20.setButtonDrawable(R.drawable.add);
+                water20.setChecked(false);
+                water20.setVisibility(View.VISIBLE);
+                checked+=1;
+                litr.setText(Double.toString(4.750)+" л");}
+            else{checked=18;
+                obsInt.set(checked);}
+        }
+        });
+        water20.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {public void onCheckedChanged(CompoundButton buttonView,boolean isChecked)
+        {
+            if (buttonView.isChecked()) {
+                water20.setButtonDrawable(R.drawable.water);
+                water21.setButtonDrawable(R.drawable.add);
+                water21.setChecked(false);
+                water21.setVisibility(View.VISIBLE);
+                checked+=1;
+                litr.setText(Double.toString(5.00)+" л");}
+            else{checked=19;
+                obsInt.set(checked);}
+        }
+        });
+        water21.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {public void onCheckedChanged(CompoundButton buttonView,boolean isChecked)
+        {
+            if (buttonView.isChecked()) {
+                water21.setButtonDrawable(R.drawable.water);
+                water22.setButtonDrawable(R.drawable.add);
+                water22.setChecked(false);
+                water22.setVisibility(View.VISIBLE);
+                checked+=1;
+                litr.setText(Double.toString(5.250)+" л");}
+            else{checked=20;
+                obsInt.set(checked);}
+        }
+        });
+        water22.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {public void onCheckedChanged(CompoundButton buttonView,boolean isChecked)
+        {
+            if (buttonView.isChecked()) {
+                water22.setButtonDrawable(R.drawable.water);
+                water23.setButtonDrawable(R.drawable.add);
+                water23.setChecked(false);
+                water23.setVisibility(View.VISIBLE);
+                checked+=1;
+                litr.setText(Double.toString(5.50)+" л");}
+            else{checked=21;
+                obsInt.set(checked);}
+        }
+        });
+        water23.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {public void onCheckedChanged(CompoundButton buttonView,boolean isChecked)
+        {
+            if (buttonView.isChecked()) {
+                water23.setButtonDrawable(R.drawable.water);
+                water24.setButtonDrawable(R.drawable.add);
+                water24.setChecked(false);
+                water24.setVisibility(View.VISIBLE);
+                checked+=1;
+                litr.setText(Double.toString(5.750)+" л");}
+            else{checked=22;
+                obsInt.set(checked);}
+        }
+        });
+        water24.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {public void onCheckedChanged(CompoundButton buttonView,boolean isChecked)
+        {
+            if (buttonView.isChecked()) {
+                water24.setButtonDrawable(R.drawable.water);
+                checked+=1;
+                litr.setText(Double.toString(6.00)+" л");}
+            else{checked=23;
+                obsInt.set(checked);}
+        }
+        });
+        water_info=findViewById(R.id.water_info);
+        water_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(MainPage.this)
+                        .setTitle("Зачем нужно следить за колличеством выпитой воды?")
+                        .setMessage("Are you sure you want to delete this entry?")
+                        .show();
+            }
+        });
+
+        kal_info =findViewById(R.id.kal_info);
+        kal_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(MainPage.this)
+                        .setTitle("Зачем нужно следить за колличеством съеденных калорий?")
+                        .setMessage("Are you sure you want to delete this entry?")
+                        .show();
+            }
+        });
+
+
+
         food = findViewById(R.id.food);
         food.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -142,7 +142,7 @@
         app:layout_constraintStart_toStartOf="@+id/textView11"
         app:layout_constraintTop_toBottomOf="@+id/g_progress_bar" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <TextView
         android:id="@+id/main_menu_button"
         android:layout_width="388dp"
         android:layout_height="244dp"
@@ -516,5 +516,31 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
+    <ImageButton
+        android:id="@+id/water_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@xml/dialog_white"
+        app:layout_constraintEnd_toEndOf="@+id/water"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView17"
+        app:layout_constraintTop_toTopOf="@+id/water"
+        app:srcCompat="@android:drawable/ic_menu_help" />
+
+    <ImageButton
+        android:id="@+id/kal_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@xml/dialog_blue"
+        app:layout_constraintEnd_toEndOf="@+id/main_menu_button"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintTop_toTopOf="@+id/main_menu_button"
+        app:srcCompat="@android:drawable/ic_menu_help" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
