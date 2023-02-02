@@ -3,8 +3,6 @@ package com.example.myapplication;
 import static android.widget.Toast.makeText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -20,14 +18,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-import java.util.Observable;
 
 public class MainPage extends AppCompatActivity {
     public static final String DATA = "DATA";
@@ -40,7 +32,7 @@ public class MainPage extends AppCompatActivity {
     public double Kal_final=0;
     public ImageButton water_info, kal_info;
     int checked;
-    double b=0, g=0, u=0, b_norm=0, g_norm=0, u_norm=0;
+    double b=0, g=0, u=0;
     public String kal_per_day_men="", kal_per_day_women="";
     private ProgressBar b_progress_bar, g_progress_bar, u_progress_bar, kal_progress_bar;
     private CheckBox water1, water2, water3, water4, water5, water6, water7, water8, water9, water10, water11, water12,
@@ -48,7 +40,6 @@ public class MainPage extends AppCompatActivity {
     CheckBox[] checkBoxes;
     private int Len_check_boxes;
     SharedPreferences data;
-    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
