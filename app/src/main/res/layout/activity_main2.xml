@@ -540,5 +540,15 @@
         app:layout_constraintTop_toTopOf="@+id/main_menu_button"
         app:srcCompat="@android:drawable/ic_menu_help" />
 
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Выйти из аккаунта"
+        app:layout_constraintBottom_toTopOf="@+id/main_menu_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class Registration extends AppCompatActivity {
     public EditText weight_edittext;
     public EditText height_edittext;
@@ -17,6 +20,8 @@ public class Registration extends AppCompatActivity {
     public AppCompatButton next;
     public RadioButton men;
     public RadioButton women;
+    private FirebaseAuth mAuth;
+    public FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
