@@ -1,4 +1,5 @@
 package com.example.myapplication;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -11,6 +12,11 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Registration extends AppCompatActivity {
@@ -20,9 +26,9 @@ public class Registration extends AppCompatActivity {
     public AppCompatButton next;
     public RadioButton men;
     public RadioButton women;
-    private FirebaseAuth mAuth;
-    public FirebaseFirestore db;
-
+    public FirebaseAuth mAuth;
+    public static FirebaseDatabase database;
+    public static DatabaseReference myRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +39,13 @@ public class Registration extends AppCompatActivity {
         age_edittext = findViewById(R.id.age);
         men = findViewById(R.id.men);
         women = findViewById(R.id.women);
+
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
+        myRef = database.getReference("users");
+        String id = mAuth.getCurrentUser().getUid();
+
+
         men.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,6 +65,7 @@ public class Registration extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
                 if (isNumeric(weight_edittext.getText().toString()) &
                         isNumeric(height_edittext.getText().toString()) &
                         isNumeric(age_edittext.getText().toString()) &
@@ -65,9 +79,23 @@ public class Registration extends AppCompatActivity {
                     } else{
                         g=0;
                     }
-                    double [] weight_height_age_gender = new double[] {w, h, a, g};
+                    myRef.child(id).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            User user = snapshot.getValue(User.class);
+                            user.age=a;
+                            user.weight=w;
+                            user.height=h;
+                            user.gender=g;
+                            myRef.child(id).setValue(user);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                     Intent intent = new Intent(Registration.this, SelectPhysicalActivity.class);
-                    intent.putExtra("1", weight_height_age_gender);
                     startActivity(intent);
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(),

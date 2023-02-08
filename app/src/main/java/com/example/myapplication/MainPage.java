@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import static android.widget.Toast.makeText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -24,40 +25,110 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Observable;
 
 public class MainPage extends AppCompatActivity {
     public static final String DATA = "DATA";
-    double [] weight_height_age_gender_A;
-    double [] b_g_u_kal;
     public TextView kal_eaten_per_day, bTV, gTV, uTV, litr, water_goal;
     public Button food, training;
     public String message_to_food, training_finished;
-    public double gender_final;
-    public double Kal_final=0;
     public ImageButton water_info, kal_info;
     int checked;
-    double b=0, g=0, u=0, b_norm=0, g_norm=0, u_norm=0;
-    public String kal_per_day_men="", kal_per_day_women="";
+    public int Kal_final, weight;
+    double b, g, u;
+    public int kal_per_day;
     private ProgressBar b_progress_bar, g_progress_bar, u_progress_bar, kal_progress_bar;
     private CheckBox water1, water2, water3, water4, water5, water6, water7, water8, water9, water10, water11, water12,
             water13, water14, water15, water16, water17, water18, water19, water20, water21, water22, water23, water24;
     CheckBox[] checkBoxes;
     private int Len_check_boxes;
     SharedPreferences data;
-    Context context;
+
+    public FirebaseAuth mAuth;
+    public static FirebaseDatabase database;
+    public static DatabaseReference myRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
+        myRef = database.getReference("users");
+        String id = mAuth.getCurrentUser().getUid();
+        myRef.child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                kal_eaten_per_day=findViewById(R.id.kal_eaten_per_day);
+                if (user.getGender()==1){
+                    kal_per_day=(int)((10*user.getWeight()+6.25*user.getHeight()-5*user.getAge()+5)*user.getA());
+                }
+                if (user.getGender()==0){
+                    kal_per_day=(int)((10*user.getWeight()+6.25*user.getHeight()-5*user.getAge()-161)*user.getA());
+                }
+                Kal_final= user.getKal();
+                b=user.getB();
+                g=user.getG();
+                u=user.getU();
+                Len_check_boxes=user.getChecked_water();
+                weight=user.getWeight();
+
+                kal_eaten_per_day.setText(Kal_final+" / "+kal_per_day);
+
+                bTV=findViewById(R.id.b);
+                gTV=findViewById(R.id.g);
+                uTV=findViewById(R.id.u);
+
+                bTV.setText(String.format("%.1f", b)+" / "+kal_per_day * 30 / 100 / 4 +" г");
+                bTV.setText(String.format("%.1f", g)+" / "+kal_per_day * 25 / 100 / 9 +" г");
+                bTV.setText(String.format("%.1f", u)+" / "+kal_per_day * 45 / 100 / 4 +" г");
+
+                b_progress_bar=findViewById(R.id.b_progress_bar);
+                g_progress_bar=findViewById(R.id.g_progress_bar);
+                u_progress_bar=findViewById(R.id.u_progress_bar);
+                kal_progress_bar=findViewById(R.id.kal_progress_bar);
+
+                b_progress_bar.setMax(kal_per_day * 30 / 100 / 4);
+                g_progress_bar.setMax(kal_per_day * 25 / 100 / 9);
+                u_progress_bar.setMax(kal_per_day * 45 / 100 / 4);
+                kal_progress_bar.setMax(kal_per_day);
+
+                b_progress_bar.setProgress((int)b);
+                g_progress_bar.setProgress((int)g);
+                u_progress_bar.setProgress((int)u);
+                kal_progress_bar.setProgress(Kal_final);
+                if (Kal_final>kal_per_day){
+                    kal_progress_bar.getProgressDrawable().setColorFilter(
+                            Color.RED, PorterDuff.Mode.SRC_IN);
+                    kal_eaten_per_day.setText("Свыше нормы на "+(Kal_final-kal_per_day));
+                }
+                water_goal=findViewById(R.id.water_goal);
+                water_goal.setText("Цель: "+ Double.toString(weight*40/1000)+" л");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
         Bundle bundle = getIntent().getExtras();
         data = getApplicationContext().getSharedPreferences(DATA, Context.MODE_PRIVATE);
         if(bundle != null) {
-            weight_height_age_gender_A = bundle.getDoubleArray("2");
-            b_g_u_kal=bundle.getDoubleArray("b_g_u_kal");
             training_finished=bundle.getString("training");
         }
         if (training_finished!=null){
@@ -66,73 +137,9 @@ public class MainPage extends AppCompatActivity {
                     Toast.LENGTH_SHORT);
            toast.setGravity(Gravity.CENTER, 0, 0);
            toast.show();
-            b=data.getLong("b", 0);
-            g=data.getLong("g", 0);
-            u=data.getLong("u", 0);
-            Kal_final = data.getLong("kal_final", 0);
         }
-        if (weight_height_age_gender_A!=null){
-            double weight = weight_height_age_gender_A[0];
-            double height = weight_height_age_gender_A[1];
-            double age = weight_height_age_gender_A[2];
-            double gender = weight_height_age_gender_A[3];
-            gender_final=weight_height_age_gender_A[3];// 1-мужчина 0-женщина
-            double A= weight_height_age_gender_A[4];
-            if (gender==1){//если мужчина
-                kal_per_day_men= Integer.toString((int)((10*weight+6.25*height-5*age+5)*A));
-                SharedPreferences.Editor e = data.edit();
-                e.putString("kal_per_day", kal_per_day_men);
-                e.apply();
-            }else{
-                kal_per_day_women= Integer.toString((int)((10*weight+6.25*height-5*age-161)*A));
-                SharedPreferences.Editor e = data.edit();
-                e.putString("kal_per_day", kal_per_day_women);
-                e.apply();
-            }
-            SharedPreferences.Editor e = data.edit();
-            e.putInt("water", 0);
-            e.putInt("weight", (int)weight_height_age_gender_A[0]);
-            e.apply();
-        }
-        if (b_g_u_kal!= null){
-            b=data.getLong("b", 0);
-            g=data.getLong("g", 0);
-            u=data.getLong("u", 0);
-            Kal_final = data.getLong("kal_final", 0);
 
-            b+=b_g_u_kal[0];
-            g+=b_g_u_kal[1];
-            u+=b_g_u_kal[2];
-            Kal_final+=b_g_u_kal[3];
-        }
-        kal_eaten_per_day=findViewById(R.id.kal_eaten_per_day);
-        bTV=findViewById(R.id.b);
-        gTV=findViewById(R.id.g);
-        uTV=findViewById(R.id.u);
-        bTV.setText(String.format("%.1f", b)+" / "+(int) Double.parseDouble(data.getString("kal_per_day", "")) * 30 / 100 / 4 +" г");
-        gTV.setText(String.format("%.1f", g)+" / "+(int) Double.parseDouble(data.getString("kal_per_day", "")) * 25 / 100 / 9 +" г");
-        uTV.setText(String.format("%.1f", u)+" / "+(int) Double.parseDouble(data.getString("kal_per_day", "")) * 45 / 100 / 4 +" г");
-        kal_eaten_per_day.setText((int) Kal_final +" / "+data.getString("kal_per_day", ""));
 
-        b_progress_bar=findViewById(R.id.b_progress_bar);
-        g_progress_bar=findViewById(R.id.g_progress_bar);
-        u_progress_bar=findViewById(R.id.u_progress_bar);
-        kal_progress_bar=findViewById(R.id.kal_progress_bar);
-
-        b_progress_bar.setMax((int) Double.parseDouble(data.getString("kal_per_day", "")) * 30 / 100 / 4);
-        g_progress_bar.setMax((int) Double.parseDouble(data.getString("kal_per_day", "")) * 25 / 100 / 9);
-        u_progress_bar.setMax((int) Double.parseDouble(data.getString("kal_per_day", "")) * 45 / 100 / 4);
-        kal_progress_bar.setMax(Integer.parseInt(data.getString("kal_per_day", "")));
-
-        b_progress_bar.setProgress((int)b);
-        g_progress_bar.setProgress((int)g);
-        u_progress_bar.setProgress((int)u);
-        kal_progress_bar.setProgress((int)Kal_final);
-        if (Kal_final>Integer.parseInt(data.getString("kal_per_day", ""))){
-            kal_progress_bar.getProgressDrawable().setColorFilter(
-                    Color.RED, PorterDuff.Mode.SRC_IN);
-            kal_eaten_per_day.setText("Свыше нормы на "+(int)(Kal_final-Integer.parseInt(data.getString("kal_per_day", ""))));
-        }
 
         water1=findViewById(R.id.water1); water2=findViewById(R.id.water2); water3=findViewById(R.id.water3); water4=findViewById(R.id.water4);
         water5=findViewById(R.id.water5); water6=findViewById(R.id.water6); water7=findViewById(R.id.water7); water8=findViewById(R.id.water8);
@@ -142,7 +149,6 @@ public class MainPage extends AppCompatActivity {
         water21=findViewById(R.id.water21); water22=findViewById(R.id.water22); water23=findViewById(R.id.water23); water24=findViewById(R.id.water24);
         checkBoxes= new CheckBox[]{water1, water2, water3, water4, water5, water6, water7, water8, water9, water10, water11, water12,
                 water13, water14, water15, water16, water17, water18, water19, water20, water21, water22, water23, water24};
-        Len_check_boxes=data.getInt("water", 0);
         litr = findViewById(R.id.litr);
         for (int i=0; i<Len_check_boxes; i++){
             checkBoxes[i].setChecked(true);
@@ -151,8 +157,6 @@ public class MainPage extends AppCompatActivity {
             checkBoxes[i+1].setVisibility(View.VISIBLE);
         }
         litr.setText(Double.toString(Len_check_boxes*0.250));
-        water_goal=findViewById(R.id.water_goal);
-        water_goal.setText("Цель: "+String.format("%.2f", (double)data.getInt("weight", 0)*40/1000)+" л");
 
         checked=Len_check_boxes;
         ObservableInteger obsInt = new ObservableInteger();
@@ -526,17 +530,8 @@ public class MainPage extends AppCompatActivity {
         food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences.Editor e = data.edit();
-                e.putLong("kal_final", (long) Kal_final);
-                e.putLong("b", (long)b);
-                e.putLong("g", (long)g);
-                e.putLong("u", (long)u);
-                e.putInt("water", checked);
-                e.apply();
-                message_to_food="";
                 Intent intent = new Intent(MainPage.this, Food.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                intent.putExtra("From main menu", message_to_food);
                 startActivity(intent);
             }
         });
@@ -546,13 +541,6 @@ public class MainPage extends AppCompatActivity {
         training.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences.Editor e = data.edit();
-                e.putLong("kal_final", (long) Kal_final);
-                e.putLong("b", (long)b);
-                e.putLong("g", (long)g);
-                e.putLong("u", (long)u);
-                e.putInt("water", checked);
-                e.apply();
                 Intent intent = new Intent(MainPage.this, Select_training.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
@@ -590,5 +578,27 @@ public class MainPage extends AppCompatActivity {
                 listener.onIntegerChanged(value);
             }
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
+        myRef = database.getReference("users");
+        String id = mAuth.getCurrentUser().getUid();
+        myRef.child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                user.checked_water=checked;
+                myRef.child(id).setValue(user);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

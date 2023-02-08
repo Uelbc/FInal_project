@@ -27,9 +27,10 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText edit_txt_Username, edit_txt_Email, edit_txt_Pass, edit_txt_CoPass;
     private Button button_register;
     private TextView text_view_login;
-    private FirebaseAuth mAuth;
+    public FirebaseAuth mAuth;
     String username, email, password, co_password;
-    public FirebaseFirestore db;
+    public static FirebaseDatabase database;
+    public static DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,8 @@ public class SignUpActivity extends AppCompatActivity {
         button_register = findViewById(R.id.button_register);
 
 
-        db=FirebaseFirestore.getInstance();
+        database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
+        myRef = database.getReference("users");
 
         text_view_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,9 +78,10 @@ public class SignUpActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task)
                                 {
                                     if (task.isSuccessful()) {
-                                        Person person = new Person(email, password, 0, 0, 0, 0, 0);
-                                        db.collection("users")
-                                                        .add(person);
+                                        String id = mAuth.getCurrentUser().getUid();
+                                        User user = new User(0,0,0,0,0, 0,0,0,0,0);
+                                        myRef.child(id).setValue(user);
+
                                         Toast.makeText(getApplicationContext(),
                                                         "Успешная регистрация!",
                                                         Toast.LENGTH_LONG)

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -17,6 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class Food_selected extends AppCompatActivity {
     double[] b_g_u_kal;
     double b, g, u, kal;
@@ -24,6 +32,13 @@ public class Food_selected extends AppCompatActivity {
     public EditText massa;
     public Button add;
     public VideoView videoView;
+
+    public User user;
+    public FirebaseAuth mAuth;
+    public static FirebaseDatabase database;
+    public static DatabaseReference myRef;
+
+
     String Name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,10 +103,29 @@ public class Food_selected extends AppCompatActivity {
             public void onClick(View view) {
                 if (isNumeric(massa.getText().toString())){
                     double m = Double.parseDouble(massa.getText().toString());
-                    double [] b_g_u_kal = new double[] {b/100*m, g/100*m, u/100*m, kal/100*m};
+                    mAuth = FirebaseAuth.getInstance();
+                    database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
+                    myRef = database.getReference("users");
+                    String id = mAuth.getCurrentUser().getUid();
+                    myRef.child(id).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            user=snapshot.getValue(User.class);
+                            user.b+=b/100*m;
+                            user.u+=u/100*m;
+                            user.g+=u/100*m;
+                            user.kal+=kal/100*m;
+                            myRef.child(id).setValue(user);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                     Intent intent = new Intent(Food_selected.this, MainPage.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    intent.putExtra("b_g_u_kal", b_g_u_kal);
                     startActivity(intent);
                 } else{
                     Toast toast = Toast.makeText(getApplicationContext(),

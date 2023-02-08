@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,9 +9,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class SelectPhysicalActivity extends AppCompatActivity {
+    public FirebaseAuth mAuth;
+    public static FirebaseDatabase database;
+    public static DatabaseReference myRef;
     double []a;
-    double [] weight_height_age_gender_A;
     double A;
     Button next;
     public RadioButton level1, level2, level3, level4, level5, level6, level7;
@@ -22,6 +32,11 @@ public class SelectPhysicalActivity extends AppCompatActivity {
         if(bundle != null) {
             a = bundle.getDoubleArray("1");
         }
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
+        myRef = database.getReference("users");
+        String id = mAuth.getCurrentUser().getUid();
+
         level1 = findViewById(R.id.level1);
         level2 = findViewById(R.id.level2);
         level3 = findViewById(R.id.level3);
@@ -55,9 +70,21 @@ public class SelectPhysicalActivity extends AppCompatActivity {
                 if (level7.isChecked()){
                     A=2.2;
                 }
-                double [] b = new double[] {a[0], a[1], a[2], a[3], A};
+                myRef.child(id).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User user = snapshot.getValue(User.class);
+                        user.A=A;
+                        myRef.child(id).setValue(user);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
                 Intent intent = new Intent(SelectPhysicalActivity.this, MainPage.class);
-                intent.putExtra("2", b);
                 startActivity(intent);
             }
         });
