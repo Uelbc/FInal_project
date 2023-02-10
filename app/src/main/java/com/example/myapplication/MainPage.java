@@ -54,6 +54,7 @@ public class MainPage extends AppCompatActivity {
     CheckBox[] checkBoxes;
     private int Len_check_boxes;
     SharedPreferences data;
+    public User user;
 
     public FirebaseAuth mAuth;
     public static FirebaseDatabase database;
@@ -67,62 +68,58 @@ public class MainPage extends AppCompatActivity {
         database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
         myRef = database.getReference("users");
         String id = mAuth.getCurrentUser().getUid();
-        myRef.child(id).addValueEventListener(new ValueEventListener() {
+        myRef.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
-                kal_eaten_per_day=findViewById(R.id.kal_eaten_per_day);
-                if (user.getGender()==1){
-                    kal_per_day=(int)((10*user.getWeight()+6.25*user.getHeight()-5*user.getAge()+5)*user.getA());
-                }
-                if (user.getGender()==0){
-                    kal_per_day=(int)((10*user.getWeight()+6.25*user.getHeight()-5*user.getAge()-161)*user.getA());
-                }
-                Kal_final= user.getKal();
-                b=user.getB();
-                g=user.getG();
-                u=user.getU();
-                Len_check_boxes=user.getChecked_water();
-                weight=user.getWeight();
-
-                kal_eaten_per_day.setText(Kal_final+" / "+kal_per_day);
-
-                bTV=findViewById(R.id.b);
-                gTV=findViewById(R.id.g);
-                uTV=findViewById(R.id.u);
-
-                bTV.setText(String.format("%.1f", b)+" / "+kal_per_day * 30 / 100 / 4 +" г");
-                bTV.setText(String.format("%.1f", g)+" / "+kal_per_day * 25 / 100 / 9 +" г");
-                bTV.setText(String.format("%.1f", u)+" / "+kal_per_day * 45 / 100 / 4 +" г");
-
-                b_progress_bar=findViewById(R.id.b_progress_bar);
-                g_progress_bar=findViewById(R.id.g_progress_bar);
-                u_progress_bar=findViewById(R.id.u_progress_bar);
-                kal_progress_bar=findViewById(R.id.kal_progress_bar);
-
-                b_progress_bar.setMax(kal_per_day * 30 / 100 / 4);
-                g_progress_bar.setMax(kal_per_day * 25 / 100 / 9);
-                u_progress_bar.setMax(kal_per_day * 45 / 100 / 4);
-                kal_progress_bar.setMax(kal_per_day);
-
-                b_progress_bar.setProgress((int)b);
-                g_progress_bar.setProgress((int)g);
-                u_progress_bar.setProgress((int)u);
-                kal_progress_bar.setProgress(Kal_final);
-                if (Kal_final>kal_per_day){
-                    kal_progress_bar.getProgressDrawable().setColorFilter(
-                            Color.RED, PorterDuff.Mode.SRC_IN);
-                    kal_eaten_per_day.setText("Свыше нормы на "+(Kal_final-kal_per_day));
-                }
-                water_goal=findViewById(R.id.water_goal);
-                water_goal.setText("Цель: "+ Double.toString(weight*40/1000)+" л");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                user = task.getResult().getValue(User.class);
             }
         });
+
+        kal_eaten_per_day=findViewById(R.id.kal_eaten_per_day);
+        if (user.getGender()==1){
+            kal_per_day=(int)((10*user.getWeight()+6.25*user.getHeight()-5*user.getAge()+5)*user.getA());
+        }
+        if (user.getGender()==0){
+            kal_per_day=(int)((10*user.getWeight()+6.25*user.getHeight()-5*user.getAge()-161)*user.getA());
+        }
+        Kal_final= user.getKal();
+        b=user.getB();
+        g=user.getG();
+        u=user.getU();
+        Len_check_boxes=user.getChecked_water();
+        weight=user.getWeight();
+
+        kal_eaten_per_day.setText(Kal_final+" / "+kal_per_day);
+
+        bTV=findViewById(R.id.b);
+        gTV=findViewById(R.id.g);
+        uTV=findViewById(R.id.u);
+
+        bTV.setText(String.format("%.1f", b)+" / "+kal_per_day * 30 / 100 / 4 +" г");
+        bTV.setText(String.format("%.1f", g)+" / "+kal_per_day * 25 / 100 / 9 +" г");
+        bTV.setText(String.format("%.1f", u)+" / "+kal_per_day * 45 / 100 / 4 +" г");
+
+        b_progress_bar=findViewById(R.id.b_progress_bar);
+        g_progress_bar=findViewById(R.id.g_progress_bar);
+        u_progress_bar=findViewById(R.id.u_progress_bar);
+        kal_progress_bar=findViewById(R.id.kal_progress_bar);
+
+        b_progress_bar.setMax(kal_per_day * 30 / 100 / 4);
+        g_progress_bar.setMax(kal_per_day * 25 / 100 / 9);
+        u_progress_bar.setMax(kal_per_day * 45 / 100 / 4);
+        kal_progress_bar.setMax(kal_per_day);
+
+        b_progress_bar.setProgress((int)b);
+        g_progress_bar.setProgress((int)g);
+        u_progress_bar.setProgress((int)u);
+        kal_progress_bar.setProgress(Kal_final);
+        if (Kal_final>kal_per_day){
+            kal_progress_bar.getProgressDrawable().setColorFilter(
+                    Color.RED, PorterDuff.Mode.SRC_IN);
+            kal_eaten_per_day.setText("Свыше нормы на "+(Kal_final-kal_per_day));
+        }
+        water_goal=findViewById(R.id.water_goal);
+        water_goal.setText("Цель: "+ Double.toString(weight*40/1000)+" л");
 
 
 
