@@ -26,9 +26,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Food_selected extends AppCompatActivity {
-    double[] b_g_u_kal;
-    double b, g, u, kal;
-    public TextView bel, gir, ugl, kalor, name;
+    double[] b_g_u_kal_water;
+    double b, g, u, kal, water;
+    public TextView bel, gir, ugl, kalor, name, water_food;
     public EditText massa;
     public Button add;
     public VideoView videoView;
@@ -46,13 +46,14 @@ public class Food_selected extends AppCompatActivity {
         setContentView(R.layout.activity_food_selected);
         Bundle bundle = getIntent().getExtras();
         if(bundle != null) {
-            b_g_u_kal = bundle.getDoubleArray("1");
+            b_g_u_kal_water = bundle.getDoubleArray("1");
             Name = bundle.getString("name");
         }
-        b=b_g_u_kal[0];
-        g=b_g_u_kal[1];
-        u=b_g_u_kal[2];
-        kal=b_g_u_kal[3];
+        b=b_g_u_kal_water[0];
+        g=b_g_u_kal_water[1];
+        u=b_g_u_kal_water[2];
+        kal=b_g_u_kal_water[3];
+        water=b_g_u_kal_water[4];
         bel=findViewById(R.id.b);
         String text_b=String.valueOf(b)+ " г";
         bel.setText(text_b);
@@ -65,6 +66,9 @@ public class Food_selected extends AppCompatActivity {
         kalor=findViewById(R.id.kal);
         String text_k=String.valueOf(kal)+ " ккал";
         kalor.setText(text_k);
+        water_food=findViewById(R.id.water_food);
+        String text_water=String.valueOf(water)+" мл";
+        water_food.setText(text_water);
 
         name=findViewById(R.id.name);
         name.setText(Name);
@@ -83,11 +87,13 @@ public class Food_selected extends AppCompatActivity {
                     gir.setText(String.format("%.1f", g/100*Double.parseDouble(massa.getText().toString())));
                     ugl.setText(String.format("%.1f", u/100*Double.parseDouble(massa.getText().toString())));
                     kalor.setText(String.format("%.1f", kal/100*Double.parseDouble(massa.getText().toString())));
+                    water_food.setText(String.format("%.1f", water/100*Double.parseDouble(massa.getText().toString())));
                 } else{
                     bel.setText("0");
                     gir.setText("0");
                     ugl.setText("0");
                     kalor.setText("0");
+                    water_food.setText("0");
 
                 }
             }

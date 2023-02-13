@@ -38,7 +38,7 @@
       android:id="@+id/kal"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="84dp"
+      android:layout_marginTop="80dp"
       android:text="TextView"
       android:textColor="@color/black"
       android:textSize="18dp"
@@ -51,7 +51,7 @@
       android:id="@+id/u"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="84dp"
+      android:layout_marginTop="80dp"
       android:text="TextView"
       android:textColor="@color/black"
       android:textSize="18dp"
@@ -64,11 +64,11 @@
       android:id="@+id/g"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="84dp"
+      android:layout_marginTop="80dp"
       android:text="TextView"
       android:textColor="@color/black"
       android:textSize="18dp"
-      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/water_food"
       app:layout_constraintHorizontal_bias="0.5"
       app:layout_constraintStart_toEndOf="@+id/b"
       app:layout_constraintTop_toBottomOf="@+id/name" />
@@ -77,7 +77,7 @@
       android:id="@+id/b"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="84dp"
+      android:layout_marginTop="80dp"
       android:text="TextView"
       android:textColor="@color/black"
       android:textSize="18dp"
@@ -130,13 +130,13 @@
       android:id="@+id/massa"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="32dp"
+      android:layout_marginTop="60dp"
       android:ems="10"
       android:hint="Введите размер порции в граммах"
       android:inputType="number"
       android:text="100"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintHorizontal_bias="1.0"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
@@ -150,4 +150,26 @@
       app:layout_constraintHorizontal_bias="0.053"
       app:layout_constraintStart_toStartOf="parent" />
 
+  <TextView
+      android:id="@+id/water_food"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="80dp"
+      android:text="TextView"
+      android:textColor="@color/black"
+      android:textSize="18dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toEndOf="@+id/g"
+      app:layout_constraintTop_toBottomOf="@+id/name" />
+
+  <TextView
+      android:id="@+id/textView17"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Вода"
+      android:layout_marginTop="5dp"
+      app:layout_constraintEnd_toEndOf="@+id/water_food"
+      app:layout_constraintStart_toStartOf="@+id/water_food"
+      app:layout_constraintTop_toBottomOf="@+id/water_food" />
 </androidx.constraintlayout.widget.ConstraintLayout>

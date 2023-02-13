@@ -98,7 +98,9 @@ public class User {
         return checked_water;
     }
 
+
     public void setChecked_water(int checked_water) {
         this.checked_water = checked_water;
     }
 }
+
