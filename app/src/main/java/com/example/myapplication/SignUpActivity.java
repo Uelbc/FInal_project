@@ -91,7 +91,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                                         Intent intent
                                                 = new Intent(SignUpActivity.this,
-                                                Food_table.class);
+                                                Registration.class);
                                         startActivity(intent);
                                     }
                                     else {

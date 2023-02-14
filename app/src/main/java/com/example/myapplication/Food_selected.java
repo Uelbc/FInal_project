@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -113,20 +115,15 @@ public class Food_selected extends AppCompatActivity {
                     database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
                     myRef = database.getReference("users");
                     String id = mAuth.getCurrentUser().getUid();
-                    myRef.child(id).addValueEventListener(new ValueEventListener() {
+                    myRef.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            user=snapshot.getValue(User.class);
-                            user.b+=b/100*m;
-                            user.u+=u/100*m;
-                            user.g+=u/100*m;
-                            user.kal+=kal/100*m;
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            User user = task.getResult().getValue(User.class);
+                            user.setB(user.getB()+b/100*m);
+                            user.setU(user.getU()+u/100*m);
+                            user.setG(user.getG()+u/100*m);
+                            user.setKal(user.getKal()+kal/100*m);
                             myRef.child(id).setValue(user);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
                         }
                     });
 

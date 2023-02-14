@@ -2,8 +2,7 @@ package com.example.myapplication;
 
 public class User {
     int age, weight, gender, height, checked_water;
-    double A, b, g, u;
-    int kal;
+    double A, b, g, u, kal;
 
     public double getB() {
         return b;
@@ -33,11 +32,11 @@ public class User {
 
     }
 
-    public int getKal() {
+    public double getKal() {
         return kal;
     }
 
-    public void setKal(int kal) {
+    public void setKal(double kal) {
         this.kal = kal;
     }
 
