@@ -124,12 +124,12 @@ public class Food_selected extends AppCompatActivity {
                             user.setG(user.getG()+u/100*m);
                             user.setKal(user.getKal()+kal/100*m);
                             myRef.child(id).setValue(user);
+                            Intent intent = new Intent(Food_selected.this, MainPage.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivity(intent);
                         }
                     });
 
-                    Intent intent = new Intent(Food_selected.this, MainPage.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent);
                 } else{
                     Toast toast = Toast.makeText(getApplicationContext(),
                             "Введите массу продукта",

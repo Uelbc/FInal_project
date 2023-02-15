@@ -11,8 +11,11 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.FileUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -42,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 public class Food_table extends AppCompatActivity {
     List<String> Names = new ArrayList<String>();
@@ -51,6 +55,7 @@ public class Food_table extends AppCompatActivity {
     List<Double> U = new ArrayList<Double>();
     List<Double> Kal = new ArrayList<Double>();
     TableLayout Table;
+    EditText search;
     TextView textView;
     Context context;
 
@@ -108,6 +113,7 @@ public class Food_table extends AppCompatActivity {
         TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT);
         TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
         Table.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        search=findViewById(R.id.Search);
         for (int i = 0; i<Names.size(); i++){
             TableRow tableRow = new TableRow(context);
             tableRow.setLayoutParams(tableParams);
@@ -145,5 +151,57 @@ public class Food_table extends AppCompatActivity {
                 }
             });
         }
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int j, int j1, int j2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int j, int j1, int j2) {
+                Table.removeAllViews();
+                String key = search.getText().toString();
+                for (int i = 0; i < Names.size(); i++) {
+                    TableRow tableRow = new TableRow(context);
+                    tableRow.setLayoutParams(tableParams);
+
+                    LinearLayout linearLayout = new LinearLayout(context);
+                    linearLayout.setOrientation(LinearLayout.VERTICAL);
+                    TextView name = new TextView(context);
+                    name.setLayoutParams(rowParams);
+                    name.setText(" " + Names.get(i));
+                    name.setTextColor(getColor(R.color.black));
+                    name.setTextSize(40);
+                    linearLayout.addView(name);
+
+                    TextView kal = new TextView(context);
+                    kal.setLayoutParams(rowParams);
+                    kal.setText(" " + Double.toString(Kal.get(i)) + " ккал на 100 грамм");
+                    name.setTextSize(15);
+                    linearLayout.addView(kal);
+
+                    tableRow.addView(linearLayout);
+
+                    if (Names.get(i).toLowerCase(Locale.ROOT).contains(key.toLowerCase(Locale.ROOT)) || key == null) {
+                        Table.addView(tableRow);
+                        int finalI = i;
+                        tableRow.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                double[] b_g_u_kal_water = new double[]{B.get(finalI), G.get(finalI), U.get(finalI), Kal.get(finalI), Water.get(finalI)};
+                                Intent intent = new Intent(Food_table.this, Food_selected.class);
+                                intent.putExtra("1", b_g_u_kal_water);
+                                intent.putExtra("name", Names.get(finalI));
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+
+            }
+        });
     }
 }

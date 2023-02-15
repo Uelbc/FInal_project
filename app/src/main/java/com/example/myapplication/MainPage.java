@@ -43,6 +43,7 @@ public class MainPage extends AppCompatActivity {
     public TextView kal_eaten_per_day, bTV, gTV, uTV, litr, water_goal;
     public Button food, training, logout;
     public String message_to_food, training_finished;
+    Boolean flag_logout=true;
     public ImageButton water_info, kal_info;
     int checked;
     public double Kal_final, weight;
@@ -537,14 +538,15 @@ public class MainPage extends AppCompatActivity {
                 myRef.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        flag_logout=false;
                         User user = task.getResult().getValue(User.class);
                         user.setChecked_water(checked);
                         myRef.child(id).setValue(user);
+                        mAuth.signOut();
+                        Intent intent=new Intent(MainPage.this, SignUpActivity.class);
+                        startActivity(intent);
                     }
                 });
-                mAuth.signOut();
-                Intent intent=new Intent(MainPage.this, SignUpActivity.class);
-                startActivity(intent);
             }
         });
         food = findViewById(R.id.food);
@@ -603,20 +605,21 @@ public class MainPage extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        super.onStop();
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
         myRef = database.getReference("users");
-        if (mAuth.getCurrentUser().getUid()!=null){
-            String id = mAuth.getCurrentUser().getUid();
-            myRef.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    User user = task.getResult().getValue(User.class);
-                    user.setChecked_water(checked);
-                    myRef.child(id).setValue(user);
-                }
-            });
+        if (flag_logout){
+            if (mAuth.getCurrentUser().getUid()!=null){
+                String id = mAuth.getCurrentUser().getUid();
+                myRef.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        User user = task.getResult().getValue(User.class);
+                        user.setChecked_water(checked);
+                        myRef.child(id).setValue(user);
+                    }
+                });
+            }
         }
         super.onStop();
     }

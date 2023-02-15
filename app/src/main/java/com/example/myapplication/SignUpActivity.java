@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -59,8 +60,13 @@ public class SignUpActivity extends AppCompatActivity {
         email = edit_txt_Email.getText().toString().trim();
         password = edit_txt_Pass.getText().toString().trim();
         mAuth=FirebaseAuth.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null){
+            Intent i = new Intent(SignUpActivity.this, MainPage.class);
+            startActivity(i);
+        }
 
-        button_register.setOnClickListener(new View.OnClickListener() {
+            button_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
