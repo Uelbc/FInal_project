@@ -15,11 +15,14 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -36,6 +39,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Observable;
 
 public class MainPage extends AppCompatActivity {
@@ -56,6 +64,8 @@ public class MainPage extends AppCompatActivity {
     private int Len_check_boxes;
     SharedPreferences data;
     public User user;
+    ImageButton menu;
+    List<String> history;
 
     public FirebaseAuth mAuth;
     public static FirebaseDatabase database;
@@ -64,6 +74,53 @@ public class MainPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        menu=findViewById(R.id.menu);
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popup = new PopupMenu(MainPage.this, view);
+                MenuInflater inflater = popup.getMenuInflater();
+                inflater.inflate(R.menu.actions, popup.getMenu());
+                popup.show();
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.logout:
+                                String id = mAuth.getCurrentUser().getUid();
+
+                                myRef.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                        flag_logout=false;
+                                        User user = task.getResult().getValue(User.class);
+                                        user.setChecked_water(checked);
+                                        myRef.child(id).setValue(user);
+                                        mAuth.signOut();
+                                        Intent intent=new Intent(MainPage.this, SignUpActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+                                return true;
+                            case R.id.change_parametrs:
+                                Intent intent=new Intent(MainPage.this, Registration.class);
+                                intent.putExtra("flag", true);
+                                startActivity(intent);
+                                return true;
+                            case R.id.calendar:
+                                Intent intent1 = new Intent(MainPage.this, History.class);
+                                startActivity(intent1);
+                                return true;
+                            case R.id.change_level:
+                                Intent i1=new Intent(MainPage.this, SelectPhysicalActivity.class);
+                                startActivity(i1);
+                                return true;
+                        }
+                        return false;
+                    }
+                });
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
@@ -74,6 +131,9 @@ public class MainPage extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
                     user = task.getResult().getValue(User.class);
+                    DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                    String date = df.format(Calendar.getInstance().getTime());
+
                     kal_eaten_per_day=findViewById(R.id.kal_eaten_per_day);
                     if (user.getGender()==1){
                         kal_per_day=(int)((10*user.getWeight()+6.25*user.getHeight()-5*user.getAge()+5)*user.getA());
@@ -88,6 +148,29 @@ public class MainPage extends AppCompatActivity {
                     Len_check_boxes=user.getChecked_water();
                     weight=user.getWeight();
 
+                    if (!user.getDate().equals(date)){
+                        user.setB(0);
+                        user.setG(0);
+                        user.setU(0);
+                        user.setKal(0);
+                        user.setChecked_water(0);
+                        history=user.getHistory();
+                        if (Kal_final>0.9*kal_per_day && Kal_final<1.1*kal_per_day){
+                            history.add(user.getDate()+" 1");
+                        }
+                        else{
+                            history.add(user.getDate()+ " 0");
+                        }
+                        user.setHistory(history);
+                        user.setDate(date);
+                        myRef.child(id).setValue(user);
+                    }
+                    Kal_final= user.getKal();
+                    b=user.getB();
+                    g=user.getG();
+                    u=user.getU();
+                    Len_check_boxes=user.getChecked_water();
+                    weight=user.getWeight();
                     kal_eaten_per_day.setText(String.format("%.0f", Kal_final)+" / "+kal_per_day);
 
                     bTV=findViewById(R.id.b);
@@ -112,9 +195,15 @@ public class MainPage extends AppCompatActivity {
                     g_progress_bar.setProgress((int)g);
                     u_progress_bar.setProgress((int)u);
                     kal_progress_bar.setProgress((int) Kal_final);
-                    if (Kal_final>kal_per_day){
+                    if (Kal_final>0.9*kal_per_day && Kal_final<1.1*kal_per_day){
+                        kal_progress_bar.getProgressDrawable().setColorFilter(
+                                Color.GREEN, PorterDuff.Mode.SRC_IN);
+                    }
+                    else{
                         kal_progress_bar.getProgressDrawable().setColorFilter(
                                 Color.RED, PorterDuff.Mode.SRC_IN);
+                    }
+                    if (Kal_final>kal_per_day){
                         kal_eaten_per_day.setText("Свыше нормы на "+(Kal_final-kal_per_day));
                     }
                     water_goal=findViewById(R.id.water_goal);
@@ -529,26 +618,6 @@ public class MainPage extends AppCompatActivity {
         });
 
 
-        logout=findViewById(R.id.logout);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String id = mAuth.getCurrentUser().getUid();
-
-                myRef.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        flag_logout=false;
-                        User user = task.getResult().getValue(User.class);
-                        user.setChecked_water(checked);
-                        myRef.child(id).setValue(user);
-                        mAuth.signOut();
-                        Intent intent=new Intent(MainPage.this, SignUpActivity.class);
-                        startActivity(intent);
-                    }
-                });
-            }
-        });
         food = findViewById(R.id.food);
         food.setOnClickListener(new View.OnClickListener() {
             @Override

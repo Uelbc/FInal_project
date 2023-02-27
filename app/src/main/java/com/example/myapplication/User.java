@@ -1,8 +1,28 @@
 package com.example.myapplication;
 
+import java.util.List;
+
 public class User {
     int age, weight, gender, height, checked_water;
     double A, b, g, u, kal;
+    String date;
+    List<String> history;
+
+    public List<String> getHistory() {
+        return history;
+    }
+
+    public void setHistory(List<String> history) {
+        this.history = history;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public double getB() {
         return b;
@@ -40,7 +60,7 @@ public class User {
         this.kal = kal;
     }
 
-    public User(int age, int weight, int gender, int height, int a, int checked_water, double b, double g, double u, int kal) {
+    public User(int age, int weight, int gender, int height, int a, int checked_water, double b, double g, double u, int kal, String date, List<String> history) {
         this.age = age;
         this.weight = weight;
         this.gender = gender;
@@ -51,6 +71,8 @@ public class User {
         this.g=g;
         this.u=u;
         this.kal=kal;
+        this.date=date;
+        this.history=history;
     }
 
     public int getAge() {

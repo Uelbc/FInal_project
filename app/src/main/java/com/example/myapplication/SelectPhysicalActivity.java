@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -70,22 +72,16 @@ public class SelectPhysicalActivity extends AppCompatActivity {
                 if (level7.isChecked()){
                     A=2.2;
                 }
-                myRef.child(id).addValueEventListener(new ValueEventListener() {
+                myRef.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        User user = snapshot.getValue(User.class);
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        User user = task.getResult().getValue(User.class);
                         user.A=A;
                         myRef.child(id).setValue(user);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
+                        Intent intent = new Intent(SelectPhysicalActivity.this, MainPage.class);
+                        startActivity(intent);
                     }
                 });
-
-                Intent intent = new Intent(SelectPhysicalActivity.this, MainPage.class);
-                startActivity(intent);
             }
         });
     }

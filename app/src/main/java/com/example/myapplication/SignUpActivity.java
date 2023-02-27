@@ -23,6 +23,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText edit_txt_Username, edit_txt_Email, edit_txt_Pass, edit_txt_CoPass;
@@ -85,7 +92,11 @@ public class SignUpActivity extends AppCompatActivity {
                                 {
                                     if (task.isSuccessful()) {
                                         String id = mAuth.getCurrentUser().getUid();
-                                        User user = new User(0,0,0,0,0, 0,0,0,0,0);
+                                        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                                        String date = df.format(Calendar.getInstance().getTime());
+                                        List<String> history = new ArrayList<String>();
+                                        history.add(date+" 0");
+                                        User user = new User(0,0,0,0,0, 0,0,0,0,0,date,history);
                                         myRef.child(id).setValue(user);
 
                                         Toast.makeText(getApplicationContext(),

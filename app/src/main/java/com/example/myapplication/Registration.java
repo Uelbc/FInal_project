@@ -3,6 +3,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -11,6 +12,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,10 +32,15 @@ public class Registration extends AppCompatActivity {
     public FirebaseAuth mAuth;
     public static FirebaseDatabase database;
     public static DatabaseReference myRef;
+    Boolean flag=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null) {
+            flag=bundle.getBoolean("flag");
+        }
         AppCompatButton next = findViewById(R.id.next);
         weight_edittext = findViewById(R.id.weight);
         height_edittext = findViewById(R.id.height);
@@ -79,24 +87,25 @@ public class Registration extends AppCompatActivity {
                     } else{
                         g=0;
                     }
-                    myRef.child(id).addValueEventListener(new ValueEventListener() {
+                    myRef.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            User user = snapshot.getValue(User.class);
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            User user = task.getResult().getValue(User.class);
                             user.age=a;
                             user.weight=w;
                             user.height=h;
                             user.gender=g;
                             myRef.child(id).setValue(user);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
+                            if (flag){
+                                Intent i = new Intent(Registration.this, MainPage.class);
+                                startActivity(i);
+                            }
+                            else {
+                                Intent intent = new Intent(Registration.this, SelectPhysicalActivity.class);
+                                startActivity(intent);
+                            }
                         }
                     });
-                    Intent intent = new Intent(Registration.this, SelectPhysicalActivity.class);
-                    startActivity(intent);
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(),
                             "Введите все данные",
