@@ -8,11 +8,11 @@
     tools:context=".MainPage">
 
     <ImageButton
+        android:id="@+id/menu"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
-        android:id="@+id/menu"
         android:background="@drawable/menu_lines"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintStart_toStartOf="parent"
@@ -157,12 +157,10 @@
         android:layout_width="388dp"
         android:layout_height="244dp"
 
-        android:layout_marginStart="10dp"
         android:layout_marginTop="76dp"
-        android:layout_marginEnd="10dp"
         android:background="@xml/main_menu_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
@@ -526,6 +524,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/water_goal" />
+
     <ImageButton
         android:id="@+id/water_info"
         android:layout_width="wrap_content"
@@ -551,7 +550,6 @@
         app:layout_constraintStart_toEndOf="@+id/textView9"
         app:layout_constraintTop_toTopOf="@+id/main_menu_button"
         app:srcCompat="@android:drawable/ic_menu_help" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,11 +2,17 @@ package com.example.myapplication;
 
 import static android.widget.Toast.makeText;
 
+import static java.security.AccessController.getContext;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.view.menu.MenuPopupHelper;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +28,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.widget.PopupMenu;
+
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -76,12 +82,12 @@ public class MainPage extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         menu=findViewById(R.id.menu);
         menu.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View view) {
+
                 PopupMenu popup = new PopupMenu(MainPage.this, view);
-                MenuInflater inflater = popup.getMenuInflater();
-                inflater.inflate(R.menu.actions, popup.getMenu());
-                popup.show();
+                popup.inflate(R.menu.actions);
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
@@ -119,6 +125,9 @@ public class MainPage extends AppCompatActivity {
                         return false;
                     }
                 });
+                MenuPopupHelper menuHelper = new MenuPopupHelper(MainPage.this, (MenuBuilder) popup.getMenu(), view);
+                menuHelper.setForceShowIcon(true);
+                menuHelper.show();
             }
         });
 

@@ -14,6 +14,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.applandeo.materialcalendarview.CalendarDay;
@@ -40,6 +41,7 @@ public class History extends AppCompatActivity {
     public static DatabaseReference myRef;
     List<String> history;
     ImageButton history_info;
+    TextView result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +69,8 @@ public class History extends AppCompatActivity {
                     User user = task.getResult().getValue(User.class);
                     history=user.getHistory();
                     List<EventDay> events = new ArrayList<>();
+                    int k =0;
+                    int all=0;
                     if (history!=null){
                         for (int i=1; i<history.size(); i+=1){
                             String s = history.get(i);
@@ -80,14 +84,18 @@ public class History extends AppCompatActivity {
                             Calendar event= Calendar.getInstance();
                             event.set(Integer.parseInt(y), Integer.parseInt(m)-1, Integer.parseInt(d));
                             if (check.equals("1")){
-                                events.add(new EventDay(event, R.color.green));
+                                events.add(new EventDay(event, R.drawable.goal_achieved));
+                                k+=1;
                             }
                             else{
-                                events.add(new EventDay(event, R.color.red));
+                                events.add(new EventDay(event, R.drawable.goal_not_achieved));
                             }
+                            all+=1;
                         }
                     }
                     calendarView.setEvents(events);
+                    result=findViewById(R.id.result);
+                    result.setText(k+" / "+all);
                 }
             });
         }

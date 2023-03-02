@@ -24,12 +24,13 @@
 
             <TableLayout
                 android:id="@+id/Table"
+                android:showDividers="middle"
+                android:divider="@xml/divider_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/my_shape_file"
-                android:divider="@xml/divider_list"
-                android:isScrollContainer="true"
-                android:showDividers="middle"></TableLayout>
+
+                android:isScrollContainer="true">
+            </TableLayout>
         </LinearLayout>
     </ScrollView>
 
@@ -45,6 +46,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <EditText
         android:id="@+id/Search"
         android:layout_width="match_parent"
@@ -59,4 +61,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

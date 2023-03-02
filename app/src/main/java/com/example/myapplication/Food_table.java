@@ -3,11 +3,14 @@ package com.example.myapplication;
 import static android.widget.Toast.makeText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.FileUtils;
@@ -15,7 +18,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -33,6 +38,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.checkerframework.checker.units.qual.C;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -122,20 +128,29 @@ public class Food_table extends AppCompatActivity {
             linearLayout.setOrientation(LinearLayout.VERTICAL);
             TextView name = new TextView(context);
             name.setLayoutParams(rowParams);
-            name.setText(" "+Names.get(i));
+            name.setText("  "+Names.get(i));
             name.setTextColor(getColor(R.color.black));
             name.setTextSize(40);
             linearLayout.addView(name);
 
             TextView kal = new TextView(context);
             kal.setLayoutParams(rowParams);
-            kal.setText(" "+Double.toString(Kal.get(i)) +" ккал на 100 грамм");
+            kal.setText("  "+Double.toString(Kal.get(i)) +" ккал на 100 грамм");
             name.setTextSize(15);
             linearLayout.addView(kal);
 
             tableRow.addView(linearLayout);
-
-
+            AppCompatButton button = new AppCompatButton(context);
+            button.setText("Добавить");
+            button.setTextColor(Color.WHITE);
+            button.setWidth(300);
+            button.setBackground(getDrawable(R.drawable.button_food));
+            button.setGravity(Gravity.CENTER);
+            button.setHeight(120);
+            tableRow.addView(button);
+            tableRow.setPadding(0,15,0,0);
+            tableRow.setBackground(getResources().getDrawable(R.drawable.food_element));
+            tableRow.setMinimumHeight(150);
             Table.addView(tableRow);
 
 
@@ -180,6 +195,17 @@ public class Food_table extends AppCompatActivity {
                     linearLayout.addView(kal);
 
                     tableRow.addView(linearLayout);
+                    AppCompatButton button = new AppCompatButton(context);
+                    button.setText("Добавить");
+                    button.setTextColor(Color.WHITE);
+                    button.setWidth(300);
+                    button.setBackground(getDrawable(R.drawable.button_food));
+                    button.setGravity(Gravity.CENTER);
+                    button.setHeight(120);
+                    tableRow.addView(button);
+                    tableRow.setPadding(0,15,10,0);
+                    tableRow.setBackground(getResources().getDrawable(R.drawable.food_element));
+                    tableRow.setMinimumHeight(150);
 
                     if (Names.get(i).toLowerCase(Locale.ROOT).contains(key.toLowerCase(Locale.ROOT)) || key == null) {
                         Table.addView(tableRow);

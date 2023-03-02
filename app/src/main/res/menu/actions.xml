@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.MainPage">
     <item android:id="@+id/logout"
-        android:title="Выйти из аккаунта"
-        android:icon="@drawable/person">
+        android:icon="@drawable/logout"
+        android:title="Выйти из аккаунта">
     </item>
     <item android:id="@+id/change_parametrs"
-        android:title="Изменить параметры тела"
-        android:icon="@drawable/person">
+        android:icon="@drawable/person"
+        android:title="Изменить параметры тела">
     </item>
     <item android:id="@+id/calendar"
-        android:title="Календарь активности"
-        android:icon="@drawable/calendar">
+        android:icon="@drawable/calendar"
+        android:title="Календарь активности">
     </item>
     <item android:id="@+id/change_level"
+        android:icon="@drawable/fiz_act"
         android:title="Изменить уровень физ. активности">
     </item>
 </menu>

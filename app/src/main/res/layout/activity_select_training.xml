@@ -44,5 +44,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/press" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/spina"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
+        android:background="@xml/training_buttons"
+        android:text="Тренировка на спину"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ruki" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/nogi"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
+        android:background="@xml/training_buttons"
+        android:text="Тренировка на ноги"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spina" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/vse"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
+        android:background="@xml/training_buttons"
+        android:text="Тренировка на все тело"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nogi" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

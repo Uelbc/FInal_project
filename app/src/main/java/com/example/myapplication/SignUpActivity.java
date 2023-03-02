@@ -76,13 +76,10 @@ public class SignUpActivity extends AppCompatActivity {
             button_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (!validateUsername() | !validateEmail() | !validatePassword() ) {
                     return;
                 }
-
                 if (password.equals(co_password)) {
-
                     mAuth
                             .createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -103,9 +100,6 @@ public class SignUpActivity extends AppCompatActivity {
                                                         "Успешная регистрация!",
                                                         Toast.LENGTH_LONG)
                                                 .show();
-
-
-
                                         Intent intent
                                                 = new Intent(SignUpActivity.this,
                                                 Registration.class);
