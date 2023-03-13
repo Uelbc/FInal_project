@@ -81,5 +81,12 @@ dependencies {
     implementation 'com.applandeo:material-calendar-view:1.7.0'
     implementation 'com.applandeo:material-calendar-view:1.9.0-rc03'
     implementation 'com.applandeo:material-calendar-view:1.7.0'
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:18.0.2'
+    implementation 'com.google.firebase:firebase-ml-vision:24.0.3'
+    implementation 'com.google.mlkit:barcode-scanning:17.0.3'
+    implementation 'me.dm7.barcodescanner:zbar:1.8.4'
+    implementation 'com.google.zxing:core:3.2.0'
+    implementation 'com.google.android.gms:play-services-vision:11.8.0'
+    implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
 }
 apply plugin: 'com.google.gms.google-services'

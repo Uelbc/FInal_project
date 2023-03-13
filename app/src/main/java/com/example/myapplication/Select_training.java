@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class Select_training extends AppCompatActivity {
-    private Button press, ruki;
+    private Button press, ruki, spina;
     String[] training_names;
     int[] training_videos, amount;
     boolean[] time_or_number;
@@ -108,5 +108,43 @@ public class Select_training extends AppCompatActivity {
                 // в зависимости от этого массива смотрим на элемент в массиве с количеством и временем и устанавливаем нужное значениме
             }
         });
+        spina=findViewById(R.id.spina);
+        spina.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                training_names= new String[]{
+                        "Прыжки", "Отжимание назад", "Гиперэкстензии", "V-отжимания на полу", "Гусеница",
+                        "Растяжка на полу влево", "Растяжка на полу вправо", "Гиперэкстензии", "V-отжимания на полу", "Отжимание назад",
+                        "гусеница",  "Поза кошки - поза коровы", "Отжимания на спине", "Y-подъемы", "Отжимания на спине",
+                        "Обратный снежный ангел", "Поза ребенка"
+                };
+                training_videos = new int[]{
+                        R.raw.prijki, R.raw.otjimaniya_nazad, R.raw.gyperekstenzii, R.raw.v_otjimaniya_na_polu, R.raw.gusenitsa,
+                        R.raw.rastyajka_na_polu_vlevo, R.raw.rastyajka_na_polu_vpravo, R.raw.gyperekstenzii, R.raw.v_otjimaniya_na_polu, R.raw.otjimaniya_nazad,
+                        R.raw.gusenitsa, R.raw.poza_koshki_poza_korovi, R.raw.otjimaniya_na_spine, R.raw.y_podemy, R.raw.otjimaniya_na_spine,
+                        R.raw.obratniy_snejniy_angel, R.raw.poza_rebenka
+                };
+                time_or_number=new boolean[]{
+                        false, true, true, true, true,
+                        false,false,true,true,true,
+                        true,false,true,true,true,
+                        true,false
+                };
+                amount=new int[]{
+                        30, 12, 14, 14, 16,
+                        30, 30, 12, 12, 10,
+                        14, 30, 14, 14, 12,
+                        12, 30
+                };
+
+                Intent intent = new Intent(Select_training.this, Training.class);
+                intent.putExtra("training_videos", training_videos);
+                intent.putExtra("training_names", training_names);
+                intent.putExtra("time_or_number",time_or_number);
+                intent.putExtra("amount", amount);
+                startActivity(intent);
+            }
+        });
+
     }
 }

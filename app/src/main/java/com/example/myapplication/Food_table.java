@@ -2,31 +2,61 @@ package com.example.myapplication;
 
 import static android.widget.Toast.makeText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.FileUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.text.FirebaseVisionCloudTextRecognizerOptions;
+import com.google.firebase.ml.vision.text.FirebaseVisionText;
+import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
+import com.google.mlkit.vision.barcode.BarcodeScanner;
+import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
+import com.google.mlkit.vision.barcode.BarcodeScanning;
+import com.google.mlkit.vision.barcode.common.Barcode;
+import com.google.mlkit.vision.common.InputImage;
+import com.google.mlkit.vision.text.TextRecognition;
+import com.google.mlkit.vision.text.TextRecognizer;
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -64,7 +94,10 @@ public class Food_table extends AppCompatActivity {
     EditText search;
     TextView textView;
     Context context;
-
+    public static FirebaseDatabase database;
+    public static DatabaseReference myRef;
+    private static final int CAMERA_REQUEST = 1888;
+    private ImageView imageView;
 
     @SuppressLint("ResourceType")
     @Override
@@ -229,5 +262,41 @@ public class Food_table extends AppCompatActivity {
 
             }
         });
+        Button photoButton = (Button) this.findViewById(R.id.scan);
+        photoButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                IntentIntegrator scanIntegrator = new IntentIntegrator(Food_table.this);
+                scanIntegrator.initiateScan();
+            }
+        });
     }
-}
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (scanningResult != null) {
+            String scanContent = scanningResult.getContents();
+            database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
+            myRef = database.getReference("food");
+            myRef.child(scanContent).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (task.getResult().exists()){
+                        Food_element food = task.getResult().getValue(Food_element.class);
+                        double[] b_g_u_kal_water = new double[]{food.getB(), food.getG(), food.getU(), food.getKal()};
+                        Intent intent2 = new Intent(Food_table.this, Food_selected.class);
+                        intent2.putExtra("1", b_g_u_kal_water);
+                        intent2.putExtra("name", food.getName());
+                        startActivity(intent2);
+                    }
+                    else{
+                        Intent intent1 = new Intent(Food_table.this, Scanned_food.class);
+                        intent1.putExtra("code", scanContent);
+                        startActivity(intent1);
+                    }
+                }
+            });
+            }
+        }
+    }
