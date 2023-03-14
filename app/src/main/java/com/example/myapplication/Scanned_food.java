@@ -48,25 +48,35 @@ public class Scanned_food extends AppCompatActivity {
             public void onClick(View v) {
                 database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
                 myRef = database.getReference("food");
-                Food_element food_element = new Food_element(name_barcode.getText().toString(), Integer.parseInt(kal_barcode.getText().toString()),
-                        Double.parseDouble(b_barcode.getText().toString()), Double.parseDouble(g_barcode.getText().toString()),
-                        Double.parseDouble(u_barcode.getText().toString()));
-                myRef.child(code).setValue(food_element).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        myRef.child(code).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                Food_element food = task.getResult().getValue(Food_element.class);
-                                double[] b_g_u_kal_water = new double[]{food.getB(), food.getG(), food.getU(), food.getKal()};
-                                Intent intent = new Intent(Scanned_food.this, Food_selected.class);
-                                intent.putExtra("1", b_g_u_kal_water);
-                                intent.putExtra("name", food.getName());
-                                startActivity(intent);
-                            }
-                        });
-                    }
-                });
+                if (name_barcode.getText()==null || b_barcode.getText()==null || g_barcode.getText()==null || u_barcode.getText()==null ||
+                        kal_barcode.getText()==null){
+                    Toast toast = makeText(getApplicationContext(),
+                            "Введите все данные",
+                            Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
+                else {
+                    Food_element food_element = new Food_element(name_barcode.getText().toString(), Integer.parseInt(kal_barcode.getText().toString()),
+                            Double.parseDouble(b_barcode.getText().toString()), Double.parseDouble(g_barcode.getText().toString()),
+                            Double.parseDouble(u_barcode.getText().toString()));
+                    myRef.child(code).setValue(food_element).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            myRef.child(code).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                    Food_element food = task.getResult().getValue(Food_element.class);
+                                    double[] b_g_u_kal_water = new double[]{food.getB(), food.getG(), food.getU(), food.getKal()};
+                                    Intent intent = new Intent(Scanned_food.this, Food_selected.class);
+                                    intent.putExtra("1", b_g_u_kal_water);
+                                    intent.putExtra("name", food.getName());
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+                    });
+                }
             }
         });
     }

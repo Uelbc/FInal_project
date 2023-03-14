@@ -291,9 +291,18 @@ public class Food_table extends AppCompatActivity {
                         startActivity(intent2);
                     }
                     else{
-                        Intent intent1 = new Intent(Food_table.this, Scanned_food.class);
-                        intent1.putExtra("code", scanContent);
-                        startActivity(intent1);
+                        if (scanContent.length()!=13){
+                            Toast toast = makeText(getApplicationContext(),
+                                    "Некорректный штрих-код",
+                                    Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        }
+                        else {
+                            Intent intent1 = new Intent(Food_table.this, Scanned_food.class);
+                            intent1.putExtra("code", scanContent);
+                            startActivity(intent1);
+                        }
                     }
                 }
             });
