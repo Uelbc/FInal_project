@@ -5,6 +5,7 @@ import static android.widget.Toast.makeText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -94,6 +95,7 @@ public class Food_table extends AppCompatActivity {
     EditText search;
     TextView textView;
     Context context;
+    RecyclerView recyclerView;
     public static FirebaseDatabase database;
     public static DatabaseReference myRef;
     private static final int CAMERA_REQUEST = 1888;
@@ -262,13 +264,23 @@ public class Food_table extends AppCompatActivity {
 
             }
         });
+        recyclerView=findViewById(R.id.food_list);
+        FoodListAdapter foodListAdapter = new FoodListAdapter(this, Names, Kal);
+        recyclerView.setAdapter(foodListAdapter);
+
+
         Button photoButton = (Button) this.findViewById(R.id.scan);
         photoButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                IntentIntegrator scanIntegrator = new IntentIntegrator(Food_table.this);
-                scanIntegrator.initiateScan();
+                IntentIntegrator integrator = new IntentIntegrator(Food_table.this);
+                integrator.setPrompt("Разместите штрих-код в указанной области");
+                integrator.setCameraId(0);  // Use a specific camera of the device
+                integrator.setOrientationLocked(true);
+                integrator.setBeepEnabled(true);
+                integrator.setCaptureActivity(CaptureActivityPortrait.class);
+                integrator.initiateScan();
             }
         });
     }
@@ -309,3 +321,4 @@ public class Food_table extends AppCompatActivity {
             }
         }
     }
+

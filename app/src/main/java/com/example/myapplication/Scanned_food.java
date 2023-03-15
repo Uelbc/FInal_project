@@ -48,8 +48,9 @@ public class Scanned_food extends AppCompatActivity {
             public void onClick(View v) {
                 database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
                 myRef = database.getReference("food");
-                if (name_barcode.getText()==null || b_barcode.getText()==null || g_barcode.getText()==null || u_barcode.getText()==null ||
-                        kal_barcode.getText()==null){
+                if (name_barcode.getText().toString().equals("") || b_barcode.getText().toString().equals("") ||
+                        g_barcode.getText().toString().equals("") || u_barcode.getText().toString().equals("") ||
+                        kal_barcode.getText().toString().equals("")){
                     Toast toast = makeText(getApplicationContext(),
                             "Введите все данные",
                             Toast.LENGTH_SHORT);

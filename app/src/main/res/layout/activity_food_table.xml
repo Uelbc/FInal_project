@@ -9,8 +9,8 @@
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="394dp"
+        android:layout_height="247dp"
         android:layout_marginTop="164dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.157"
@@ -24,13 +24,12 @@
 
             <TableLayout
                 android:id="@+id/Table"
-                android:showDividers="middle"
-                android:divider="@xml/divider_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:divider="@xml/divider_list"
+                android:isScrollContainer="true"
 
-                android:isScrollContainer="true">
-            </TableLayout>
+                android:showDividers="middle"></TableLayout>
         </LinearLayout>
     </ScrollView>
 
@@ -70,6 +69,18 @@
         app:layout_constraintBottom_toTopOf="@+id/Search"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/size" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/food_list"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="24dp"
+        android:isScrollContainer="true"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
