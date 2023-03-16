@@ -84,13 +84,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
-public class Food_table extends AppCompatActivity {
+public class Food_table extends AppCompatActivity  {
     List<String> Names = new ArrayList<String>();
     List<Double> Water = new ArrayList<Double>();
     List<Double> B = new ArrayList<Double>();
     List<Double> G = new ArrayList<Double>();
     List<Double> U = new ArrayList<Double>();
     List<Double> Kal = new ArrayList<Double>();
+    List<Food_element> food_elements= new ArrayList<Food_element>();
     TableLayout Table;
     EditText search;
     TextView textView;
@@ -100,6 +101,7 @@ public class Food_table extends AppCompatActivity {
     public static DatabaseReference myRef;
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
+    FoodListAdapter foodListAdapter;
 
     @SuppressLint("ResourceType")
     @Override
@@ -121,25 +123,29 @@ public class Food_table extends AppCompatActivity {
                 if(rowno !=0) {
                     Iterator<Cell> cellIter = myRow.cellIterator();
                     int colno =0;
+                    String name = null;
+                    Double water=null, b=null,g=null,u=null,kal=null;
                     while (cellIter.hasNext()) {
                         HSSFCell cell = (HSSFCell) cellIter.next();
                         if (cell.getColumnIndex()==0){
-                            Names.add(cell.getStringCellValue());
+                            name=cell.getStringCellValue();
                         }
                         if (cell.getColumnIndex()==1){
-                            Water.add(cell.getNumericCellValue());
+                            water=cell.getNumericCellValue();
                         }
                         if (cell.getColumnIndex()==2){
-                            B.add(cell.getNumericCellValue());
+                            b=cell.getNumericCellValue();
                         }
                         if (cell.getColumnIndex()==3){
-                            G.add(cell.getNumericCellValue());
+                            g=cell.getNumericCellValue();
                         }
                         if (cell.getColumnIndex()==4){
-                            U.add(cell.getNumericCellValue());
+                            u=cell.getNumericCellValue();
                         }
                         if (cell.getColumnIndex()==5){
-                            Kal.add(cell.getNumericCellValue());
+                            kal=cell.getNumericCellValue();
+                            Food_element food_element=new Food_element(name, Integer.parseInt(String.valueOf(kal)), b,g,u);
+                            food_elements.add(food_element);
                         }
                         colno++;
                         }
@@ -149,6 +155,7 @@ public class Food_table extends AppCompatActivity {
             } catch (Exception e) {}
         context = getApplicationContext();
 
+        foodListAdapter = new FoodListAdapter(this, Names, Kal);
 
         Table = findViewById(R.id.Table);
         TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT);
@@ -208,6 +215,20 @@ public class Food_table extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int j, int j1, int j2) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String key = search.getText().toString();
+                List<Food_element> changing_list=new ArrayList<Food_element>();
+                for (int i=0; i<food_elements.size(); i++){
+                    if (food_elements.get(i).getName().toLowerCase(Locale.ROOT).contains(key.toLowerCase(Locale.ROOT)) || key == null){
+                        changing_list.add(food_elements.get(i));
+                    }
+                }
+
+                //foodListAdapter.
+
                 Table.removeAllViews();
                 String key = search.getText().toString();
                 for (int i = 0; i < Names.size(); i++) {
@@ -257,16 +278,13 @@ public class Food_table extends AppCompatActivity {
                         });
                     }
                 }
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-
 
             }
         });
         recyclerView=findViewById(R.id.food_list);
-        FoodListAdapter foodListAdapter = new FoodListAdapter(this, Names, Kal);
+
         recyclerView.setAdapter(foodListAdapter);
+
 
 
         Button photoButton = (Button) this.findViewById(R.id.scan);
@@ -320,5 +338,7 @@ public class Food_table extends AppCompatActivity {
             });
             }
         }
-    }
+
+
+}
 

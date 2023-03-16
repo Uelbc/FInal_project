@@ -1,10 +1,13 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +20,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ViewHo
     List<String> Names;
     List<Double> Kalories;
     private final LayoutInflater inflater;
+
 
     public FoodListAdapter(Context context, List<String> Names, List<Double> Kalories){
         this.context = context;
@@ -36,15 +40,25 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ViewHo
         holder.nameView.setText(Name);
         holder.kaloriesView.setText(Double.toString(Kal)+" ккал на 100г");
     }
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView nameView, kaloriesView;
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+        TextView nameView;
+        TextView kaloriesView;
         ViewHolder(View view){
             super(view);
             nameView = view.findViewById(R.id.name);
             kaloriesView = view.findViewById(R.id.kalories);
+
+            view.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int x = getAdapterPosition();
+                            Log.d("RRR",Integer.toString(x));
+                        }
+                    }
+            );
         }
     }
-
     @Override
     public int getItemCount() {
         return Names.size();
