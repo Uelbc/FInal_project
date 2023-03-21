@@ -17,15 +17,13 @@ import java.util.List;
 public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ViewHolder>{
     @NonNull
     Context context;
-    List<String> Names;
-    List<Double> Kalories;
+    public List<Food_element> food_elements;
     private final LayoutInflater inflater;
 
 
-    public FoodListAdapter(Context context, List<String> Names, List<Double> Kalories){
+    public FoodListAdapter(Context context, List<Food_element> food_elements){
         this.context = context;
-        this.Names = Names;
-        this.Kalories = Kalories;
+        this.food_elements=food_elements;
         this.inflater = LayoutInflater.from(context);
     }
     @Override
@@ -35,12 +33,12 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ViewHo
     }
 
     public void onBindViewHolder(@NonNull FoodListAdapter.ViewHolder holder, int position) {
-        String Name = Names.get(position);
-        Double Kal = Kalories.get(position);
+        String Name = food_elements.get(position).getName();
+        int Kal = food_elements.get(position).getKal();
         holder.nameView.setText(Name);
         holder.kaloriesView.setText(Double.toString(Kal)+" ккал на 100г");
     }
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder{
         TextView nameView;
         TextView kaloriesView;
         ViewHolder(View view){
@@ -54,6 +52,11 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ViewHo
                         public void onClick(View v) {
                             int x = getAdapterPosition();
                             Log.d("RRR",Integer.toString(x));
+                            double [] b_g_u_kal_water = new double[] {food_elements.get(x).getB(), food_elements.get(x).getG(), food_elements.get(x).getU(), food_elements.get(x).getKal()};
+                            Intent intent = new Intent(context, Food_selected.class);
+                            intent.putExtra("1", b_g_u_kal_water);
+                            intent.putExtra("name", food_elements.get(x).getName());
+                            context.startActivity(intent);
                         }
                     }
             );
@@ -61,6 +64,6 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ViewHo
     }
     @Override
     public int getItemCount() {
-        return Names.size();
+        return food_elements.size();
     }
 }

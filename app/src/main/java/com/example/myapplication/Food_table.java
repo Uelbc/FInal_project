@@ -127,24 +127,25 @@ public class Food_table extends AppCompatActivity  {
                     Double water=null, b=null,g=null,u=null,kal=null;
                     while (cellIter.hasNext()) {
                         HSSFCell cell = (HSSFCell) cellIter.next();
-                        if (cell.getColumnIndex()==0){
+                        if (colno==0){
                             name=cell.getStringCellValue();
                         }
-                        if (cell.getColumnIndex()==1){
+                        if (colno==1){
                             water=cell.getNumericCellValue();
                         }
-                        if (cell.getColumnIndex()==2){
+                        if (colno==2){
                             b=cell.getNumericCellValue();
                         }
-                        if (cell.getColumnIndex()==3){
+                        if (colno==3){
                             g=cell.getNumericCellValue();
                         }
-                        if (cell.getColumnIndex()==4){
+                        if (colno==4){
+                            Log.w("RRR", "1");
                             u=cell.getNumericCellValue();
                         }
-                        if (cell.getColumnIndex()==5){
+                        if (colno==5){
                             kal=cell.getNumericCellValue();
-                            Food_element food_element=new Food_element(name, Integer.parseInt(String.valueOf(kal)), b,g,u);
+                            Food_element food_element=new Food_element(name, kal.intValue(), b,g,u);
                             food_elements.add(food_element);
                         }
                         colno++;
@@ -154,60 +155,11 @@ public class Food_table extends AppCompatActivity  {
                 }
             } catch (Exception e) {}
         context = getApplicationContext();
+        foodListAdapter = new FoodListAdapter(this, food_elements);
+        recyclerView=findViewById(R.id.food_list);
+        recyclerView.setAdapter(foodListAdapter);
 
-        foodListAdapter = new FoodListAdapter(this, Names, Kal);
-
-        Table = findViewById(R.id.Table);
-        TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT);
-        TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
-        Table.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
         search=findViewById(R.id.Search);
-        for (int i = 0; i<Names.size(); i++){
-            TableRow tableRow = new TableRow(context);
-            tableRow.setLayoutParams(tableParams);
-
-            LinearLayout linearLayout = new LinearLayout(context);
-            linearLayout.setOrientation(LinearLayout.VERTICAL);
-            TextView name = new TextView(context);
-            name.setLayoutParams(rowParams);
-            name.setText("  "+Names.get(i));
-            name.setTextColor(getColor(R.color.black));
-            name.setTextSize(40);
-            linearLayout.addView(name);
-
-            TextView kal = new TextView(context);
-            kal.setLayoutParams(rowParams);
-            kal.setText("  "+Double.toString(Kal.get(i)) +" ккал на 100 грамм");
-            name.setTextSize(15);
-            linearLayout.addView(kal);
-
-            tableRow.addView(linearLayout);
-            AppCompatButton button = new AppCompatButton(context);
-            button.setText("Добавить");
-            button.setTextColor(Color.WHITE);
-            button.setWidth(300);
-            button.setBackground(getDrawable(R.drawable.button_food));
-            button.setGravity(Gravity.CENTER);
-            button.setHeight(120);
-            tableRow.addView(button);
-            tableRow.setPadding(0,15,0,0);
-            tableRow.setBackground(getResources().getDrawable(R.drawable.food_element));
-            tableRow.setMinimumHeight(150);
-            Table.addView(tableRow);
-
-
-            int finalI = i;
-            tableRow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    double [] b_g_u_kal_water = new double[] {B.get(finalI), G.get(finalI), U.get(finalI), Kal.get(finalI), Water.get(finalI)};
-                    Intent intent = new Intent(Food_table.this, Food_selected.class);
-                    intent.putExtra("1", b_g_u_kal_water);
-                    intent.putExtra("name", Names.get(finalI));
-                    startActivity(intent);
-                }
-            });
-        }
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int j, int j1, int j2) {
@@ -227,63 +179,11 @@ public class Food_table extends AppCompatActivity  {
                     }
                 }
 
-                //foodListAdapter.
-
-                Table.removeAllViews();
-                String key = search.getText().toString();
-                for (int i = 0; i < Names.size(); i++) {
-                    TableRow tableRow = new TableRow(context);
-                    tableRow.setLayoutParams(tableParams);
-
-                    LinearLayout linearLayout = new LinearLayout(context);
-                    linearLayout.setOrientation(LinearLayout.VERTICAL);
-                    TextView name = new TextView(context);
-                    name.setLayoutParams(rowParams);
-                    name.setText(" " + Names.get(i));
-                    name.setTextColor(getColor(R.color.black));
-                    name.setTextSize(40);
-                    linearLayout.addView(name);
-
-                    TextView kal = new TextView(context);
-                    kal.setLayoutParams(rowParams);
-                    kal.setText(" " + Double.toString(Kal.get(i)) + " ккал на 100 грамм");
-                    name.setTextSize(15);
-                    linearLayout.addView(kal);
-
-                    tableRow.addView(linearLayout);
-                    AppCompatButton button = new AppCompatButton(context);
-                    button.setText("Добавить");
-                    button.setTextColor(Color.WHITE);
-                    button.setWidth(300);
-                    button.setBackground(getDrawable(R.drawable.button_food));
-                    button.setGravity(Gravity.CENTER);
-                    button.setHeight(120);
-                    tableRow.addView(button);
-                    tableRow.setPadding(0,15,10,0);
-                    tableRow.setBackground(getResources().getDrawable(R.drawable.food_element));
-                    tableRow.setMinimumHeight(150);
-
-                    if (Names.get(i).toLowerCase(Locale.ROOT).contains(key.toLowerCase(Locale.ROOT)) || key == null) {
-                        Table.addView(tableRow);
-                        int finalI = i;
-                        tableRow.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                double[] b_g_u_kal_water = new double[]{B.get(finalI), G.get(finalI), U.get(finalI), Kal.get(finalI), Water.get(finalI)};
-                                Intent intent = new Intent(Food_table.this, Food_selected.class);
-                                intent.putExtra("1", b_g_u_kal_water);
-                                intent.putExtra("name", Names.get(finalI));
-                                startActivity(intent);
-                            }
-                        });
-                    }
-                }
+                foodListAdapter = new FoodListAdapter(context, changing_list);
+                recyclerView.setAdapter(foodListAdapter);
 
             }
         });
-        recyclerView=findViewById(R.id.food_list);
-
-        recyclerView.setAdapter(foodListAdapter);
 
 
 
