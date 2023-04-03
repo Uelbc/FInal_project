@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -56,6 +58,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ViewHo
                             Intent intent = new Intent(context, Food_selected.class);
                             intent.putExtra("1", b_g_u_kal_water);
                             intent.putExtra("name", food_elements.get(x).getName());
+                            intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(intent);
                         }
                     }
