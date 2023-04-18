@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class Select_training extends AppCompatActivity {
-    private Button press, ruki, spina;
+    private Button press, ruki, spina, nogi, vse;
     String[] training_names;
     int[] training_videos, amount;
     boolean[] time_or_number;
@@ -115,7 +115,7 @@ public class Select_training extends AppCompatActivity {
                 training_names= new String[]{
                         "Прыжки", "Отжимание назад", "Гиперэкстензии", "V-отжимания на полу", "Гусеница",
                         "Растяжка на полу влево", "Растяжка на полу вправо", "Гиперэкстензии", "V-отжимания на полу", "Отжимание назад",
-                        "гусеница",  "Поза кошки - поза коровы", "Отжимания на спине", "Y-подъемы", "Отжимания на спине",
+                        "Гусеница",  "Поза кошки - поза коровы", "Отжимания на спине", "Y-подъемы", "Отжимания на спине",
                         "Обратный снежный ангел", "Поза ребенка"
                 };
                 training_videos = new int[]{
@@ -135,6 +135,82 @@ public class Select_training extends AppCompatActivity {
                         30, 30, 12, 12, 10,
                         14, 30, 14, 14, 12,
                         12, 30
+                };
+
+                Intent intent = new Intent(Select_training.this, Training.class);
+                intent.putExtra("training_videos", training_videos);
+                intent.putExtra("training_names", training_names);
+                intent.putExtra("time_or_number",time_or_number);
+                intent.putExtra("amount", amount);
+                startActivity(intent);
+            }
+        });
+
+        nogi=findViewById(R.id.nogi);
+        nogi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                training_names= new String[]{
+                        "Берпи", "Приседания", "Прыжки", "Подъем ноги, левая", "Подъем ноги, правая",
+                        "Приседания выпады", "Круги лежа на боку, левая", "Приседания выпады", "Круги лежа на полу, правая", "Прыжки на корточках",
+                        "Отведение ног назад, правая",  "Отведение ног назад, левая", "Приседание у стены", "Растяжка четырёхглавой мышцы, левая", "Растяжка четырёхглавой мышцы, правая",
+                        "Подъём на носок, левая", "Подъем на носок, правая"
+                };
+                training_videos = new int[]{
+                        R.raw.berpi, R.raw.prisedaniya, R.raw.prijki, R.raw.podem_nogi_levaya, R.raw.podem_nogi_pravaya,
+                        R.raw.prisedaniya_vipadi, R.raw.krugi_lega_na_boku_levaya, R.raw.prisedaniya_vipadi, R.raw.krugi_lega_na_boku_pravaya, R.raw.prijki_na_kortochkah,
+                        R.raw.otvedenie_nog_na_chetverenkah_pravaya, R.raw.otvedenie_nog_na_chetverenkah_levaya, R.raw.prisedaniya_u_steni, R.raw.rastyajka_xhetirex_mijzi_levaya, R.raw.rastyajka_xhetirex_mijzi_pravaya,
+                        R.raw.podem_na_nosok_levoy_nogi, R.raw.podem_na_nosok_pravoy_nogi
+                };
+                time_or_number=new boolean[]{
+                        true, true, false, true, true,
+                        true,true,true,true,true,
+                        true,true,false,false,false,
+                        true,true
+                };
+                amount=new int[]{
+                        10, 14, 30, 12, 12,
+                        14, 12, 14, 12, 14,
+                        12, 12, 40, 30, 30,
+                        16, 16
+                };
+
+                Intent intent = new Intent(Select_training.this, Training.class);
+                intent.putExtra("training_videos", training_videos);
+                intent.putExtra("training_names", training_names);
+                intent.putExtra("time_or_number",time_or_number);
+                intent.putExtra("amount", amount);
+                startActivity(intent);
+            }
+        });
+
+        vse=findViewById(R.id.vse);
+        vse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                training_names= new String[]{
+                        "Прыжки", "Военные отжимания", "Планка", "V-отжимания на полу", "Гусеница",
+                        "Растяжка на полу влево", "Растяжка на полу вправо", "Гиперэкстензии", "Приседания", "Уголок",
+                        "Прыжки на корточках",  "Поза кошки - поза коровы", "Растяжка четырёхглавой мышцы, левая", "Растяжка четырёхглавой мышцы, правая", "Растяжка левого бицепса",
+                        "Растяжка правого бицепса", "Прыжки"
+                };
+                training_videos = new int[]{
+                        R.raw.prijki, R.raw.voennie_otjimaniya, R.raw.planka, R.raw.v_otjimaniya_na_polu, R.raw.gusenitsa,
+                        R.raw.rastyajka_na_polu_vlevo, R.raw.rastyajka_na_polu_vpravo, R.raw.gyperekstenzii, R.raw.prisedaniya, R.raw.ugolok,
+                        R.raw.prijki_na_kortochkah, R.raw.poza_koshki_poza_korovi, R.raw.rastyajka_xhetirex_mijzi_levaya, R.raw.rastyajka_xhetirex_mijzi_pravaya, R.raw.rastyajka_levogo_bizepsa,
+                        R.raw.rastyajka_pravogo_bizepsa, R.raw.prijki
+                };
+                time_or_number=new boolean[]{
+                        false, true, false, true, true,
+                        false,false,true,true,true,
+                        true,false,false,false,false,
+                        false,false
+                };
+                amount=new int[]{
+                        30, 14, 60, 14, 16,
+                        30, 30, 12, 16, 16,
+                        14, 30, 30, 30, 30,
+                        30, 30
                 };
 
                 Intent intent = new Intent(Select_training.this, Training.class);

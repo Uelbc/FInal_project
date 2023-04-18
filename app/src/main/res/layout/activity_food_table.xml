@@ -7,24 +7,25 @@
     android:padding="10dp"
     tools:context=".Food_table">
 
+
     <TextView
         android:id="@+id/size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Выберите продукт из списка"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_marginTop="16dp"
+        android:text="Выберите продукт из списка или отсканируйте штрихкод:"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="28dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <EditText
         android:id="@+id/Search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="90dp"
         android:background="@xml/edittext_rounded_corners"
         android:ems="10"
         android:hint="Поиск"
@@ -40,6 +41,8 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@xml/food_buttons"
         android:drawableTop="@drawable/shtrich"
         android:text="Питание"
@@ -51,14 +54,16 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/food_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="190dp"
+        android:layout_height="470dp"
+        android:layout_marginTop="10dp"
         android:isScrollContainer="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.842"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Search" />
+        app:layout_constraintTop_toBottomOf="@+id/Search"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView22"
