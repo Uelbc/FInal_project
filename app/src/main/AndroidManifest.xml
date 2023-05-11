@@ -13,6 +13,7 @@
 
     <application
         android:allowBackup="true"
+        android:configChanges="locale"
         android:screenOrientation="portrait"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -29,6 +30,7 @@
             android:windowSoftInputMode="stateAlwaysHidden"></activity>
         <activity
             android:name=".Scanned_food"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -36,6 +38,7 @@
         </activity>
         <activity
             android:name=".ScanActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -43,6 +46,7 @@
         </activity>
         <activity
             android:name=".History"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -50,6 +54,7 @@
         </activity>
         <activity
             android:name=".Food_table"
+
             android:screenOrientation="portrait"
             android:exported="true">
             <meta-data
@@ -58,6 +63,7 @@
         </activity>
         <activity
             android:name=".SignUpActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -67,6 +73,7 @@
         </activity>
         <activity
             android:name=".Login"
+            android:screenOrientation="portrait"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -74,6 +81,7 @@
         </activity>
         <activity
             android:name=".Training"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -81,6 +89,7 @@
         </activity>
         <activity
             android:name=".Select_training"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -89,10 +98,12 @@
 
         <meta-data
             android:name="com.google.android.actions"
+            android:screenOrientation="portrait"
             android:resource="@xml/main_menu_button" />
 
         <activity
             android:name=".Food_selected"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -100,6 +111,7 @@
         </activity>
         <activity
             android:name=".Food"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -122,6 +134,7 @@
         </activity>
         <activity
             android:name=".Registration"
+            android:screenOrientation="portrait"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

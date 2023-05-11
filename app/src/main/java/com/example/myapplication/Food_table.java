@@ -102,62 +102,77 @@ public class Food_table extends AppCompatActivity  {
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
     FoodListAdapter foodListAdapter;
+    public FirebaseAuth mAuth;
 
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_table);
-        String fileName = "kalorii.xls";
-        try {
-            InputStream myInput;
-            AssetManager assetManager = getAssets();
-            myInput = getResources().openRawResource(R.raw.kalorii);
-            POIFSFileSystem myFileSystem = new POIFSFileSystem(myInput);
-            HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
-            HSSFSheet mySheet = myWorkBook.getSheetAt(0);
-            Iterator<Row> rowIter = mySheet.rowIterator();
-            int rowno =0;
-            while (rowIter.hasNext()) {
-                HSSFRow myRow = (HSSFRow) rowIter.next();
-                if(rowno !=0) {
-                    Iterator<Cell> cellIter = myRow.cellIterator();
-                    int colno =0;
-                    String name = null;
-                    Double water=null, b=null,g=null,u=null,kal=null;
-                    while (cellIter.hasNext()) {
-                        HSSFCell cell = (HSSFCell) cellIter.next();
-                        if (colno==0){
-                            name=cell.getStringCellValue();
-                        }
-                        if (colno==1){
-                            water=cell.getNumericCellValue();
-                        }
-                        if (colno==2){
-                            b=cell.getNumericCellValue();
-                        }
-                        if (colno==3){
-                            g=cell.getNumericCellValue();
-                        }
-                        if (colno==4){
-                            Log.w("RRR", "1");
-                            u=cell.getNumericCellValue();
-                        }
-                        if (colno==5){
-                            kal=cell.getNumericCellValue();
-                            Food_element food_element=new Food_element(name, kal.intValue(), b,g,u);
-                            food_elements.add(food_element);
-                        }
-                        colno++;
-                        }
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
+        myRef = database.getReference("users");
+        String id = mAuth.getCurrentUser().getUid();
+        myRef.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                User user = task.getResult().getValue(User.class);
+                try {
+                    InputStream myInput;
+                    AssetManager assetManager = getAssets();
+                    if (user.language.equals("")){
+                        myInput = getResources().openRawResource(R.raw.kalorii);
                     }
-                  rowno++;
-                }
-            } catch (Exception e) {}
-        context = getApplicationContext();
-        foodListAdapter = new FoodListAdapter(this, food_elements);
-        recyclerView=findViewById(R.id.food_list);
-        recyclerView.setAdapter(foodListAdapter);
+                    else {
+                        myInput = getResources().openRawResource(R.raw.kalorii_en);
+                    }
+                    POIFSFileSystem myFileSystem = new POIFSFileSystem(myInput);
+                    HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
+                    HSSFSheet mySheet = myWorkBook.getSheetAt(0);
+                    Iterator<Row> rowIter = mySheet.rowIterator();
+                    int rowno =0;
+                    while (rowIter.hasNext()) {
+                        HSSFRow myRow = (HSSFRow) rowIter.next();
+                        if(rowno !=0) {
+                            Iterator<Cell> cellIter = myRow.cellIterator();
+                            int colno =0;
+                            String name = null;
+                            Double water=null, b=null,g=null,u=null,kal=null;
+                            while (cellIter.hasNext()) {
+                                HSSFCell cell = (HSSFCell) cellIter.next();
+                                if (colno==0){
+                                    name=cell.getStringCellValue();
+                                }
+                                if (colno==1){
+                                    water=cell.getNumericCellValue();
+                                }
+                                if (colno==2){
+                                    b=cell.getNumericCellValue();
+                                }
+                                if (colno==3){
+                                    g=cell.getNumericCellValue();
+                                }
+                                if (colno==4){
+                                    Log.w("RRR", "1");
+                                    u=cell.getNumericCellValue();
+                                }
+                                if (colno==5){
+                                    kal=cell.getNumericCellValue();
+                                    Food_element food_element=new Food_element(name, kal.intValue(), b,g,u);
+                                    food_elements.add(food_element);
+                                }
+                                colno++;
+                            }
+                        }
+                        rowno++;
+                    }
+                } catch (Exception e) {}
+                context = getApplicationContext();
+                foodListAdapter = new FoodListAdapter(context, food_elements);
+                recyclerView=findViewById(R.id.food_list);
+                recyclerView.setAdapter(foodListAdapter);
+            }
+        });
 
         search=findViewById(R.id.Search);
         search.addTextChangedListener(new TextWatcher() {

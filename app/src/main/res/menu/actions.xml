@@ -5,18 +5,24 @@
     tools:context=".activities.MainPage">
     <item android:id="@+id/logout"
         android:icon="@drawable/logout"
-        android:title="Выйти из аккаунта">
+        android:title="@string/logout">
     </item>
     <item android:id="@+id/change_parametrs"
         android:icon="@drawable/person"
-        android:title="Изменить параметры тела">
+        android:title="@string/change_body">
     </item>
     <item android:id="@+id/calendar"
         android:icon="@drawable/calendar"
-        android:title="Календарь активности">
+        android:title="@string/calendar">
     </item>
     <item android:id="@+id/change_level"
         android:icon="@drawable/fiz_act"
-        android:title="Изменить уровень физ. активности">
+        android:title="@string/fiz_act">
     </item>
+    <item
+        android:id="@+id/language"
+        android:title="@string/change_language2"
+        android:icon="@drawable/language">
+    </item>
+
 </menu>

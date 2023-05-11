@@ -59,16 +59,16 @@ public class Food_selected extends AppCompatActivity {
         u=b_g_u_kal_water[2];
         kal=b_g_u_kal_water[3];
         bel=findViewById(R.id.b);
-        String text_b=String.valueOf(b)+ " г";
+        String text_b=String.valueOf(b)+ getString(R.string.g);
         bel.setText(text_b);
         gir=findViewById(R.id.g);
-        String text_g=String.valueOf(g)+ " г";
+        String text_g=String.valueOf(g)+ getString(R.string.g);
         gir.setText(text_g);
         ugl=findViewById(R.id.u);
-        String text_u=String.valueOf(u)+ " г";
+        String text_u=String.valueOf(u)+ getString(R.string.g);
         ugl.setText(text_u);
         kalor=findViewById(R.id.kal);
-        String text_k=String.valueOf(kal)+ " ккал";
+        String text_k=String.valueOf(kal)+ getString(R.string.kkal);
         kalor.setText(text_k);
 
         name=findViewById(R.id.name);
@@ -128,7 +128,7 @@ public class Food_selected extends AppCompatActivity {
 
                 } else{
                     Toast toast = Toast.makeText(getApplicationContext(),
-                            "Введите массу продукта",
+                            R.string.enter_massa,
                             Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();

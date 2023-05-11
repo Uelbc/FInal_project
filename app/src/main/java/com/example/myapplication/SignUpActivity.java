@@ -93,11 +93,11 @@ public class SignUpActivity extends AppCompatActivity {
                                         String date = df.format(Calendar.getInstance().getTime());
                                         List<String> history = new ArrayList<String>();
                                         history.add(date+" 0");
-                                        User user = new User(0,0,0,0,0, 0,0,0,0,0,date,history);
+                                        User user = new User(0,0,0,0,0, 0,0,0,0,0,date,history, "");
                                         myRef.child(id).setValue(user);
 
                                         Toast.makeText(getApplicationContext(),
-                                                        "Успешная регистрация!",
+                                                        R.string.successful_register,
                                                         Toast.LENGTH_LONG)
                                                 .show();
                                         Intent intent
@@ -110,8 +110,8 @@ public class SignUpActivity extends AppCompatActivity {
                                         // Registration failed
                                         Toast.makeText(
                                                         getApplicationContext(),
-                                                        "Ну удалось зарегистрироваться!!"
-                                                                + " Пожалуйста попробуйте ещё раз",
+                                                        getString(R.string.ne_udalos)
+                                                                + getString(R.string.please_try_again),
                                                         Toast.LENGTH_LONG)
                                                 .show();
 
@@ -120,7 +120,7 @@ public class SignUpActivity extends AppCompatActivity {
                             });
 
                 } else {
-                    Toast.makeText(SignUpActivity.this, "Пароли не совпадают", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, R.string.passwords_dont_match, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -131,7 +131,7 @@ public class SignUpActivity extends AppCompatActivity {
     private boolean validateUsername() {
         username = edit_txt_Username.getText().toString().trim();
         if (TextUtils.isEmpty(username)) {
-            Toast.makeText(SignUpActivity.this, "Введите имя пользователя", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, R.string.enter_username, Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;
@@ -141,10 +141,10 @@ public class SignUpActivity extends AppCompatActivity {
     private boolean validateEmail() {
         email = edit_txt_Email.getText().toString().trim();
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(SignUpActivity.this, "Введите электронную почту", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, R.string.enter_email, Toast.LENGTH_SHORT).show();
             return false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(SignUpActivity.this, "Введите электронную почту корректно", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, R.string.enter_email_correct, Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;
@@ -156,13 +156,13 @@ public class SignUpActivity extends AppCompatActivity {
         co_password = edit_txt_CoPass.getText().toString().toLowerCase();
 
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(SignUpActivity.this, "Введите пароль", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, R.string.enter_password, Toast.LENGTH_SHORT).show();
             return false;
         } else if (TextUtils.isEmpty(co_password)) {
-            Toast.makeText(SignUpActivity.this, "Повторите пароль", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, R.string.repeat_password, Toast.LENGTH_SHORT).show();
             return false;
         } else if (password.length() < 6) {
-            Toast.makeText(SignUpActivity.this, "Пароль слишком короткий", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, R.string.too_short_password, Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;

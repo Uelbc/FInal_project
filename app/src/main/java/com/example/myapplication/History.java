@@ -52,7 +52,7 @@ public class History extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new AlertDialog.Builder(History.this, R.style.MyAlertTheme)
-                        .setTitle("Календарь активности")
+                        .setTitle(R.string.calendar_activnosti)
                         .setMessage(R.string.why_history)
                         .show();
             }

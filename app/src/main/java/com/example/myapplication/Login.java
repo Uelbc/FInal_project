@@ -58,13 +58,13 @@ public class Login extends AppCompatActivity {
                                 if (task.isSuccessful()) {
 
 
-                                    Toast.makeText(Login.this, "Выполнен вход в аккаунт", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Login.this, R.string.enter_complete, Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(Login.this, MainPage.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
                                     
-                                    Toast.makeText(Login.this, "Не удалось авторизоваться", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Login.this, R.string.not_successful, Toast.LENGTH_SHORT).show();
                                 }
                             }
 
@@ -86,10 +86,10 @@ public class Login extends AppCompatActivity {
     private boolean validateEmail() {
         loginemail = txtemail.getText().toString().trim();
         if (TextUtils.isEmpty(loginemail)) {
-            Toast.makeText(Login.this, "Введите электронную почту", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Login.this, R.string.enter_email, Toast.LENGTH_SHORT).show();
             return false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(loginemail).matches()) {
-            Toast.makeText(Login.this, "Пожалуйта введите элетронную почту корректно", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Login.this, R.string.enter_email_correct, Toast.LENGTH_SHORT).show();
             return false;
         } else {
             return true;
@@ -100,7 +100,7 @@ public class Login extends AppCompatActivity {
         loginpassword = txtpassoword.getText().toString().trim();
 
         if (TextUtils.isEmpty(loginpassword)) {
-            Toast.makeText(Login.this, "Введите пароль", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Login.this, R.string.enter_password, Toast.LENGTH_SHORT).show();
             return false;
 
         } else {

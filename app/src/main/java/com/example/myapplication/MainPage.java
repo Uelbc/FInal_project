@@ -5,6 +5,7 @@ import static android.widget.Toast.makeText;
 import static java.security.AccessController.getContext;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
@@ -15,11 +16,15 @@ import androidx.lifecycle.Observer;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -44,12 +49,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.protobuf.StringValue;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Observable;
 
 public class MainPage extends AppCompatActivity {
@@ -121,6 +128,64 @@ public class MainPage extends AppCompatActivity {
                                 Intent i1=new Intent(MainPage.this, SelectPhysicalActivity.class);
                                 startActivity(i1);
                                 return true;
+                            case R.id.language:
+                                new AlertDialog.Builder(MainPage.this, R.style.MyAlertTheme)
+                                        .setTitle(R.string.change_language)
+                                        .setPositiveButton(
+                                                R.string.Russian,
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        mAuth = FirebaseAuth.getInstance();
+                                                        database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
+                                                        myRef = database.getReference("users");
+                                                            String Id = mAuth.getCurrentUser().getUid();
+                                                        myRef.child(Id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                                User user = task.getResult().getValue(User.class);
+                                                                user.language="";
+                                                                myRef.child(Id).setValue(user);
+                                                                Locale myLocale= new Locale("");
+                                                                Resources res = getResources();
+                                                                DisplayMetrics dm = res.getDisplayMetrics();
+                                                                Configuration conf = res.getConfiguration();
+                                                                conf.locale = myLocale;
+                                                                res.updateConfiguration(conf, dm);
+                                                                Intent refresh = new Intent(MainPage.this, MainPage.class);
+                                                                startActivity(refresh);
+                                                            }
+                                                        });
+                                                    }
+                                                })
+
+                                        .setNegativeButton(
+                                        R.string.english,
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                //Resources resources = context.getResources();
+                                                mAuth = FirebaseAuth.getInstance();
+                                                database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
+                                                myRef = database.getReference("users");
+                                                String Id = mAuth.getCurrentUser().getUid();
+                                                myRef.child(Id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                        User user = task.getResult().getValue(User.class);
+                                                        user.language="en";
+                                                        myRef.child(Id).setValue(user);
+                                                    }
+                                                });
+                                                Locale myLocale= new Locale("en");
+                                                Resources res = getResources();
+                                                DisplayMetrics dm = res.getDisplayMetrics();
+                                                Configuration conf = res.getConfiguration();
+                                                conf.locale = myLocale;
+                                                res.updateConfiguration(conf, dm);
+                                                Intent refresh = new Intent(MainPage.this, MainPage.class);
+                                                startActivity(refresh);
+                                            }
+                                        })
+                                        .show();
                         }
                         return false;
                     }
@@ -137,11 +202,30 @@ public class MainPage extends AppCompatActivity {
         if (mAuth.getCurrentUser().getUid()!=null){
             String id = mAuth.getCurrentUser().getUid();
             myRef.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @SuppressLint({"DefaultLocale", "SetTextI18n"})
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
                     user = task.getResult().getValue(User.class);
                     DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                     String date = df.format(Calendar.getInstance().getTime());
+
+                    if (user.language.equals("en")){
+                        String languageToLoad = "en";
+                        Locale locale = new Locale(languageToLoad);
+                        Locale.setDefault(locale);
+                        Configuration config = new Configuration();
+                        config.locale = locale;
+                        getBaseContext().getResources().updateConfiguration(config, null);
+                        user.language="en1";
+                        myRef.child(id).setValue(user);
+                        Intent intent = new Intent(MainPage.this, MainPage.class);
+                        startActivity(intent);
+                    }
+                    else if (user.language.equals("en1")){
+                        user.language="en";
+                        myRef.child(id).setValue(user);
+                    }
+
 
                     kal_eaten_per_day=findViewById(R.id.kal_eaten_per_day);
                     if (user.getGender()==1){
@@ -186,9 +270,9 @@ public class MainPage extends AppCompatActivity {
                     gTV=findViewById(R.id.g);
                     uTV=findViewById(R.id.u);
 
-                    bTV.setText(String.format("%.1f", b)+" / "+kal_per_day * 30 / 100 / 4 +" г");
-                    gTV.setText(String.format("%.1f", g)+" / "+kal_per_day * 25 / 100 / 9 +" г");
-                    uTV.setText(String.format("%.1f", u)+" / "+kal_per_day * 45 / 100 / 4 +" г");
+                    bTV.setText(String.format("%.1f", b)+" / "+kal_per_day * 30 / 400 + getString(R.string.g));
+                    gTV.setText(String.format("%.1f", g)+" / "+kal_per_day * 25 / 900 + getString(R.string.g));
+                    uTV.setText(String.format("%.1f", u)+" / "+kal_per_day * 45 / 400 + getString(R.string.g));
 
                     b_progress_bar=findViewById(R.id.b_progress_bar);
                     g_progress_bar=findViewById(R.id.g_progress_bar);
@@ -213,10 +297,10 @@ public class MainPage extends AppCompatActivity {
                                 Color.RED, PorterDuff.Mode.SRC_IN);
                     }
                     if (Kal_final>kal_per_day){
-                        kal_eaten_per_day.setText("Свыше нормы на "+(Kal_final-kal_per_day));
+                        kal_eaten_per_day.setText(getString(R.string.more_on)+(Kal_final-kal_per_day));
                     }
                     water_goal=findViewById(R.id.water_goal);
-                    water_goal.setText("Цель: "+ Double.toString(weight*40/1000)+" л");
+                    water_goal.setText(getString(R.string.goal)+ Double.toString(weight*40/1000)+" л");
 
 
                     water1=findViewById(R.id.water1); water2=findViewById(R.id.water2); water3=findViewById(R.id.water3); water4=findViewById(R.id.water4);
@@ -467,7 +551,7 @@ public class MainPage extends AppCompatActivity {
                             water17.setChecked(false);
                             water17.setVisibility(View.VISIBLE);
                             checked+=1;
-                            litr.setText(Double.toString(4.00)+" л");}
+                            litr.setText(Double.toString(4.00));}
                         else{checked=15;
                             obsInt.set(checked);}
                     }});
@@ -480,7 +564,7 @@ public class MainPage extends AppCompatActivity {
                             water18.setChecked(false);
                             water18.setVisibility(View.VISIBLE);
                             checked+=1;
-                            litr.setText(Double.toString(4.250)+" л");}
+                            litr.setText(Double.toString(4.250));}
                         else{checked=16;
                             obsInt.set(checked);}
                     }
@@ -494,7 +578,7 @@ public class MainPage extends AppCompatActivity {
                             water19.setChecked(false);
                             water19.setVisibility(View.VISIBLE);
                             checked+=1;
-                            litr.setText(Double.toString(4.50)+" л");}
+                            litr.setText(Double.toString(4.50));}
                         else{checked=17;
                             obsInt.set(checked);}
                     }
@@ -508,7 +592,7 @@ public class MainPage extends AppCompatActivity {
                             water20.setChecked(false);
                             water20.setVisibility(View.VISIBLE);
                             checked+=1;
-                            litr.setText(Double.toString(4.750)+" л");}
+                            litr.setText(Double.toString(4.750));}
                         else{checked=18;
                             obsInt.set(checked);}
                     }
@@ -522,7 +606,7 @@ public class MainPage extends AppCompatActivity {
                             water21.setChecked(false);
                             water21.setVisibility(View.VISIBLE);
                             checked+=1;
-                            litr.setText(Double.toString(5.00)+" л");}
+                            litr.setText(Double.toString(5.00));}
                         else{checked=19;
                             obsInt.set(checked);}
                     }
@@ -536,7 +620,7 @@ public class MainPage extends AppCompatActivity {
                             water22.setChecked(false);
                             water22.setVisibility(View.VISIBLE);
                             checked+=1;
-                            litr.setText(Double.toString(5.250)+" л");}
+                            litr.setText(Double.toString(5.250));}
                         else{checked=20;
                             obsInt.set(checked);}
                     }
@@ -550,7 +634,7 @@ public class MainPage extends AppCompatActivity {
                             water23.setChecked(false);
                             water23.setVisibility(View.VISIBLE);
                             checked+=1;
-                            litr.setText(Double.toString(5.50)+" л");}
+                            litr.setText(Double.toString(5.50));}
                         else{checked=21;
                             obsInt.set(checked);}
                     }
@@ -564,7 +648,7 @@ public class MainPage extends AppCompatActivity {
                             water24.setChecked(false);
                             water24.setVisibility(View.VISIBLE);
                             checked+=1;
-                            litr.setText(Double.toString(5.750)+" л");}
+                            litr.setText(Double.toString(5.750));}
                         else{checked=22;
                             obsInt.set(checked);}
                     }
@@ -575,7 +659,7 @@ public class MainPage extends AppCompatActivity {
                         if (buttonView.isChecked()) {
                             water24.setButtonDrawable(R.drawable.water);
                             checked+=1;
-                            litr.setText(Double.toString(6.00)+" л");}
+                            litr.setText(Double.toString(6.00));}
                         else{checked=23;
                             obsInt.set(checked);}
                     }
@@ -609,7 +693,7 @@ public class MainPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new AlertDialog.Builder(MainPage.this, R.style.MyAlertTheme)
-                        .setTitle("Зачем нужно следить за колличеством выпитой воды?")
+                        .setTitle(R.string.zechem_sledit)
                         .setMessage(R.string.why_water_norm)
                         .show();
             }
@@ -620,7 +704,7 @@ public class MainPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new AlertDialog.Builder(MainPage.this, R.style.MyAlertTheme)
-                        .setTitle("Зачем нужно соблюдать норму калорий?")
+                        .setTitle(R.string.zachem_sobludat)
                         .setMessage(R.string.why_kal_norm)
                         .show();
             }

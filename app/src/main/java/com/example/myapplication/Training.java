@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -43,7 +44,7 @@ public class Training extends AppCompatActivity {
         start=findViewById(R.id.start);
 
         Name.setText(training_names[i]);
-        Number.setText("Упражнение №: "+ (i+1)+" из "+training_videos.length);
+        Number.setText(getString(R.string.task_number)+ (i+1)+getString(R.string.from)+training_videos.length);
         TrainingVideo=findViewById(R.id.ВидеоУпражнение);
         TrainingVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+training_videos[i]));
         MediaController mediaController = new MediaController(this);
@@ -62,7 +63,7 @@ public class Training extends AppCompatActivity {
             Time.setText("x"+amount[i]);
         } else{
             // время
-            Time.setText(amount[i]+" c");
+            Time.setText(amount[i]+getString(R.string.s));
             start.setVisibility(View.VISIBLE);
             start.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -71,7 +72,7 @@ public class Training extends AppCompatActivity {
                     timer = new CountDownTimer(amount[i]*1000, 1000){
                         @Override
                         public void onTick(long l) {
-                            Time.setText(""+l/1000+" c");
+                            Time.setText(""+l/1000+getString(R.string.s));
                         }
 
                         @Override
@@ -83,6 +84,7 @@ public class Training extends AppCompatActivity {
         }
 
         nextTask.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
                 if (timer!=null){
@@ -91,7 +93,7 @@ public class Training extends AppCompatActivity {
                 i+=1;
                 if (i<training_names.length){
                     Name.setText(training_names[i]);
-                    Number.setText("Упражнение №: "+ (i+1)+" из "+training_videos.length);
+                    Number.setText(getString(R.string.task_number)+ (i+1)+getString(R.string.from)+training_videos.length);
                     TrainingVideo=findViewById(R.id.ВидеоУпражнение);
                     TrainingVideo.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+training_videos[i]));
                     TrainingVideo.start();
@@ -107,7 +109,7 @@ public class Training extends AppCompatActivity {
                         Time.setText("x"+amount[i]);
                     } else{
                         // время
-                        Time.setText(amount[i]+" c");
+                        Time.setText(amount[i]+getString(R.string.s));
                         start.setVisibility(View.VISIBLE);
                         start.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -116,7 +118,7 @@ public class Training extends AppCompatActivity {
                                 timer = new CountDownTimer(amount[i]*1000, 1000){
                                     @Override
                                     public void onTick(long l) {
-                                        Time.setText(""+l/1000+" c");
+                                        Time.setText(""+l/1000+getString(R.string.s));
                                     }
 
                                     @Override
@@ -129,7 +131,7 @@ public class Training extends AppCompatActivity {
                     }
                 } else{
                     Intent intent = new Intent(Training.this, MainPage.class);
-                    intent.putExtra("training", "Поздравляем! Хорошая тренировка!");
+                    intent.putExtra("training", getString(R.string.congrats_good_training));
                     startActivity(intent);
                 }
 

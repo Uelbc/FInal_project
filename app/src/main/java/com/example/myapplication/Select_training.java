@@ -22,11 +22,11 @@ public class Select_training extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 training_names= new String[]{
-                        "Упражнение для пресса", "Подъем корпуса", "Боковой мостик (влево)", "Боковой мостик (вправо)", "Упражнение для пресса",
-                        "Велосипед", "Планка с правого бока", "Планка с левого бока", "Уголок", "Отжимания с поворотом",
-                        "Качели",  "Ягодичный мостик", "Боковые наклоны к стопам", "Альпинист",
-                        "Скручивание с поворотом", "Уголок", "Планка", "Растяжка кобра",
-                        "Скручивания влево", "Скручивания вправо"
+                        getString(R.string.press1), getString(R.string.press2), getString(R.string.press3), getString(R.string.press4), getString(R.string.press5),
+                        getString(R.string.press6), getString(R.string.press7), getString(R.string.press8), getString(R.string.press9), getString(R.string.press10),
+                        getString(R.string.press11),  getString(R.string.press12), getString(R.string.press13), getString(R.string.press14),
+                        getString(R.string.press15), getString(R.string.press16), getString(R.string.press17), getString(R.string.press18),
+                        getString(R.string.press19), getString(R.string.press20)
                 };
                 training_videos = new int[]{
                         R.raw.uprajnenie_dlya_pressa, R.raw.podyom_korpusa, R.raw.bokovoy_mostik_vlevo, R.raw.bokovoy_mostik_vpravo, R.raw.podyom_korpusa,
@@ -66,12 +66,12 @@ public class Select_training extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 training_names= new String[]{
-                        "Махи руками по\nчасовой стрелке", "Махи руками против\nчасовой стрелки", "Подъем ноги бицесом\nлевой руки", "Прыжки без скакалки", "Подъем ноги бицесом\nправой руки",
-                        "Скручивания лежа\nдля левой руки", "Берпи", "Скручивания лежа\nдля правой руки", "Отжимание сидя на полу", "Боковые удары по очереди",
-                        "Военные отжимания",  "Сведение локтей", "Боковые удары по очереди", "Отжимание сидя на полу", "Берпи",
-                        "Скручивание лежа\nдля левой руки", "Скручивания лежа\nдля правой руки", "Военные отжимания", "Сведение локтей", "Скручивания в проеме\nдля левой руки",
-                        "Скручивания в проеме\nдля правой руки","Движения вверх-вниз\nсведенными локтями","Растяжка левого трицепса","Растяжка правого трицепса","Отжимания с поворотом",
-                        "Растяжка левого бицепса","Растяжка правого бицепса"
+                        getString(R.string.ruki1), getString(R.string.ruki2), getString(R.string.ruki3), getString(R.string.ruki4), getString(R.string.ruki5),
+                        getString(R.string.ruki6), getString(R.string.ruki7), getString(R.string.ruki8), getString(R.string.ruki9), getString(R.string.ruki10),
+                        getString(R.string.ruki11),  getString(R.string.ruki12), getString(R.string.ruki13), getString(R.string.ruki14), getString(R.string.ruki15),
+                        getString(R.string.ruki16), getString(R.string.ruki17), getString(R.string.ruki18), getString(R.string.ruki19), getString(R.string.ruki20),
+                        getString(R.string.ruki21),getString(R.string.ruki22),getString(R.string.ruki23),getString(R.string.ruki24),getString(R.string.ruki25),
+                        getString(R.string.ruki26),getString(R.string.ruki27)
                 };
                 training_videos = new int[]{
                         R.raw.mahi_rukami_po_chasovoy, R.raw.mahi_rukami_protiv_chasovoy, R.raw.podem_nogi_bicepsom_levoy_ruki, R.raw.prijki_bez_skakalki, R.raw.podem_nogi_bicepsom_pravoy_ruki,
@@ -113,10 +113,10 @@ public class Select_training extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 training_names= new String[]{
-                        "Прыжки", "Отжимание назад", "Гиперэкстензии", "V-отжимания на полу", "Гусеница",
-                        "Растяжка на полу влево", "Растяжка на полу вправо", "Гиперэкстензии", "V-отжимания на полу", "Отжимание назад",
-                        "Гусеница",  "Поза кошки - поза коровы", "Отжимания на спине", "Y-подъемы", "Отжимания на спине",
-                        "Обратный снежный ангел", "Поза ребенка"
+                        getString(R.string.spina1), getString(R.string.spina2), getString(R.string.spina3), getString(R.string.spina4), getString(R.string.spina5),
+                        getString(R.string.spina6), getString(R.string.spina7), getString(R.string.spina8), getString(R.string.spina9), getString(R.string.spina10),
+                        getString(R.string.spina11),  getString(R.string.spina12), getString(R.string.spina13), getString(R.string.spina14), getString(R.string.spina15),
+                        getString(R.string.spina16), getString(R.string.spina17)
                 };
                 training_videos = new int[]{
                         R.raw.prijki, R.raw.otjimaniya_nazad, R.raw.gyperekstenzii, R.raw.v_otjimaniya_na_polu, R.raw.gusenitsa,
@@ -151,10 +151,10 @@ public class Select_training extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 training_names= new String[]{
-                        "Берпи", "Приседания", "Прыжки", "Подъем ноги, левая", "Подъем ноги, правая",
-                        "Приседания выпады", "Круги лежа на боку, левая", "Приседания выпады", "Круги лежа на полу, правая", "Прыжки на корточках",
-                        "Отведение ног назад, правая",  "Отведение ног назад, левая", "Приседание у стены", "Растяжка четырёхглавой мышцы, левая", "Растяжка четырёхглавой мышцы, правая",
-                        "Подъём на носок, левая", "Подъем на носок, правая"
+                        getString(R.string.nogi1), getString(R.string.nogi2), getString(R.string.nogi3), getString(R.string.nogi4), getString(R.string.nogi5),
+                        getString(R.string.nogi6), getString(R.string.nogi7), getString(R.string.nogi8), getString(R.string.nogi9), getString(R.string.nogi10),
+                        getString(R.string.nogi11),  getString(R.string.nogi12), getString(R.string.nogi13), getString(R.string.nogi14), getString(R.string.nogi15),
+                        getString(R.string.nogi16), getString(R.string.nogi17)
                 };
                 training_videos = new int[]{
                         R.raw.berpi, R.raw.prisedaniya, R.raw.prijki, R.raw.podem_nogi_levaya, R.raw.podem_nogi_pravaya,
@@ -189,10 +189,10 @@ public class Select_training extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 training_names= new String[]{
-                        "Прыжки", "Военные отжимания", "Планка", "V-отжимания на полу", "Гусеница",
-                        "Растяжка на полу влево", "Растяжка на полу вправо", "Гиперэкстензии", "Приседания", "Уголок",
-                        "Прыжки на корточках",  "Поза кошки - поза коровы", "Растяжка четырёхглавой мышцы, левая", "Растяжка четырёхглавой мышцы, правая", "Растяжка левого бицепса",
-                        "Растяжка правого бицепса", "Прыжки"
+                        getString(R.string.vse1), getString(R.string.vse2), getString(R.string.vse3), getString(R.string.vse4), getString(R.string.vse5),
+                        getString(R.string.vse6), getString(R.string.vse7), getString(R.string.vse8), getString(R.string.vse9), getString(R.string.vse10),
+                        getString(R.string.vse11),  getString(R.string.vse12), getString(R.string.vse13), getString(R.string.vse14), getString(R.string.vse15),
+                        getString(R.string.vse16), getString(R.string.vse17)
                 };
                 training_videos = new int[]{
                         R.raw.prijki, R.raw.voennie_otjimaniya, R.raw.planka, R.raw.v_otjimaniya_na_polu, R.raw.gusenitsa,

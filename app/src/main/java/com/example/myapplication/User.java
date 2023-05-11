@@ -5,8 +5,16 @@ import java.util.List;
 public class User {
     int age, weight, gender, height, checked_water;
     double A, b, g, u, kal;
-    String date;
+    String date, language;
     List<String> history;
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
 
     public List<String> getHistory() {
         return history;
@@ -60,8 +68,9 @@ public class User {
         this.kal = kal;
     }
 
-    public User(int age, int weight, int gender, int height, int a, int checked_water, double b, double g, double u, int kal, String date, List<String> history) {
+    public User(int age, int weight, int gender, int height, int a, int checked_water, double b, double g, double u, int kal, String date, List<String> history, String language) {
         this.age = age;
+        this.language=language;
         this.weight = weight;
         this.gender = gender;
         this.height = height;

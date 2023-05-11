@@ -28,7 +28,7 @@
       android:layout_marginBottom="56dp"
 
       android:background="@xml/buttons"
-      android:text="Добавить"
+      android:text="@string/add"
       android:textSize="20sp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +91,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="5dp"
-      android:text="Калории"
+      android:text="@string/Calorii"
       app:layout_constraintEnd_toEndOf="@+id/kal"
       app:layout_constraintStart_toStartOf="@+id/kal"
       app:layout_constraintTop_toBottomOf="@+id/kal" />
@@ -101,7 +101,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="5dp"
-      android:text="Белки"
+      android:text="@string/Belki"
       app:layout_constraintEnd_toEndOf="@+id/b"
       app:layout_constraintStart_toStartOf="@+id/b"
       app:layout_constraintTop_toBottomOf="@+id/b" />
@@ -111,7 +111,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="5dp"
-      android:text="Жиры"
+      android:text="@string/Jiri"
       app:layout_constraintEnd_toEndOf="@+id/g"
       app:layout_constraintStart_toStartOf="@+id/g"
       app:layout_constraintTop_toBottomOf="@+id/g" />
@@ -121,7 +121,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="5dp"
-      android:text="Углеводы"
+      android:text="@string/Uglevodi"
       app:layout_constraintEnd_toEndOf="@+id/u"
       app:layout_constraintStart_toStartOf="@+id/u"
       app:layout_constraintTop_toBottomOf="@+id/u" />
@@ -132,7 +132,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="60dp"
       android:ems="10"
-      android:hint="Введите размер порции в граммах"
+      android:hint="@string/Enter_massa"
       android:inputType="number"
       android:text="100"
       app:layout_constraintEnd_toEndOf="parent"
@@ -144,7 +144,7 @@
       android:id="@+id/textView16"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="Размер порции, г"
+      android:text="@string/Massa_g"
       app:layout_constraintBottom_toTopOf="@+id/massa"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.053"

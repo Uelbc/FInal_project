@@ -52,7 +52,7 @@ public class Scanned_food extends AppCompatActivity {
                         g_barcode.getText().toString().equals("") || u_barcode.getText().toString().equals("") ||
                         kal_barcode.getText().toString().equals("")){
                     Toast toast = makeText(getApplicationContext(),
-                            "Введите все данные",
+                            R.string.enter_all_data,
                             Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();

@@ -22,7 +22,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ViewHo
     public List<Food_element> food_elements;
     private final LayoutInflater inflater;
 
-
+    
     public FoodListAdapter(Context context, List<Food_element> food_elements){
         this.context = context;
         this.food_elements=food_elements;
@@ -38,7 +38,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.ViewHo
         String Name = food_elements.get(position).getName();
         int Kal = food_elements.get(position).getKal();
         holder.nameView.setText(Name);
-        holder.kaloriesView.setText(Double.toString(Kal)+" ккал на 100г");
+        holder.kaloriesView.setText(Double.toString(Kal)+context.getString(R.string.kkal_na_sto_g));
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView nameView;

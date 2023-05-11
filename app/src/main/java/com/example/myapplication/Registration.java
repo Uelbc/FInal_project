@@ -108,7 +108,7 @@ public class Registration extends AppCompatActivity {
                     });
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(),
-                            "Введите все данные",
+                            R.string.enter_all_data,
                             Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();

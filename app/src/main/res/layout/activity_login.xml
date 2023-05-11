@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="22dp"
         android:layout_marginTop="20dp"
-        android:text="Авторизация"
+        android:text="@string/avtorization"
         android:textAlignment="center"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="22sp"
@@ -36,7 +36,7 @@
                 android:id="@+id/edit_txt_login_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Электронная почта"
+                android:hint="@string/email"
                 android:inputType="textWebEmailAddress"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -50,7 +50,7 @@
                 android:id="@+id/edit_txt_login_pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Пароль"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="22dp"
             android:background="@color/light_blue"
-            android:text="Войти"
+            android:text="@string/enter"
             android:textAllCaps="false"
             android:textColor="#fff"
             android:textSize="18sp" />
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Нет аккаунта.\nЗарегистрироваться"
+            android:text="@string/no_account_log_in"
             android:textAlignment="center"
             android:textColor="@android:color/holo_green_dark"
             android:textSize="20sp" />
