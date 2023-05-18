@@ -199,5 +199,6 @@
     <string name="fiz_act">Change level of physical activity</string>
     <string name="change_language2">Change the language</string>
     <string name="next_exercise">Go to the next exercise</string>
+    <string name="add2">Add</string>
     <string name="add">Add</string>
 </resources>

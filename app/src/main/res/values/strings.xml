@@ -199,5 +199,6 @@
     <string name="fiz_act">Изменить уровень физ. активности</string>
     <string name="change_language2">Сменить язык</string>
     <string name="next_exercise">Перейти к следующему упражнению</string>
+    <string name="add2">Добавить</string>
     <string name="add">Добавить</string>
 </resources>

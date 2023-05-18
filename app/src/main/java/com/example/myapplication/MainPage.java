@@ -23,6 +23,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -78,7 +79,9 @@ public class MainPage extends AppCompatActivity {
     SharedPreferences data;
     public User user;
     ImageButton menu;
+    SharedPreferences sharedPref;
     List<String> history;
+    String language;
 
     public FirebaseAuth mAuth;
     public static FirebaseDatabase database;
@@ -86,6 +89,9 @@ public class MainPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        language = sharedPref.getString("language", "ru");
+        setApplicationLocale(language);
         setContentView(R.layout.activity_main2);
         menu=findViewById(R.id.menu);
         menu.setOnClickListener(new View.OnClickListener() {
@@ -135,26 +141,21 @@ public class MainPage extends AppCompatActivity {
                                                 R.string.Russian,
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int id) {
-                                                        mAuth = FirebaseAuth.getInstance();
-                                                        database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
-                                                        myRef = database.getReference("users");
-                                                            String Id = mAuth.getCurrentUser().getUid();
-                                                        myRef.child(Id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                                            @Override
-                                                            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                                                User user = task.getResult().getValue(User.class);
-                                                                user.language="";
-                                                                myRef.child(Id).setValue(user);
-                                                                Locale myLocale= new Locale("");
-                                                                Resources res = getResources();
-                                                                DisplayMetrics dm = res.getDisplayMetrics();
-                                                                Configuration conf = res.getConfiguration();
-                                                                conf.locale = myLocale;
-                                                                res.updateConfiguration(conf, dm);
-                                                                Intent refresh = new Intent(MainPage.this, MainPage.class);
-                                                                startActivity(refresh);
-                                                            }
-                                                        });
+                                                        SharedPreferences sharedPref = MainPage.this.getPreferences(Context.MODE_PRIVATE);
+                                                        SharedPreferences.Editor editor = sharedPref.edit();
+                                                        editor.putString("language", "ru");
+                                                        editor.apply();
+                                                        new AlertDialog.Builder(MainPage.this, R.style.MyAlertTheme)
+                                                                .setTitle("Restart app")
+                                                                .setPositiveButton("Ok",
+                                                                        new DialogInterface.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                                        //finish();
+                                                                        finishAffinity();
+                                                                    }
+                                                                })
+                                                                .show();
                                                     }
                                                 })
 
@@ -162,27 +163,20 @@ public class MainPage extends AppCompatActivity {
                                         R.string.english,
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
-                                                //Resources resources = context.getResources();
-                                                mAuth = FirebaseAuth.getInstance();
-                                                database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
-                                                myRef = database.getReference("users");
-                                                String Id = mAuth.getCurrentUser().getUid();
-                                                myRef.child(Id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                                        User user = task.getResult().getValue(User.class);
-                                                        user.language="en";
-                                                        myRef.child(Id).setValue(user);
-                                                    }
-                                                });
-                                                Locale myLocale= new Locale("en");
-                                                Resources res = getResources();
-                                                DisplayMetrics dm = res.getDisplayMetrics();
-                                                Configuration conf = res.getConfiguration();
-                                                conf.locale = myLocale;
-                                                res.updateConfiguration(conf, dm);
-                                                Intent refresh = new Intent(MainPage.this, MainPage.class);
-                                                startActivity(refresh);
+                                                SharedPreferences sharedPref = MainPage.this.getPreferences(Context.MODE_PRIVATE);
+                                                SharedPreferences.Editor editor = sharedPref.edit();
+                                                editor.putString("language", "en");
+                                                editor.apply();
+                                                new AlertDialog.Builder(MainPage.this, R.style.MyAlertTheme)
+                                                        .setTitle("Restart app")
+                                                        .setPositiveButton("Ok",
+                                                                new DialogInterface.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                                        finishAffinity();
+                                                                    }
+                                                                })
+                                                        .show();
                                             }
                                         })
                                         .show();
@@ -716,6 +710,7 @@ public class MainPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainPage.this, Food_table.class);
+                intent.putExtra("language", language);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }
@@ -784,5 +779,16 @@ public class MainPage extends AppCompatActivity {
             }
         }
         super.onStop();
+    }
+    public void setApplicationLocale(String locale) {
+        Resources resources = getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        Configuration config = resources.getConfiguration();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            config.setLocale(new Locale(locale.toLowerCase()));
+        } else {
+            config.locale = new Locale(locale.toLowerCase());
+        }
+        resources.updateConfiguration(config, dm);
     }
 }

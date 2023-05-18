@@ -11,16 +11,21 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.FileUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -103,11 +108,18 @@ public class Food_table extends AppCompatActivity  {
     private ImageView imageView;
     FoodListAdapter foodListAdapter;
     public FirebaseAuth mAuth;
-
+    String language="ru";
+    Bundle bundle;
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        bundle=getIntent().getExtras();
+       if (bundle!=null){
+           language=bundle.getString("language");
+       }
+        Log.w("RRR", language);
+        setApplicationLocale(language);
         setContentView(R.layout.activity_food_table);
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
@@ -168,7 +180,7 @@ public class Food_table extends AppCompatActivity  {
                     }
                 } catch (Exception e) {}
                 context = getApplicationContext();
-                foodListAdapter = new FoodListAdapter(context, food_elements);
+                foodListAdapter = new FoodListAdapter(getApplicationContext(), food_elements, language);
                 recyclerView=findViewById(R.id.food_list);
                 recyclerView.setAdapter(foodListAdapter);
             }
@@ -194,7 +206,7 @@ public class Food_table extends AppCompatActivity  {
                     }
                 }
 
-                foodListAdapter = new FoodListAdapter(context, changing_list);
+                foodListAdapter = new FoodListAdapter(context, changing_list, language);
                 recyclerView.setAdapter(foodListAdapter);
 
             }
@@ -255,5 +267,16 @@ public class Food_table extends AppCompatActivity  {
         }
 
 
+    public void setApplicationLocale(String locale) {
+        Resources resources = getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        Configuration config = resources.getConfiguration();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            config.setLocale(new Locale(locale.toLowerCase()));
+        } else {
+            config.locale = new Locale(locale.toLowerCase());
+        }
+        resources.updateConfiguration(config, dm);
+    }
 }
 
