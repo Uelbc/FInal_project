@@ -60,7 +60,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         bundle=getIntent().getExtras();
-        if (bundle.getString("language")!=null){
+        if (bundle!=null && bundle.getString("language")!=null){
             language=bundle.getString("language");
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString("language", language);
@@ -167,10 +167,6 @@ public class SignUpActivity extends AppCompatActivity {
         password = edit_txt_Pass.getText().toString().trim();
         mAuth=FirebaseAuth.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null){
-            Intent i = new Intent(SignUpActivity.this, MainPage.class);
-            startActivity(i);
-        }
 
             button_register.setOnClickListener(new View.OnClickListener() {
             @Override

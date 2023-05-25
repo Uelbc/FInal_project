@@ -105,6 +105,7 @@ public class MainPage extends AppCompatActivity {
                                         user.setChecked_water(checked);
                                         myRef.child(id).setValue(user);
                                         mAuth.signOut();
+                                        Log.w("RRR", "11");
                                         Intent intent=new Intent(MainPage.this, SignUpActivity.class);
                                         intent.putExtra("language", language);
                                         startActivity(intent);
