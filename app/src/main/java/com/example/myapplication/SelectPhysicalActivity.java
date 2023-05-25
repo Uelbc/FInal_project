@@ -25,6 +25,7 @@ public class SelectPhysicalActivity extends AppCompatActivity {
     double []a;
     double A;
     Button next;
+    String language;
     public RadioButton level1, level2, level3, level4, level5, level6, level7;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class SelectPhysicalActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if(bundle != null) {
             a = bundle.getDoubleArray("1");
+            language=bundle.getString("language");
         }
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
@@ -79,6 +81,7 @@ public class SelectPhysicalActivity extends AppCompatActivity {
                         user.A=A;
                         myRef.child(id).setValue(user);
                         Intent intent = new Intent(SelectPhysicalActivity.this, MainPage.class);
+                        intent.putExtra("language", language);
                         startActivity(intent);
                     }
                 });

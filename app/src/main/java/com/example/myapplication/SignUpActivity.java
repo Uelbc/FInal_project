@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
@@ -51,12 +52,20 @@ public class SignUpActivity extends AppCompatActivity {
     public FirebaseAuth mAuth;
     String username, email, password, co_password, language;
     public static FirebaseDatabase database;
+    Bundle bundle=null;
     public static DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        bundle=getIntent().getExtras();
+        if (bundle.getString("language")!=null){
+            language=bundle.getString("language");
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("language", language);
+            editor.apply();
+        }
         language = sharedPref.getString("language", "ru");
         setApplicationLocale(language);
         setContentView(R.layout.activity_signup);
@@ -150,6 +159,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Login.class);
+                intent.putExtra("language", sharedPref.getString("language", "ru"));
                 startActivity(intent);
             }
         });
@@ -192,6 +202,7 @@ public class SignUpActivity extends AppCompatActivity {
                                         Intent intent
                                                 = new Intent(SignUpActivity.this,
                                                 Registration.class);
+                                        intent.putExtra("language", sharedPref.getString("language", "ru"));
                                         startActivity(intent);
                                     }
                                     else {

@@ -32,6 +32,7 @@ public class Registration extends AppCompatActivity {
     public static FirebaseDatabase database;
     public static DatabaseReference myRef;
     Boolean flag=false;
+    String language;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,7 @@ public class Registration extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if(bundle != null) {
             flag=bundle.getBoolean("flag");
+            language=bundle.getString("language");
         }
         AppCompatButton next = findViewById(R.id.next);
         weight_edittext = findViewById(R.id.weight);
@@ -101,6 +103,7 @@ public class Registration extends AppCompatActivity {
                             }
                             else {
                                 Intent intent = new Intent(Registration.this, SelectPhysicalActivity.class);
+                                intent.putExtra("language", language);
                                 startActivity(intent);
                             }
                         }

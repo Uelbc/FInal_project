@@ -19,6 +19,7 @@ import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,6 +63,7 @@ public class MainPage extends AppCompatActivity {
     ImageButton menu;
     List<String> history;
     String language;
+    Bundle bundle;
 
     public FirebaseAuth mAuth;
     public static FirebaseDatabase database;
@@ -70,6 +72,13 @@ public class MainPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        bundle=getIntent().getExtras();
+        if (bundle!=null){
+            language=bundle.getString("language");
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("language", language);
+            editor.apply();
+        }
         language = sharedPref.getString("language", "ru");
         setApplicationLocale(language);
         setContentView(R.layout.activity_main2);
@@ -97,6 +106,7 @@ public class MainPage extends AppCompatActivity {
                                         myRef.child(id).setValue(user);
                                         mAuth.signOut();
                                         Intent intent=new Intent(MainPage.this, SignUpActivity.class);
+                                        intent.putExtra("language", language);
                                         startActivity(intent);
                                     }
                                 });

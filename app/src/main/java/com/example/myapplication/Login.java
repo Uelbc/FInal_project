@@ -25,6 +25,8 @@ public class Login extends AppCompatActivity {
     private TextView text_view_signup;
     FirebaseAuth mAuth;
     String loginemail, loginpassword;
+    Bundle bundle;
+    String language;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,10 @@ public class Login extends AppCompatActivity {
         login_btn = findViewById(R.id.button_login);
 
         mAuth = FirebaseAuth.getInstance();
-
+        bundle=getIntent().getExtras();
+        if (bundle!=null){
+            language=bundle.getString("language");
+        }
 
 
         login_btn.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +62,7 @@ public class Login extends AppCompatActivity {
 
                                     Toast.makeText(Login.this, R.string.enter_complete, Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(Login.this, MainPage.class);
+                                    intent.putExtra("language", language);
                                     startActivity(intent);
                                     finish();
                                 } else {
