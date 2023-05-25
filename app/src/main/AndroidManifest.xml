@@ -110,14 +110,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Food"
-            android:screenOrientation="portrait"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".SelectPhysicalActivity"
             android:exported="false">
             <meta-data

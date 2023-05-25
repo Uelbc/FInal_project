@@ -21,11 +21,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Scanned_food extends AppCompatActivity {
-    String code, name;
+    String code;
     public static FirebaseDatabase database;
     public static DatabaseReference myRef;
-    int kal;
-    double b,g,u;
     Button add;
     EditText b_barcode, g_barcode, u_barcode, kal_barcode, name_barcode;
     @Override

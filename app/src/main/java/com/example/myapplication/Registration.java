@@ -26,7 +26,6 @@ public class Registration extends AppCompatActivity {
     public EditText weight_edittext;
     public EditText height_edittext;
     public EditText age_edittext;
-    public AppCompatButton next;
     public RadioButton men;
     public RadioButton women;
     public FirebaseAuth mAuth;

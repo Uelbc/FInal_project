@@ -1,13 +1,25 @@
 package com.example.myapplication;
 
 
+import static android.widget.Toast.makeText;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -29,20 +41,24 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class SignUpActivity extends AppCompatActivity {
-
     private EditText edit_txt_Username, edit_txt_Email, edit_txt_Pass, edit_txt_CoPass;
     private Button button_register;
+    private ImageButton language_button;
     private TextView text_view_login;
     public FirebaseAuth mAuth;
-    String username, email, password, co_password;
+    String username, email, password, co_password, language;
     public static FirebaseDatabase database;
     public static DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        language = sharedPref.getString("language", "ru");
+        setApplicationLocale(language);
         setContentView(R.layout.activity_signup);
 
 
@@ -52,6 +68,79 @@ public class SignUpActivity extends AppCompatActivity {
         edit_txt_CoPass = findViewById(R.id.edit_txt_CoPass);
         text_view_login = findViewById(R.id.text_view_login);
         button_register = findViewById(R.id.button_register);
+        language_button=findViewById(R.id.language_register);
+
+        language_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(SignUpActivity.this, R.style.MyAlertTheme)
+                        .setTitle(R.string.change_language)
+                        .setPositiveButton(
+                                R.string.Russian,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        if (language.equals("ru")){
+                                            dialog.dismiss();
+                                            Toast toast = makeText(getApplicationContext(),
+                                                    "Этот язык уже установлен",
+                                                    Toast.LENGTH_SHORT);
+                                            toast.setGravity(Gravity.CENTER, 0, 0);
+                                            toast.show();
+                                        }
+                                        else{
+                                            SharedPreferences sharedPref = SignUpActivity.this.getPreferences(Context.MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sharedPref.edit();
+                                            editor.putString("language", "ru");
+                                            editor.apply();
+                                            new AlertDialog.Builder(SignUpActivity.this, R.style.MyAlertTheme)
+                                                    .setTitle(R.string.you_should_restart)
+                                                    .setPositiveButton(R.string.restart,
+                                                            new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialogInterface, int i) {
+                                                                    //finish();
+                                                                    finishAffinity();
+                                                                }
+                                                            })
+                                                    .show();
+                                        }
+                                    }
+                                })
+
+                        .setNegativeButton(
+                                R.string.english,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        if (language.equals("en")){
+                                            dialog.dismiss();
+                                            Toast toast = makeText(getApplicationContext(),
+                                                    "This language is already selected",
+                                                    Toast.LENGTH_SHORT);
+                                            toast.setGravity(Gravity.CENTER, 0, 0);
+                                            toast.show();
+                                        }
+                                        else{
+                                            SharedPreferences sharedPref = SignUpActivity.this.getPreferences(Context.MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sharedPref.edit();
+                                            editor.putString("language", "en");
+                                            editor.apply();
+                                            new AlertDialog.Builder(SignUpActivity.this, R.style.MyAlertTheme)
+                                                    .setTitle(R.string.you_should_restart)
+                                                    .setPositiveButton(R.string.restart,
+                                                            new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialogInterface, int i) {
+                                                                    //finish();
+                                                                    finishAffinity();
+                                                                }
+                                                            })
+                                                    .show();
+                                        }
+                                    }
+                                })
+                        .show();
+            }
+        });
 
 
         database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
@@ -93,7 +182,7 @@ public class SignUpActivity extends AppCompatActivity {
                                         String date = df.format(Calendar.getInstance().getTime());
                                         List<String> history = new ArrayList<String>();
                                         history.add(date+" 0");
-                                        User user = new User(0,0,0,0,0, 0,0,0,0,0,date,history, "");
+                                        User user = new User(0,0,0,0,0, 0,0,0,0,0,date,history);
                                         myRef.child(id).setValue(user);
 
                                         Toast.makeText(getApplicationContext(),
@@ -167,6 +256,18 @@ public class SignUpActivity extends AppCompatActivity {
         } else {
             return true;
         }
+    }
+
+    public void setApplicationLocale(String locale) {
+        Resources resources = getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        Configuration config = resources.getConfiguration();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            config.setLocale(new Locale(locale.toLowerCase()));
+        } else {
+            config.locale = new Locale(locale.toLowerCase());
+        }
+        resources.updateConfiguration(config, dm);
     }
 
 }

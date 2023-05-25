@@ -90,22 +90,12 @@ import java.util.List;
 import java.util.Locale;
 
 public class Food_table extends AppCompatActivity  {
-    List<String> Names = new ArrayList<String>();
-    List<Double> Water = new ArrayList<Double>();
-    List<Double> B = new ArrayList<Double>();
-    List<Double> G = new ArrayList<Double>();
-    List<Double> U = new ArrayList<Double>();
-    List<Double> Kal = new ArrayList<Double>();
     List<Food_element> food_elements= new ArrayList<Food_element>();
-    TableLayout Table;
     EditText search;
-    TextView textView;
     Context context;
     RecyclerView recyclerView;
     public static FirebaseDatabase database;
     public static DatabaseReference myRef;
-    private static final int CAMERA_REQUEST = 1888;
-    private ImageView imageView;
     FoodListAdapter foodListAdapter;
     public FirebaseAuth mAuth;
     String language="ru";
@@ -121,70 +111,60 @@ public class Food_table extends AppCompatActivity  {
         Log.w("RRR", language);
         setApplicationLocale(language);
         setContentView(R.layout.activity_food_table);
-        mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
-        myRef = database.getReference("users");
-        String id = mAuth.getCurrentUser().getUid();
-        myRef.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                User user = task.getResult().getValue(User.class);
-                try {
-                    InputStream myInput;
-                    AssetManager assetManager = getAssets();
-                    if (user.language.equals("")){
-                        myInput = getResources().openRawResource(R.raw.kalorii);
-                    }
-                    else {
-                        myInput = getResources().openRawResource(R.raw.kalorii_en);
-                    }
-                    POIFSFileSystem myFileSystem = new POIFSFileSystem(myInput);
-                    HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
-                    HSSFSheet mySheet = myWorkBook.getSheetAt(0);
-                    Iterator<Row> rowIter = mySheet.rowIterator();
-                    int rowno =0;
-                    while (rowIter.hasNext()) {
-                        HSSFRow myRow = (HSSFRow) rowIter.next();
-                        if(rowno !=0) {
-                            Iterator<Cell> cellIter = myRow.cellIterator();
-                            int colno =0;
-                            String name = null;
-                            Double water=null, b=null,g=null,u=null,kal=null;
-                            while (cellIter.hasNext()) {
-                                HSSFCell cell = (HSSFCell) cellIter.next();
-                                if (colno==0){
-                                    name=cell.getStringCellValue();
-                                }
-                                if (colno==1){
-                                    water=cell.getNumericCellValue();
-                                }
-                                if (colno==2){
-                                    b=cell.getNumericCellValue();
-                                }
-                                if (colno==3){
-                                    g=cell.getNumericCellValue();
-                                }
-                                if (colno==4){
-                                    Log.w("RRR", "1");
-                                    u=cell.getNumericCellValue();
-                                }
-                                if (colno==5){
-                                    kal=cell.getNumericCellValue();
-                                    Food_element food_element=new Food_element(name, kal.intValue(), b,g,u);
-                                    food_elements.add(food_element);
-                                }
-                                colno++;
-                            }
-                        }
-                        rowno++;
-                    }
-                } catch (Exception e) {}
-                context = getApplicationContext();
-                foodListAdapter = new FoodListAdapter(getApplicationContext(), food_elements, language);
-                recyclerView=findViewById(R.id.food_list);
-                recyclerView.setAdapter(foodListAdapter);
+        try {
+            InputStream myInput;
+            AssetManager assetManager = getAssets();
+            if (language.equals("ru")){
+                myInput = getResources().openRawResource(R.raw.kalorii);
             }
-        });
+            else {
+                myInput = getResources().openRawResource(R.raw.kalorii_en);
+            }
+            POIFSFileSystem myFileSystem = new POIFSFileSystem(myInput);
+            HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
+            HSSFSheet mySheet = myWorkBook.getSheetAt(0);
+            Iterator<Row> rowIter = mySheet.rowIterator();
+            int rowno =0;
+            while (rowIter.hasNext()) {
+                HSSFRow myRow = (HSSFRow) rowIter.next();
+                if(rowno !=0) {
+                    Iterator<Cell> cellIter = myRow.cellIterator();
+                    int colno =0;
+                    String name = null;
+                    Double water=null, b=null,g=null,u=null,kal=null;
+                    while (cellIter.hasNext()) {
+                        HSSFCell cell = (HSSFCell) cellIter.next();
+                        if (colno==0){
+                            name=cell.getStringCellValue();
+                        }
+                        if (colno==1){
+                            water=cell.getNumericCellValue();
+                                }
+                        if (colno==2){
+                            b=cell.getNumericCellValue();
+                        }
+                        if (colno==3){
+                            g=cell.getNumericCellValue();
+                        }
+                        if (colno==4){
+                            Log.w("RRR", "1");
+                            u=cell.getNumericCellValue();
+                        }
+                        if (colno==5){
+                            kal=cell.getNumericCellValue();
+                            Food_element food_element=new Food_element(name, kal.intValue(), b,g,u);
+                            food_elements.add(food_element);
+                        }
+                        colno++;
+                    }
+                }
+                rowno++;
+            }
+        } catch (Exception e) {}
+        context = getApplicationContext();
+        foodListAdapter = new FoodListAdapter(getApplicationContext(), food_elements, language);
+        recyclerView=findViewById(R.id.food_list);
+        recyclerView.setAdapter(foodListAdapter);
 
         search=findViewById(R.id.Search);
         search.addTextChangedListener(new TextWatcher() {

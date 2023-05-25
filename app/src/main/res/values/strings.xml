@@ -201,4 +201,8 @@
     <string name="next_exercise">Перейти к следующему упражнению</string>
     <string name="add2">Добавить</string>
     <string name="add">Добавить</string>
+    <string name="l">\ Л</string>
+    <string name="you_should_restart">Чтобы сменить язык перезапустите приложение</string>
+    <string name="restart">Перезапустить</string>
+    <string name="already_selected">Этот язык уже установлен</string>
 </resources>

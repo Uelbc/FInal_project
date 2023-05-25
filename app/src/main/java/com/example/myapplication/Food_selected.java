@@ -4,8 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,32 +11,23 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
-import java.util.TreeMap;
 
 public class Food_selected extends AppCompatActivity {
     double[] b_g_u_kal_water;
-    double b, g, u, kal, water;
-    public TextView bel, gir, ugl, kalor, name, water_food;
+    double b, g, u, kal;
+    public TextView bel, gir, ugl, kalor, name;
     public EditText massa;
     public Button add;
-    public VideoView videoView;
 
-    public User user;
     public FirebaseAuth mAuth;
     public static FirebaseDatabase database;
     public static DatabaseReference myRef;

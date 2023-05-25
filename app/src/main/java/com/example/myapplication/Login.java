@@ -23,10 +23,8 @@ public class Login extends AppCompatActivity {
     private EditText txtemail, txtpassoword;
     private Button login_btn;
     private TextView text_view_signup;
-    ProgressBar login_progress;
     FirebaseAuth mAuth;
     String loginemail, loginpassword;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +35,6 @@ public class Login extends AppCompatActivity {
         text_view_signup = findViewById(R.id.text_view_signup);
         login_btn = findViewById(R.id.button_login);
 
-        //        Get Firebase auth instance
         mAuth = FirebaseAuth.getInstance();
 
 

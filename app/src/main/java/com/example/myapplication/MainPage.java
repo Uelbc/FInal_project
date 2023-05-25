@@ -1,18 +1,11 @@
 package com.example.myapplication;
 
 import static android.widget.Toast.makeText;
-
-import static java.security.AccessController.getContext;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -27,44 +20,32 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
-
 import android.widget.ProgressBar;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.protobuf.StringValue;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Observable;
 
 public class MainPage extends AppCompatActivity {
     public static final String DATA = "DATA";
     public TextView kal_eaten_per_day, bTV, gTV, uTV, litr, water_goal;
-    public Button food, training, logout;
-    public String message_to_food, training_finished;
+    public Button food, training;
+    public String training_finished;
     Boolean flag_logout=true;
     public ImageButton water_info, kal_info;
     int checked;
@@ -79,7 +60,6 @@ public class MainPage extends AppCompatActivity {
     SharedPreferences data;
     public User user;
     ImageButton menu;
-    SharedPreferences sharedPref;
     List<String> history;
     String language;
 
@@ -141,21 +121,31 @@ public class MainPage extends AppCompatActivity {
                                                 R.string.Russian,
                                                 new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int id) {
-                                                        SharedPreferences sharedPref = MainPage.this.getPreferences(Context.MODE_PRIVATE);
-                                                        SharedPreferences.Editor editor = sharedPref.edit();
-                                                        editor.putString("language", "ru");
-                                                        editor.apply();
-                                                        new AlertDialog.Builder(MainPage.this, R.style.MyAlertTheme)
-                                                                .setTitle("Restart app")
-                                                                .setPositiveButton("Ok",
-                                                                        new DialogInterface.OnClickListener() {
-                                                                    @Override
-                                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                                        //finish();
-                                                                        finishAffinity();
-                                                                    }
-                                                                })
-                                                                .show();
+                                                        if (language.equals("ru")){
+                                                            dialog.dismiss();
+                                                            Toast toast = makeText(getApplicationContext(),
+                                                                    "Этот язык уже установлен",
+                                                                    Toast.LENGTH_SHORT);
+                                                            toast.setGravity(Gravity.CENTER, 0, 0);
+                                                            toast.show();
+                                                        }
+                                                        else{
+                                                            SharedPreferences sharedPref = MainPage.this.getPreferences(Context.MODE_PRIVATE);
+                                                            SharedPreferences.Editor editor = sharedPref.edit();
+                                                            editor.putString("language", "ru");
+                                                            editor.apply();
+                                                            new AlertDialog.Builder(MainPage.this, R.style.MyAlertTheme)
+                                                                    .setTitle(R.string.you_should_restart)
+                                                                    .setPositiveButton(R.string.restart,
+                                                                            new DialogInterface.OnClickListener() {
+                                                                                @Override
+                                                                                public void onClick(DialogInterface dialogInterface, int i) {
+                                                                                    //finish();
+                                                                                    finishAffinity();
+                                                                                }
+                                                                            })
+                                                                    .show();
+                                                        }
                                                     }
                                                 })
 
@@ -163,20 +153,31 @@ public class MainPage extends AppCompatActivity {
                                         R.string.english,
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
-                                                SharedPreferences sharedPref = MainPage.this.getPreferences(Context.MODE_PRIVATE);
-                                                SharedPreferences.Editor editor = sharedPref.edit();
-                                                editor.putString("language", "en");
-                                                editor.apply();
-                                                new AlertDialog.Builder(MainPage.this, R.style.MyAlertTheme)
-                                                        .setTitle("Restart app")
-                                                        .setPositiveButton("Ok",
-                                                                new DialogInterface.OnClickListener() {
-                                                                    @Override
-                                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                                        finishAffinity();
-                                                                    }
-                                                                })
-                                                        .show();
+                                                if (language.equals("en")){
+                                                    dialog.dismiss();
+                                                    Toast toast = makeText(getApplicationContext(),
+                                                            "This language is already selected",
+                                                            Toast.LENGTH_SHORT);
+                                                    toast.setGravity(Gravity.CENTER, 0, 0);
+                                                    toast.show();
+                                                }
+                                                else{
+                                                    SharedPreferences sharedPref = MainPage.this.getPreferences(Context.MODE_PRIVATE);
+                                                    SharedPreferences.Editor editor = sharedPref.edit();
+                                                    editor.putString("language", "en");
+                                                    editor.apply();
+                                                    new AlertDialog.Builder(MainPage.this, R.style.MyAlertTheme)
+                                                            .setTitle(R.string.you_should_restart)
+                                                            .setPositiveButton(R.string.restart,
+                                                                    new DialogInterface.OnClickListener() {
+                                                                        @Override
+                                                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                                                            //finish();
+                                                                            finishAffinity();
+                                                                        }
+                                                                    })
+                                                            .show();
+                                                }
                                             }
                                         })
                                         .show();
@@ -203,22 +204,6 @@ public class MainPage extends AppCompatActivity {
                     DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
                     String date = df.format(Calendar.getInstance().getTime());
 
-                    if (user.language.equals("en")){
-                        String languageToLoad = "en";
-                        Locale locale = new Locale(languageToLoad);
-                        Locale.setDefault(locale);
-                        Configuration config = new Configuration();
-                        config.locale = locale;
-                        getBaseContext().getResources().updateConfiguration(config, null);
-                        user.language="en1";
-                        myRef.child(id).setValue(user);
-                        Intent intent = new Intent(MainPage.this, MainPage.class);
-                        startActivity(intent);
-                    }
-                    else if (user.language.equals("en1")){
-                        user.language="en";
-                        myRef.child(id).setValue(user);
-                    }
 
 
                     kal_eaten_per_day=findViewById(R.id.kal_eaten_per_day);
@@ -294,7 +279,7 @@ public class MainPage extends AppCompatActivity {
                         kal_eaten_per_day.setText(getString(R.string.more_on)+(Kal_final-kal_per_day));
                     }
                     water_goal=findViewById(R.id.water_goal);
-                    water_goal.setText(getString(R.string.goal)+ Double.toString(weight*40/1000)+" л");
+                    water_goal.setText(getString(R.string.goal)+ Double.toString(weight*40/1000)+getString(R.string.l));
 
 
                     water1=findViewById(R.id.water1); water2=findViewById(R.id.water2); water3=findViewById(R.id.water3); water4=findViewById(R.id.water4);

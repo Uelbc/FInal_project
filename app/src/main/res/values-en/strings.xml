@@ -190,7 +190,7 @@
     <string name="vse15">Left biceps stretching</string>
     <string name="vse16">Right biceps stretch</string>
     <string name="vse17">Jumping</string>
-    <string name="change_language">Смена языка</string>
+    <string name="change_language">Change language</string>
     <string name="Russian">Russian</string>
     <string name="english">English</string>
     <string name="logout">Log out of your account</string>
@@ -201,4 +201,8 @@
     <string name="next_exercise">Go to the next exercise</string>
     <string name="add2">Add</string>
     <string name="add">Add</string>
+    <string name="l">\ L</string>
+    <string name="you_should_restart">To change the language, restart the application</string>
+    <string name="restart">Restart</string>
+    <string name="already_selected">This language is already selected</string>
 </resources>
