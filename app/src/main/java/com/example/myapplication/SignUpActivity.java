@@ -167,6 +167,11 @@ public class SignUpActivity extends AppCompatActivity {
         password = edit_txt_Pass.getText().toString().trim();
         mAuth=FirebaseAuth.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null){
+            Intent i = new Intent(SignUpActivity.this, MainPage.class);
+            Log.w("RRR", "123");
+            startActivity(i);
+        }
 
             button_register.setOnClickListener(new View.OnClickListener() {
             @Override
