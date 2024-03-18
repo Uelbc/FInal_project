@@ -287,7 +287,7 @@ public class MainPage extends AppCompatActivity {
                                 Color.RED, PorterDuff.Mode.SRC_IN);
                     }
                     if (Kal_final>kal_per_day){
-                        kal_eaten_per_day.setText(getString(R.string.more_on)+(Kal_final-kal_per_day));
+                        kal_eaten_per_day.setText(getString(R.string.more_on)+" "+(Kal_final-kal_per_day));
                     }
                     water_goal=findViewById(R.id.water_goal);
                     water_goal.setText(getString(R.string.goal)+ Double.toString(weight*40/1000)+getString(R.string.l));

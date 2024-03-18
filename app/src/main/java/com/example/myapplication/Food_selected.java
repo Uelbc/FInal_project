@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import static android.widget.Toast.makeText;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -96,24 +98,33 @@ public class Food_selected extends AppCompatActivity {
             public void onClick(View view) {
                 if (isNumeric(massa.getText().toString())){
                     double m = Double.parseDouble(massa.getText().toString());
-                    mAuth = FirebaseAuth.getInstance();
-                    database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
-                    myRef = database.getReference("users");
-                    String id = mAuth.getCurrentUser().getUid();
-                    myRef.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            User user = task.getResult().getValue(User.class);
-                            user.setB(user.getB()+b/100*m);
-                            user.setU(user.getU()+u/100*m);
-                            user.setG(user.getG()+u/100*m);
-                            user.setKal(user.getKal()+kal/100*m);
-                            myRef.child(id).setValue(user);
-                            Intent intent = new Intent(Food_selected.this, MainPage.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                            startActivity(intent);
-                        }
-                    });
+                    if (m>2000){
+                        Toast toast = makeText(getApplicationContext(),
+                                R.string.max_portion,
+                                Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                    } else{
+                        mAuth = FirebaseAuth.getInstance();
+                        database = FirebaseDatabase.getInstance("https://strong-and-healthy-default-rtdb.europe-west1.firebasedatabase.app/");
+                        myRef = database.getReference("users");
+                        String id = mAuth.getCurrentUser().getUid();
+                        myRef.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                User user = task.getResult().getValue(User.class);
+                                user.setB(user.getB()+b/100*m);
+                                user.setU(user.getU()+u/100*m);
+                                user.setG(user.getG()+u/100*m);
+                                user.setKal(user.getKal()+kal/100*m);
+                                myRef.child(id).setValue(user);
+                                Intent intent = new Intent(Food_selected.this, MainPage.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(intent);
+                            }
+                        });
+
+                    }
 
                 } else{
                     Toast toast = Toast.makeText(getApplicationContext(),

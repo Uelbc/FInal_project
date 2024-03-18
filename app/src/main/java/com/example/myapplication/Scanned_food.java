@@ -59,22 +59,32 @@ public class Scanned_food extends AppCompatActivity {
                     Food_element food_element = new Food_element(name_barcode.getText().toString(), Integer.parseInt(kal_barcode.getText().toString()),
                             Double.parseDouble(b_barcode.getText().toString()), Double.parseDouble(g_barcode.getText().toString()),
                             Double.parseDouble(u_barcode.getText().toString()));
-                    myRef.child(code).setValue(food_element).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            myRef.child(code).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                    Food_element food = task.getResult().getValue(Food_element.class);
-                                    double[] b_g_u_kal_water = new double[]{food.getB(), food.getG(), food.getU(), food.getKal()};
-                                    Intent intent = new Intent(Scanned_food.this, Food_selected.class);
-                                    intent.putExtra("1", b_g_u_kal_water);
-                                    intent.putExtra("name", food.getName());
-                                    startActivity(intent);
-                                }
-                            });
-                        }
-                    });
+                    if (food_element.getKal()>1000 | food_element.getB()>100 |  food_element.getG()>100 |  food_element.getU()>100){
+                            Toast toast = makeText(getApplicationContext(),
+                                    R.string.incorrect_data,
+                                    Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                    }
+                    else{
+                        myRef.child(code).setValue(food_element).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                myRef.child(code).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                        Food_element food = task.getResult().getValue(Food_element.class);
+                                        double[] b_g_u_kal_water = new double[]{food.getB(), food.getG(), food.getU(), food.getKal()};
+                                        Intent intent = new Intent(Scanned_food.this, Food_selected.class);
+                                        intent.putExtra("1", b_g_u_kal_water);
+                                        intent.putExtra("name", food.getName());
+                                        startActivity(intent);
+                                    }
+                                });
+                            }
+                        });
+                    }
+
                 }
             }
         });

@@ -1,4 +1,6 @@
 package com.example.myapplication;
+import static android.widget.Toast.makeText;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -88,26 +90,36 @@ public class Registration extends AppCompatActivity {
                     } else{
                         g=0;
                     }
-                    myRef.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            User user = task.getResult().getValue(User.class);
-                            user.age=a;
-                            user.weight=w;
-                            user.height=h;
-                            user.gender=g;
-                            myRef.child(id).setValue(user);
-                            if (flag){
-                                Intent i = new Intent(Registration.this, MainPage.class);
-                                startActivity(i);
+                    if (a>100 | h>220 | w>300){
+                        Toast toast = makeText(getApplicationContext(),
+                                R.string.incorrect_data,
+                                Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                    }
+                    else{
+                        myRef.child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                User user = task.getResult().getValue(User.class);
+                                user.age=a;
+                                user.weight=w;
+                                user.height=h;
+                                user.gender=g;
+
+                                myRef.child(id).setValue(user);
+                                if (flag){
+                                    Intent i = new Intent(Registration.this, MainPage.class);
+                                    startActivity(i);
+                                }
+                                else {
+                                    Intent intent = new Intent(Registration.this, SelectPhysicalActivity.class);
+                                    intent.putExtra("language", language);
+                                    startActivity(intent);
+                                }
                             }
-                            else {
-                                Intent intent = new Intent(Registration.this, SelectPhysicalActivity.class);
-                                intent.putExtra("language", language);
-                                startActivity(intent);
-                            }
-                        }
-                    });
+                        });
+                    }
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(),
                             R.string.enter_all_data,

@@ -125,3 +125,56 @@ public class User {
     }
 }
 
+
+
+/*
+
++----------------------------------+
+|             <<class>>            |
+|               User               |
++----------------------------------+
+| - age: int                       |
+| - weight: int                    |
+| - gender: int                    |
+| - height: int                    |
+| - A: double                      |
+| - b: double                      |
+| - g: double                      |
+| - u: double                      |
+| - kal: double                    |
+| - date: String                   |
+| - checked_water: int             |
+| - history: List<String>          |
+
+
++--------------------------------------------------+
+|             <<class>>                            |
+|               User                               |
++--------------------------------------------------+
+| + getHistory(): List<String>                     |
+| + setHistory(history: List<String>): void        |
+| + getDate(): String                              |
+| + setDate(date: String): void                    |
+| + getB(): double                                 |
+| + setB(b: double): void                          |
+| + getG(): double                                 |
+| + setG(g: double): void                          |
+| + getU(): double                                 |
+| + setU(u: double): void                          |
+| + getKal(): double                               |
+| + setKal(kal: double): void                      |
+| + getAge(): int                                  |
+| + setAge(age: int): void                         |
+| + getWeight(): int                               |
+| + setWeight(weight: int): void                   |
+| + getGender(): int                               |
+| + setGender(gender: int): void                   |
+| + getHeight(): int                               |
+| + setHeight(height: int): void                   |
+| + getA(): double                                 |
+| + setA(a: double): void                          |
+| + getChecked_water(): int                        |
+| + setChecked_water(checked_water: int): void     |
++--------------------------------------------------+
+
+ */

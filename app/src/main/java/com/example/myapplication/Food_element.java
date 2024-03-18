@@ -55,3 +55,34 @@ public class Food_element {
     public Food_element(){
     }
 }
+
+/*
++-----------------------------------+
+|        <<class>>                   |
+|         Food_element               |
++-----------------------------------+
+| - name: String                     |
+| - kal: int                         |
+| - b: double                        |
+| - g: double                        |
+| - u: double                        |
+
++---------------------------------------------------------------------------+
+|        <<class>>                                                          |
+|         Food_element                                                      |
++---------------------------------------------------------------------------+
+| + getName(): String                                                       |
+| + setName(name: String): void                                             |
+| + getKal(): int                                                           |
+| + setKal(kal: int): void                                                  |
+| + getB(): double                                                          |
+| + setB(b: double): void                                                   |
+| + getG(): double                                                          |
+| + setG(g: double): void                                                   |
+| + getU(): double                                                          |
+| + setU(u: double): void                                                   |
+| + Food_element(name: String, kal: int, b: double, g: double, u: double)   |
+| + Food_element()                                                          |
++---------------------------------------------------------------------------+
+
+ */

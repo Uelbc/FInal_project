@@ -140,3 +140,26 @@ public class Training extends AppCompatActivity {
     }
 
 }
+
+/*
++-----------------------------------+
+|          <<class>>                 |
+|             Training               |
++-----------------------------------+
+| - training_names: String[]         |
+| - training_videos: int[]           |
+| - amount: int[]                    |
+| - time_or_number: boolean[]        |
+| - TrainingVideo: VideoView         |
+| - i: int                           |
+| - timer: CountDownTimer            |
+| - nextTask: Button                 |
+| - start: ImageButton               |
+| - Time: TextView                   |
+| - Number: TextView                 |
+| - Name: TextView                   |
++-----------------------------------+
+| + onCreate(savedInstanceState: Bundle): void |
++-----------------------------------+
+
+ */
